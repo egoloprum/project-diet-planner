@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <div className="flex bg-red-500">
+    <div className="min-h-[calc(100vh-84px)] my-6">
       qweqw
     </div>
   )
