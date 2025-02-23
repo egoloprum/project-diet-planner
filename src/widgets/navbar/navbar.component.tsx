@@ -1,4 +1,3 @@
-import { createClient } from "@/src/app/db/supabase"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,11 +5,8 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../../shared/ui/navigation-menu"
-import { LogoutBtn } from "@/src/features/logoutBtn"
 
-export const Navbar = async () => {
-  const supabase = await createClient()
-  const {data} = await supabase.auth.getUser()
+export const Navbar = () => {
 
   return (
     <NavigationMenu className="max-h-[60px] h-full">
@@ -25,17 +21,11 @@ export const Navbar = async () => {
               Documentation
             </NavigationMenuLink>
         </NavigationMenuItem>
-        { data.user ? (
-          <NavigationMenuItem>
-            <LogoutBtn />
-          </NavigationMenuItem>
-        ) : (
-          <NavigationMenuItem>
-              <NavigationMenuLink href='/login' className={navigationMenuTriggerStyle()}>
-                Log in 
-              </NavigationMenuLink>
-          </NavigationMenuItem>
-        )}
+        <NavigationMenuItem>
+            <NavigationMenuLink href='/login' className={navigationMenuTriggerStyle()}>
+              Log in 
+            </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   )

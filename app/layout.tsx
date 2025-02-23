@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/src/widgets/navbar";
+
+import { AuthNavbar, Navbar } from "@/src/widgets/navbar";
+import { createClient } from "@/src/app/db/supabase";
 
 const montserrat = Montserrat({
-  weight: '400',
+  weight: '500',
   subsets: ['latin'],
 })
 
@@ -13,18 +15,30 @@ export const metadata: Metadata = {
   description: "App is for planning diets.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const supabase = await createClient()
+  const {data} = await supabase.auth.getUser()
+
   return (
     <html lang="en">
       <body
         className={`${montserrat.className} antialiased`}
       >
-        <Navbar />
-        {children}
+        <div className="border-2 flex justify-center ">
+          {data.user ? (
+            <AuthNavbar />
+          ) : (
+            <Navbar />
+          )}
+        </div>
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );
