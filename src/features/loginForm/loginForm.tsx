@@ -4,6 +4,7 @@ import { signInWithAnon, signInWithGoogle } from "@/src/app/db/supabase/signin"
 import { Button } from "@/src/shared/ui/button"
 import { Input } from "@/src/shared/ui/input"
 import { SubmitHandler, useForm } from "react-hook-form"
+import Google from './assets/google.svg'
 
 type LoginInput = {
   email: string
@@ -51,7 +52,9 @@ export const LoginForm = ({}) => {
         <span className="">Or</span>
         <span className="border w-full h-0"></span>
       </fieldset>
-      <Button type="button" onClick={LoginGoogleHandler}>Log in with google</Button>
+      <Button type="button" onClick={LoginGoogleHandler}>
+        <Google /> Log in with google
+      </Button>
       <Button type="button" variant="secondary" onClick={LoginAnonHandler}>Log in anonymously</Button>
     </form>
   )

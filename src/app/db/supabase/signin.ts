@@ -7,7 +7,6 @@ import { createClient } from '.'
 
 export const signInWithGoogle = async () => {
   const origin = (await headers()).get('origin')
-
   const supabase = await createClient()
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -18,11 +17,10 @@ export const signInWithGoogle = async () => {
   })
 
   if (data) {
-    console.log({ data }, "data")
-    return redirect(`${data.url}`)
+    return redirect(data.url as string) 
   }
   if (error) {
-    console.log({ error }, "error")
+    throw error
   }
 }
 
@@ -38,7 +36,7 @@ export const signInWithAnon = async () => {
     return redirect('/')
   }
   if (error) {
-    console.log({ error }, "error")
+    throw error
   }
 }
 
@@ -46,6 +44,6 @@ export const signOut = async () => {
   const supabase = await createClient()
 
   const { error } = await supabase.auth.signOut()
-  if (error) { console.log(error) }
+  if (error) { throw error }
   return redirect('/')
 }
