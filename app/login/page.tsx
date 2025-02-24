@@ -1,8 +1,10 @@
-import { Login } from "@/src/pages/login"
+import { LoginForm } from "@/src/features/loginForm"
 
 const page = ({}) => {
   return (
-    <Login />
+    <div className="h-[calc(100vh-84px)] flex justify-center items-center">
+      <LoginForm />
+    </div>
   )
 }
 

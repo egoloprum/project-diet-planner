@@ -1,8 +1,10 @@
-import { Profile } from '@/src/pages/(account)/profile'
+
 
 const page = ({}) => {
   return (
-    <Profile />
+    <div>
+      profile
+    </div>
   )
 }
 

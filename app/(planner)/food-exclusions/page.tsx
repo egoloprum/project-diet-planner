@@ -1,8 +1,9 @@
-import { FoodExclusions } from "@/src/pages/(planner)/food-exclusions"
 
 const page = ({}) => {
   return (
-    <FoodExclusions />
+    <div>
+      food-exclusions
+    </div>
   )
 }
 

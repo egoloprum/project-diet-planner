@@ -1,8 +1,9 @@
-import { Planner } from '@/src/pages/(planner)/planner'
 
 const page = ({}) => {
   return (
-    <Planner />
+    <div>
+      planner
+    </div>
   )
 }
 

@@ -1,8 +1,9 @@
-import { ProfileSettings } from "@/src/pages/(account)/profile-settings"
 
 const page = ({}) => {
   return (
-    <ProfileSettings />
+    <div>
+      profile-settings
+    </div>
   )
 }
 

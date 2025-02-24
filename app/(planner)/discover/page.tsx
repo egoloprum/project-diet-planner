@@ -1,8 +1,20 @@
-import { Discover } from "@/src/pages/(planner)/discover"
+import { DiscoverSearchBar } from "@/src/widgets/discoverSearchBar";
 
-const page = ({}) => {
+interface SearchParams {
+  query:    string
+  page:     string
+}
+
+const page = async ({
+  searchParams
+}: {searchParams: Promise<SearchParams>}) => {
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || '';
+
+  console.log("query", query)
+
   return (
-    <Discover />
+    <DiscoverSearchBar />
   )
 }
 

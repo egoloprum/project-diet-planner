@@ -1,8 +1,10 @@
-import { Blog } from "@/src/pages/(blog)/blog"
+
 
 const page = ({}) => {
   return (
-    <Blog />
+    <div>
+      blog
+    </div>
   )
 }
 

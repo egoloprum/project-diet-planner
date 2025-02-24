@@ -1,8 +1,9 @@
-import { Collections } from "@/src/pages/(blog)/collections"
 
 const page = ({}) => {
   return (
-    <Collections />
+    <div>
+      collections
+    </div>
   )
 }
 

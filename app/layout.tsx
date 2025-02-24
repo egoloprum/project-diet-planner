@@ -36,7 +36,7 @@ export default async function RootLayout({
             <Navbar />
           )}
         </div>
-        <main>
+        <main className="min-h-[calc(100vh-108px)] my-6 border-2">
           {children}
         </main>
       </body>

@@ -1,8 +1,9 @@
-import { CustomRecipe } from "@/src/pages/(blog)/custom-recipe"
 
 const page = ({}) => {
   return (
-    <CustomRecipe />
+    <div>
+      custom-recipe
+    </div>
   )
 }
 
