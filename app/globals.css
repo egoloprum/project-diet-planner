@@ -18,6 +18,29 @@ body {
   box-sizing: border-box;
 }
 
+@media ((min-width: 768px) and (max-width: 1200px)) {
+  .discoverList {
+    columns: 2;
+  }
+}
+
+@media ((min-width: 1200px) and (max-width: 1650px)) {
+  .discoverList {
+    columns: 3;
+  }
+}
+@media ((min-width: 1650px) and (max-width: 1920px)) {
+  .discoverList {
+    columns: 4;
+  }
+}
+@media(min-width: 1920px) {
+  .discoverList {
+    columns: 5;
+  }
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;

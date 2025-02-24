@@ -23,6 +23,28 @@ const nextConfig: NextConfig = {
     fileLoaderRule.exclude = /\.svg$/i
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.buzzfeed.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.eatthismuch.com',
+        port: '',
+        pathname: '/**', // Allows all paths under this hostname
+      },
+    ],
+  },
 };
 
 export default nextConfig;

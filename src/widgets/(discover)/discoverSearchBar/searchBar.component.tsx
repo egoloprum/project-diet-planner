@@ -12,7 +12,7 @@ export const DiscoverSearchBar = ({}) => {
 
 
   return (
-    <div className='border-2 p-4 flex gap-4'>
+    <div className='py-4 place-content-center flex flex-wrap gap-4'>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline">Open popover</Button>

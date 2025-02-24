@@ -1,4 +1,8 @@
-import { DiscoverSearchBar } from "@/src/widgets/discoverSearchBar";
+import { DiscoverList } from "@/src/widgets/(discover)/discoverList";
+import { DiscoverSearchBar } from "@/src/widgets/(discover)/discoverSearchBar";
+
+import { recipeSearch } from "@/src/app/db/recipe/recipeHelpers";
+import { DiscoverPagination } from "@/src/widgets/(discover)/discoverPagination";
 
 interface SearchParams {
   query:    string
@@ -11,10 +15,18 @@ const page = async ({
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query || '';
 
-  console.log("query", query)
+  let recipeData = null
+  if (query.length) {
+    recipeData = await recipeSearch(query)
+  }
 
   return (
-    <DiscoverSearchBar />
+    <>
+      <DiscoverSearchBar />
+      <DiscoverList recipeData={recipeData} />
+
+      { query.length && <DiscoverPagination /> }
+    </>
   )
 }
 
