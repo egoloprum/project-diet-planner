@@ -30,7 +30,7 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({selectedExc
     if (selectItem !== selectedExclusions) {
       updateExclusions()
     }
-  })
+  }, [selectItem])
   
   return (
     <ul className="flex flex-col gap-4">
