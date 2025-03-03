@@ -1,8 +1,7 @@
 "use client"
 
 import { Button } from '@/src/shared/ui/button'
-import { Loader2 } from 'lucide-react'
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface ExclusionItemFormProps {
@@ -24,14 +23,12 @@ export const ExclusionItemForm: FC<ExclusionItemFormProps> = ({exclusionItem, us
     formState: {},
   } = useForm<ExclusionInput>()
 
-  const onSubmit: SubmitHandler<ExclusionInput> = async (data) => {
+  const onSubmit: SubmitHandler<ExclusionInput> = async () => {
     if (selectItem.includes(exclusionItem)) {
       setSelectItem(selectItem.filter(item => item !== exclusionItem))
-      console.log("remove", selectItem)
     }
     else {
       setSelectItem([...selectItem, exclusionItem])
-      console.log("add", selectItem)
     }
   }
 
@@ -45,7 +42,7 @@ export const ExclusionItemForm: FC<ExclusionItemFormProps> = ({exclusionItem, us
       <Button
         variant='outline'
         type='submit'
-        className={`${selectItem.includes(exclusionItem)} && 'bg-purple-100'`}
+        className={`${selectItem.includes(exclusionItem) && 'bg-purple-100'}`}
       >
         {exclusionItem}
       </Button>

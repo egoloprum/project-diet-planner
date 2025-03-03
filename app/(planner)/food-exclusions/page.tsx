@@ -26,7 +26,9 @@ const page = async ({}) => {
         </p>
       </menu>
 
-      <SelectedExclusionList selectedExclusions={selectedExclusions} />
+      <SelectedExclusionList 
+        selectedExclusions={selectedExclusions?.list ?? []}
+      />
 
       <DefaultExclusionList 
         selectedExclusions={selectedExclusions?.list ?? []} 

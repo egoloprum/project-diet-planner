@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { defaultExclusions } from './data'
 import { ExclusionItemForm } from '@/src/features/exclusion-item-form'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 interface DefaultExclusionListProps {
   selectedExclusions: string[]
@@ -13,23 +14,23 @@ interface DefaultExclusionListProps {
 export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({selectedExclusions, user_id}) => {
   const [selectItem, setSelectItem] = useState<string[]>(selectedExclusions)
 
+  const router = useRouter()
+
   useEffect(() => {
     const updateExclusions = async () => {
       try {
-        const response = await axios.post('/api/exclusions/update', {
+        await axios.post('/api/exclusions/update', {
           user_id,
           exclusions: selectItem,
         })
-        console.log(response.data.message)
-      } catch (error) {
-        console.error('Error updating exclusions:', error)
-      }
+        router.refresh()
+      } catch {}
     }
 
     if (selectItem !== selectedExclusions) {
       updateExclusions()
     }
-  }, [selectItem])
+  })
   
   return (
     <ul className="flex flex-col gap-4">
