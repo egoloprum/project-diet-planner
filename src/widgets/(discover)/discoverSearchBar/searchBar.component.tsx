@@ -5,7 +5,7 @@ import { Input } from '@/src/shared/ui/input'
 import { Button } from '@/src/shared/ui/button'
 import { Label } from '@/src/shared/ui/label'
 
-import { DiscoverSearchForm } from '@/src/features/discoverSearchForm'
+import { DiscoverSearchForm } from '@/src/features/discover-search-form'
 
 
 export const DiscoverSearchBar = ({}) => {
