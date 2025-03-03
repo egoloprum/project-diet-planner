@@ -7,9 +7,7 @@ export const LogoutBtn = ({}) => {
   const SignoutHandler = async () => {
     try {
       await signOut()
-    } catch (error) {
-      console.log(error)
-    }
+    } catch {}
   }
 
   return (

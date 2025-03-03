@@ -10,7 +10,6 @@ import { DiscoverSearchForm } from '@/src/features/discoverSearchForm'
 
 export const DiscoverSearchBar = ({}) => {
 
-
   return (
     <div className='py-4 place-content-center flex flex-wrap gap-4'>
       <Popover>

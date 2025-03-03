@@ -15,7 +15,7 @@ export const LoginForm = ({}) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<LoginInput>()
 
   const onSubmit: SubmitHandler<LoginInput> = (data) => console.log(data)
@@ -23,17 +23,13 @@ export const LoginForm = ({}) => {
   const LoginGoogleHandler = async () => {
     try {
       await signInWithGoogle()
-    } catch (error) {
-      console.log(error)
-    }
+    } catch {}
   }
 
   const LoginAnonHandler = async () => {
     try {
       await signInWithAnon()
-    } catch (error) {
-      console.log(error)
-    }
+    } catch {}
   }
 
   return (

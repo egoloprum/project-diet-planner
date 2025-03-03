@@ -24,24 +24,27 @@ const nextConfig: NextConfig = {
     return config
   },
   images: {
+    domains: [
+      'img.buzzfeed.com',
+      's3.amazonaws.com',
+      'video-api-prod.assets',
+    ],
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'img.buzzfeed.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 's3.amazonaws.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'images.eatthismuch.com',
-        port: '',
-        pathname: '/**', // Allows all paths under this hostname
+        pathname: '/**',
       },
     ],
   },

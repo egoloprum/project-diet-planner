@@ -1,8 +1,8 @@
-import { DiscoverList } from "@/src/widgets/(discover)/discoverList";
-import { DiscoverSearchBar } from "@/src/widgets/(discover)/discoverSearchBar";
+import { DiscoverList } from "@/src/widgets/(discover)/discoverList"
+import { DiscoverSearchBar } from "@/src/widgets/(discover)/discoverSearchBar"
 
-import { recipeSearch } from "@/src/app/db/recipe/recipeHelpers";
-import { DiscoverPagination } from "@/src/widgets/(discover)/discoverPagination";
+import { recipeSearch } from "@/src/app/db/recipe/recipeHelpers"
+import { DiscoverPagination } from "@/src/widgets/(discover)/discoverPagination"
 
 interface SearchParams {
   query:    string
@@ -12,20 +12,32 @@ interface SearchParams {
 const page = async ({
   searchParams
 }: {searchParams: Promise<SearchParams>}) => {
-  const resolvedSearchParams = await searchParams;
-  const query = resolvedSearchParams?.query || '';
+  const resolvedSearchParams = await searchParams
+  const query = resolvedSearchParams?.query || ''
+
+  const pageSize = 10
+  const currentPage = parseInt(resolvedSearchParams?.page || '1', 10)
 
   let recipeData = null
+  let totalPages = 0
+  
   if (query.length) {
-    recipeData = await recipeSearch(query)
+    recipeData = await recipeSearch(query, currentPage, pageSize)
+    totalPages = Math.ceil(recipeData.total / pageSize)
   }
 
   return (
     <>
       <DiscoverSearchBar />
-      <DiscoverList recipeData={recipeData} />
+      <DiscoverList recipeData={recipeData?.recipes || []} />
 
-      { query.length && <DiscoverPagination /> }
+      {totalPages > 1 && (
+        <DiscoverPagination 
+          currentPage={currentPage}
+          totalPages={totalPages}
+          query={query}
+        />
+      )}
     </>
   )
 }

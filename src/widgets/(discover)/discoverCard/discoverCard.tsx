@@ -1,14 +1,25 @@
-import { FC } from 'react'
+"use client"
+
+import { FC, useState } from 'react'
 import Image from 'next/image'
 
 import { Badge } from '@/src/shared/ui/badge'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/shared/ui/card'
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from '@/src/shared/ui/card'
 
 interface DiscoverCardProps {
   recipe: Recipe
 }
 
 export const DiscoverCard: FC<DiscoverCardProps> = ({recipe}) => {
+  const [imgSrc, setImgSrc] = useState(recipe.images.thumbnail)
+
   return (
     <Card>
       <CardHeader>
@@ -17,11 +28,14 @@ export const DiscoverCard: FC<DiscoverCardProps> = ({recipe}) => {
       </CardHeader>
       <CardContent className='relative w-full h-64 overflow-hidden rounded-lg shadow-md'>
         <Image
-          src={recipe.images.image ? recipe.images.image : '/default_thumbnail_recipe.jpg'}
-          layout="fill"
-          objectFit="cover"
+          src={imgSrc || '/default_thumbnail_recipe.jpg'}
+          className="transition-transform duration-300 ease-in-out transform hover:scale-105 object-cover"
+          fill
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={false} 
           alt={recipe.food_name}
-          className="transition-transform duration-300 ease-in-out transform hover:scale-105"
+          onError={() => setImgSrc('/default_thumbnail_recipe.jpg')}
         />
       </CardContent>
       <CardFooter className='flex flex-wrap gap-2'>

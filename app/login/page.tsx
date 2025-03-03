@@ -1,6 +1,15 @@
+import { createClient } from "@/src/app/db/supabase"
 import { LoginForm } from "@/src/features/loginForm"
+import { redirect } from "next/navigation"
+  
+const page = async ({}) => {
+  const supabase = await createClient()
+  const {data} = await supabase.auth.getUser()
 
-const page = ({}) => {
+  if (data.user) {
+    return redirect('/planner')
+  }
+
   return (
     <div className="h-[calc(100vh-84px)] flex justify-center items-center">
       <LoginForm />

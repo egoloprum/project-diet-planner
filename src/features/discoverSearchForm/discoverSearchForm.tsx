@@ -14,7 +14,7 @@ export const DiscoverSearchForm = ({}) => {
   const {
       register,
       handleSubmit,
-      formState: { errors },
+      formState: {},
     } = useForm<SearchInput>()
 
   const searchParams = useSearchParams()
@@ -22,13 +22,19 @@ export const DiscoverSearchForm = ({}) => {
   const router = useRouter()
   const [searchParam, setSearchParam] = useState<string>("")
 
-  const onSubmit: SubmitHandler<SearchInput> = (data) => {
+  const onSubmit: SubmitHandler<SearchInput> = () => {
     const sanitizedValue = searchParam.replace(/[^a-zA-Z\s]/g, '').replace(/\s+/g, ' ').trim()
     setSearchParam(sanitizedValue)
-
-    const params = new URLSearchParams(searchParams || '');
-    if (sanitizedValue.length) { params.set('query', sanitizedValue) }
-    else { params.delete('query') }
+  
+    const params = new URLSearchParams(searchParams || '')
+    
+    params.delete('page')
+    
+    if (sanitizedValue.length) { 
+      params.set('query', sanitizedValue) 
+    } else { 
+      params.delete('query') 
+    }
     
     router.replace(`${pathname}?${params.toString()}`)
   }

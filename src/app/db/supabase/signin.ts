@@ -32,8 +32,7 @@ export const signInWithAnon = async () => {
     .signInAnonymously()
   
   if (data) {
-    console.log({ data }, "data")
-    return redirect('/')
+    return redirect('/planner')
   }
   if (error) {
     throw error
