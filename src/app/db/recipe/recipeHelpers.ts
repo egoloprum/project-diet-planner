@@ -1,3 +1,4 @@
+import { QueryData } from "@supabase/supabase-js"
 import { createClient } from "../supabase"
 
 export const recipeSearch = async (
@@ -36,4 +37,16 @@ export const recipeSearch = async (
       lastPage: 1
     }
   }
+}
+
+export const recipeGetById = async (recipe_id: string) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('recipe')
+    .select('*')
+    .eq('recipe_id', recipe_id)
+    .single() as QueryData<{ data: Recipe }>
+
+  if (error) {return null}  
+  return data as Recipe
 }

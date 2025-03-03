@@ -1,1 +1,1 @@
-export * from './discoverCard'
+export * from './discoverCard.component'

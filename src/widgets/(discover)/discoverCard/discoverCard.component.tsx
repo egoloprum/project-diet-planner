@@ -12,6 +12,7 @@ import {
   CardHeader, 
   CardTitle 
 } from '@/src/shared/ui/card'
+import Link from 'next/link'
 
 interface DiscoverCardProps {
   recipe: Recipe
@@ -23,7 +24,14 @@ export const DiscoverCard: FC<DiscoverCardProps> = ({recipe}) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{recipe.food_name}</CardTitle>
+        <CardTitle>
+            <Link
+              href={`discover/${recipe.recipe_id}`}
+              className='cursor-pointer hover:underline'
+            >
+              {recipe.food_name}
+            </Link>
+          </CardTitle>
         <CardDescription>{recipe.tag_cloud}</CardDescription>
       </CardHeader>
       <CardContent className='relative w-full h-64 overflow-hidden rounded-lg shadow-md'>

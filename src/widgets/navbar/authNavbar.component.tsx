@@ -39,12 +39,6 @@ export const AuthNavbar = () => {
       description: "Visually or semantically separates content.",
     },
     {
-      title: "Tabs",
-      href: "/docs/primitives/tabs",
-      description:
-        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
       title: "Planner Settings",
       href: "/planner-settings",
       description:
@@ -75,12 +69,6 @@ export const AuthNavbar = () => {
       title: "Followers",
       href: "/profile#followers",
       description: "Visually or semantically separates content.",
-    },
-    {
-      title: "Tabs",
-      href: "/docs/primitives/tabs",
-      description:
-        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
     },
     {
       title: "User Settings",
@@ -115,12 +103,6 @@ export const AuthNavbar = () => {
       description: "Visually or semantically separates content.",
     },
     {
-      title: "Tabs",
-      href: "/docs/primitives/tabs",
-      description:
-        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
       title: "Blog Settings",
       href: "/blog-settings",
       description:
@@ -129,8 +111,8 @@ export const AuthNavbar = () => {
   ]
 
   return (
-    <NavigationMenu className="max-h-[60px] h-full">
-      <NavigationMenuList>
+    <NavigationMenu className="min-h-[60px] h-full">
+      <NavigationMenuList className="flex flex-wrap">
         <NavigationMenuItem>
           <NavigationMenuTrigger>Planner</NavigationMenuTrigger>
           <NavigationMenuContent>
