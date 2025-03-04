@@ -29,7 +29,7 @@ export default async function RootLayout({
       <body
         className={`${montserrat.className} antialiased`}
       >
-        <div className="border-2 flex justify-center ">
+        <div className="border-b flex justify-center ">
           {data.user ? (
             <AuthNavbar />
           ) : (

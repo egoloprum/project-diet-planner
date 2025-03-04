@@ -21,14 +21,14 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   }
 
   return (
-    <article className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-      <section className=" flex flex-col gap-4">
+    <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <section className="flex flex-col gap-4 md:col-start-1 md:col-end-2">
         <FoodDetail recipe={recipe} />
         <>
           buttons
         </>
       </section>
-      <section className=" flex flex-col gap-4">
+      <section className=" flex flex-col gap-4 md:col-start-2 md:col-end-3">
         <FoodNutrition recipe={recipe} />
         <FoodIngredient recipe={recipe} />
       </section>
