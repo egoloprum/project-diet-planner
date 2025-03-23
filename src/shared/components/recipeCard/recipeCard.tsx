@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC, useState } from 'react'
 
+import { Recipe } from '@/src/shared/model'
 import { Badge } from '@/src/shared/ui/badge'
 import {
   Card,
@@ -14,11 +15,11 @@ import {
   CardTitle
 } from '@/src/shared/ui/card'
 
-interface DiscoverCardProps {
+interface RecipeCardProps {
   recipe: Recipe
 }
 
-export const DiscoverCard: FC<DiscoverCardProps> = ({ recipe }) => {
+export const RecipeCard: FC<RecipeCardProps> = ({ recipe }) => {
   const [imgSrc, setImgSrc] = useState(recipe.images.thumbnail)
 
   return (

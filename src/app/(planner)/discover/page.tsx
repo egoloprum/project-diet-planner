@@ -1,7 +1,7 @@
 import { recipeSearch } from '@/src/shared/db/recipe/recipeHelpers'
-import { DiscoverList } from '@/src/widgets/(discover)/discoverList'
 import { DiscoverPagination } from '@/src/widgets/(discover)/discoverPagination'
 import { DiscoverSearchBar } from '@/src/widgets/(discover)/discoverSearchBar'
+import { RecipeList } from '@/src/widgets/(discover)/recipeList'
 
 interface SearchParams {
   query: string
@@ -30,7 +30,7 @@ const page = async ({
   return (
     <>
       <DiscoverSearchBar />
-      <DiscoverList recipeData={recipeData?.recipes || []} />
+      <RecipeList recipeData={recipeData?.recipes || []} />
 
       {totalPages > 1 && (
         <DiscoverPagination

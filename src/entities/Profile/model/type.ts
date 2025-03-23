@@ -1,16 +1,16 @@
-interface WeightTracker {
+export interface WeightTracker {
   weight: number
   created_at: Date
 }
 
-interface NutritionTracker {
+export interface NutritionTracker {
   calories: number
   carbs: number
   fats: number
   protein: number
 }
 
-interface PhysicalStatsTracker {
+export interface PhysicalStatsTracker {
   age: number
   height: number
   body_fat: number
@@ -23,13 +23,13 @@ interface PhysicalStatsTracker {
     | 'very active'
 }
 
-interface ProfileSettings {
+export interface ProfileSettings {
   username: string
   email: string
   password: string
 }
 
-interface Profile {
+export interface Profile {
   goal: '' | 'lose' | 'maintain' | ' gain'
   weightTracker: WeightTracker
   nutritionTracker: NutritionTracker

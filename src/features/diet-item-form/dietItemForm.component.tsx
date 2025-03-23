@@ -14,6 +14,8 @@ import { useRouter } from 'next/navigation'
 import { FC, ForwardRefExoticComponent, SVGProps, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { PrimaryDiet } from '@/src/shared/model'
+
 type DefaultDiet = {
   name: string
   exclusion: string

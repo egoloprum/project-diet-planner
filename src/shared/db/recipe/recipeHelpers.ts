@@ -1,5 +1,6 @@
 import { QueryData } from '@supabase/supabase-js'
 
+import { Recipe } from '../../model'
 import { createClient } from '../supabase'
 
 export const recipeSearch = async (
@@ -52,4 +53,29 @@ export const recipeGetById = async (recipe_id: string) => {
     return null
   }
   return data as Recipe
+}
+
+export const recipeGetByUser = async (user_id: string) => {
+  const supabase = await createClient()
+  const { data, error } = (await supabase
+    .from('recipe')
+    .select('*')
+    .eq('user_id', user_id)) as QueryData<{ data: Recipe[] }>
+
+  if (error) {
+    return null
+  }
+  return data as Recipe[]
+}
+
+export const recipeCreate = async (recipe: Omit<Recipe, 'recipe_id'>) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('recipe').insert(recipe).select()
+
+  if (error) {
+    console.error('Database error:', error)
+    throw new Error(`Failed to create recipe: ${error.message}`)
+  }
+
+  return data
 }

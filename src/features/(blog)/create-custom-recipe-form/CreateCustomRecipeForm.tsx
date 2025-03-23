@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
@@ -26,7 +28,7 @@ import {
   ToggleGroupItem
 } from '@/src/shared/ui'
 
-import { CustomRecipeValidator } from '../lib/validations'
+import { CustomRecipeValidator } from './lib/validations'
 
 interface CreateCustomRecipeFormProps {
   userId: string
@@ -81,9 +83,19 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
     }
   })
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<CreateCustomRecipeData> = async data => {
-    console.log('clicked create custom recipe', data)
-    reset()
+    try {
+      await axios.post('api/custom-recipe/create', {
+        ...data,
+        userId: userId
+      })
+      router.refresh()
+      reset()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -91,6 +103,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
       <AlertDialogTrigger asChild>
         <Button variant="outline">Create custom recipe</Button>
       </AlertDialogTrigger>
+      <Separator className="my-4" />
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
           <AlertDialogHeader>

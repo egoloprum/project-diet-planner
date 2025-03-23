@@ -22,23 +22,23 @@ body > * {
 }
 
 @media ((min-width: 768px) and (max-width: 1200px)) {
-  .discoverList {
+  .recipeList {
     columns: 2;
   }
 }
 
 @media ((min-width: 1200px) and (max-width: 1650px)) {
-  .discoverList {
+  .recipeList {
     columns: 3;
   }
 }
 @media ((min-width: 1650px) and (max-width: 1920px)) {
-  .discoverList {
+  .recipeList {
     columns: 4;
   }
 }
 @media (min-width: 1920px) {
-  .discoverList {
+  .recipeList {
     columns: 5;
   }
 }

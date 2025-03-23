@@ -1,7 +1,9 @@
 import { redirect } from 'next/navigation'
 
 import { CreateCustomRecipeForm } from '@/src/features/(blog)/create-custom-recipe-form'
+import { recipeGetByUser } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
+import { RecipeList } from '@/src/widgets/(discover)/recipeList'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -11,10 +13,13 @@ const page = async ({}) => {
     return redirect('/login')
   }
 
+  const user = data.user
+  const recipes = await recipeGetByUser(user.id)
+
   return (
     <div>
-      blah2
-      <CreateCustomRecipeForm userId={data.user?.id} />
+      <CreateCustomRecipeForm userId={user.id} />
+      <RecipeList recipeData={recipes} />
     </div>
   )
 }

@@ -1,25 +1,4 @@
-interface Exclusion {
-  user_id: string
-  list: string[]
-}
-
-interface PrimaryDiet {
-  user_id: string
-  diet_type: string
-}
-
-interface NutritionTarget {
-  user_id: string
-  id: string
-  title: string
-  calories: number
-  carbs: number
-  fats: number
-  protein: number
-  fiber: number
-}
-
-interface NutritionRecipe {
+export interface NutritionRecipe {
   calories: number
   carbs: number
   fat: number
@@ -29,7 +8,7 @@ interface NutritionRecipe {
   cholesterol: number
 }
 
-interface Recipe {
+export interface Recipe {
   recipe_id: number
   food_name: string
   prep_time: number
@@ -56,4 +35,5 @@ interface Recipe {
   }[]
 
   is_custom: boolean
+  user_id: string
 }
