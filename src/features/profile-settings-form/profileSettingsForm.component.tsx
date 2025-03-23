@@ -1,36 +1,37 @@
-"use client";
+'use client'
 
-import { Button } from "@/src/shared/ui/button";
-import { Input } from "@/src/shared/ui/input";
-import { Label } from "@/src/shared/ui/label";
-import { Separator } from "@/src/shared/ui/separator";
-import { User } from "@supabase/supabase-js";
-import Image from "next/image";
-import { FC, useRef, useState } from "react";
+import { User } from '@supabase/supabase-js'
+import Image from 'next/image'
+import { FC, useRef, useState } from 'react'
+
+import { Button } from '@/src/shared/ui/button'
+import { Input } from '@/src/shared/ui/input'
+import { Label } from '@/src/shared/ui/label'
+import { Separator } from '@/src/shared/ui/separator'
 
 interface ProfileSettingsFormProps {
-  user: User;
+  user: User
 }
 
 export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ user }) => {
-  const [isEditable, setIsEditable] = useState<boolean>(true);
+  const [isEditable, setIsEditable] = useState<boolean>(true)
 
   const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setIsEditable(true);
-  };
+    event.preventDefault()
+    setIsEditable(true)
+  }
 
   const onClick = () => {
     if (isEditable) {
-      setIsEditable(false);
+      setIsEditable(false)
     } else {
       if (formRef.current) {
-        formRef.current.requestSubmit();
+        formRef.current.requestSubmit()
       }
     }
-  };
+  }
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null)
 
   return (
     <div>
@@ -45,19 +46,18 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ user }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded-full"
-              src={"/pics/1.png"}
+              src={'/pics/1.png'}
               alt="profile pic"
             />
           </div>
           <p>Username</p>
         </div>
         <Button
-          variant={isEditable ? "secondary" : "default"}
+          variant={isEditable ? 'secondary' : 'default'}
           type="submit"
           onClick={onClick}
-          className="max-w-[150px] w-full"
-        >
-          {isEditable ? "Edit profile" : "Save profile"}
+          className="max-w-[150px] w-full">
+          {isEditable ? 'Edit profile' : 'Save profile'}
         </Button>
       </div>
 
@@ -94,5 +94,5 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ user }) => {
         </fieldset>
       </form>
     </div>
-  );
-};
+  )
+}

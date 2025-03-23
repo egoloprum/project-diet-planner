@@ -1,20 +1,20 @@
-import { getExclusion } from "@/src/shared/db/exclusion/exclusionHelper";
-import { createClient } from "@/src/shared/db/supabase";
-import { DefaultExclusionList } from "@/src/widgets/(exclusion)/defaultList";
-import { SelectedExclusionList } from "@/src/widgets/(exclusion)/selectedList";
+import { redirect } from 'next/navigation'
 
-import { redirect } from "next/navigation";
+import { getExclusion } from '@/src/shared/db/exclusion/exclusionHelper'
+import { createClient } from '@/src/shared/db/supabase'
+import { DefaultExclusionList } from '@/src/widgets/(exclusion)/defaultList'
+import { SelectedExclusionList } from '@/src/widgets/(exclusion)/selectedList'
 
 const page = async ({}) => {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
 
   if (!data.user) {
-    return redirect("/login");
+    return redirect('/login')
   }
 
-  const user_id = data.user.id;
-  const selectedExclusions = await getExclusion(user_id);
+  const user_id = data.user.id
+  const selectedExclusions = await getExclusion(user_id)
 
   return (
     <div className="flex flex-col gap-6">
@@ -38,7 +38,7 @@ const page = async ({}) => {
         user_id={user_id}
       />
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

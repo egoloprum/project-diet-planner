@@ -1,31 +1,30 @@
-import { DiscoverList } from "@/src/widgets/(discover)/discoverList";
-import { DiscoverSearchBar } from "@/src/widgets/(discover)/discoverSearchBar";
-
-import { recipeSearch } from "@/src/shared/db/recipe/recipeHelpers";
-import { DiscoverPagination } from "@/src/widgets/(discover)/discoverPagination";
+import { recipeSearch } from '@/src/shared/db/recipe/recipeHelpers'
+import { DiscoverList } from '@/src/widgets/(discover)/discoverList'
+import { DiscoverPagination } from '@/src/widgets/(discover)/discoverPagination'
+import { DiscoverSearchBar } from '@/src/widgets/(discover)/discoverSearchBar'
 
 interface SearchParams {
-  query: string;
-  page: string;
+  query: string
+  page: string
 }
 
 const page = async ({
-  searchParams,
+  searchParams
 }: {
-  searchParams: Promise<SearchParams>;
+  searchParams: Promise<SearchParams>
 }) => {
-  const resolvedSearchParams = await searchParams;
-  const query = resolvedSearchParams?.query || "";
+  const resolvedSearchParams = await searchParams
+  const query = resolvedSearchParams?.query || ''
 
-  const pageSize = 10;
-  const currentPage = parseInt(resolvedSearchParams?.page || "1", 10);
+  const pageSize = 10
+  const currentPage = parseInt(resolvedSearchParams?.page || '1', 10)
 
-  let recipeData = null;
-  let totalPages = 0;
+  let recipeData = null
+  let totalPages = 0
 
   if (query.length) {
-    recipeData = await recipeSearch(query, currentPage, pageSize);
-    totalPages = Math.ceil(recipeData.total / pageSize);
+    recipeData = await recipeSearch(query, currentPage, pageSize)
+    totalPages = Math.ceil(recipeData.total / pageSize)
   }
 
   return (
@@ -41,7 +40,7 @@ const page = async ({
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default page;
+export default page

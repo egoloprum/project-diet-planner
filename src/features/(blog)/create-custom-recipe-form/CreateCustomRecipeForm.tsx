@@ -1,7 +1,8 @@
-"use client";
+'use client'
 
-import { Button } from "@/src/shared/ui/button";
-import { FC } from "react";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FC } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 import {
   AlertDialog,
@@ -12,22 +13,78 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/src/shared/ui/alert-dialog";
-import { Input } from "@/src/shared/ui/input";
-import { Label } from "@/src/shared/ui/label";
-import { Checkbox } from "@/src/shared/ui/checkbox";
-import { Separator } from "@/src/shared/ui/separator";
-import { ToggleGroup, ToggleGroupItem } from "@/src/shared/ui/toggle-group";
-import { Textarea } from "@/src/shared/ui/textarea";
+  AlertDialogTrigger
+} from '@/src/shared/ui'
+import {
+  Button,
+  Checkbox,
+  Input,
+  Label,
+  Separator,
+  Textarea,
+  ToggleGroup,
+  ToggleGroupItem
+} from '@/src/shared/ui'
 
-interface CreateCustomRecipeFormProps {}
+import { CustomRecipeValidator } from '../lib/validations'
 
-export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({}) => {
-  const OnSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log("clicked create custom recipe");
-  };
+interface CreateCustomRecipeFormProps {
+  userId: string
+}
+
+type CreateCustomRecipeData = {
+  foodName: string
+  prepTime: number
+  cookTime: number
+
+  isMainDish: boolean
+  isBreakfast: boolean
+  isLunch: boolean
+  isDinner: boolean
+  isDessert: boolean
+  isSnack: boolean
+
+  tagCloud: string[]
+
+  fats: number
+  carbs: number
+  fiber: number
+  sugar: number
+  protein: number
+  calories: number
+  cholesterol: number
+
+  direction: string
+}
+
+export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
+  userId
+}) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors }
+  } = useForm<CreateCustomRecipeData>({
+    resolver: zodResolver(CustomRecipeValidator),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      tagCloud: [],
+      isMainDish: false,
+      isBreakfast: false,
+      isLunch: false,
+      isDinner: false,
+      isDessert: false,
+      isSnack: false
+    }
+  })
+
+  const onSubmit: SubmitHandler<CreateCustomRecipeData> = async data => {
+    console.log('clicked create custom recipe', data)
+    reset()
+  }
 
   return (
     <AlertDialog>
@@ -35,7 +92,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({}) => {
         <Button variant="outline">Create custom recipe</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
-        <form className="flex flex-col gap-6" onSubmit={OnSubmit}>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
           <AlertDialogHeader>
             <AlertDialogTitle>Create Custom Recipe</AlertDialogTitle>
             <AlertDialogDescription>
@@ -43,20 +100,56 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({}) => {
             </AlertDialogDescription>
             <div className="flex flex-col gap-4">
               <div>
-                <Label htmlFor="food-name">Food Name</Label>
-                <Input type="text" id="food-name" />
+                <Label
+                  htmlFor="food-name"
+                  className={`${errors.foodName && 'text-red-500'}`}>
+                  Food Name
+                </Label>
+                <Input type="text" id="food-name" {...register('foodName')} />
+                {errors.foodName && (
+                  <span className="text-red-500 text-sm">
+                    {errors.foodName.message}
+                  </span>
+                )}
               </div>
               <Separator />
 
               <fieldset className="flex gap-4 justify-between">
                 <div className="w-full basis-1/2">
-                  <Label htmlFor="prep-time">Preperation Time</Label>
-                  <Input type="text" id="prep-time" />
+                  <Label
+                    htmlFor="prep-time"
+                    className={`${errors.prepTime && 'text-red-500'}`}>
+                    Preperation Time
+                  </Label>
+                  <Input
+                    type="text"
+                    id="prep-time"
+                    defaultValue="0"
+                    {...register('prepTime')}
+                  />
+                  {errors.prepTime && (
+                    <span className="text-red-500 text-sm">
+                      {errors.prepTime.message}
+                    </span>
+                  )}
                 </div>
-
                 <div className="w-full basis-1/2">
-                  <Label htmlFor="cook-time">Cook Time</Label>
-                  <Input type="text" id="cook-time" />
+                  <Label
+                    htmlFor="cook-time"
+                    className={`${errors.cookTime && 'text-red-500'}`}>
+                    Cook Time
+                  </Label>
+                  <Input
+                    type="text"
+                    id="cook-time"
+                    defaultValue="0"
+                    {...register('cookTime')}
+                  />
+                  {errors.cookTime && (
+                    <span className="text-red-500 text-sm">
+                      {errors.cookTime.message}
+                    </span>
+                  )}
                 </div>
               </fieldset>
               <Separator />
@@ -66,49 +159,164 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({}) => {
                 <Separator className="my-2" />
                 <div className="flex flex-wrap gap-2">
                   <div className="flex items-center gap-2">
-                    <Checkbox id="main-dish" />
+                    <Controller
+                      control={control}
+                      name="isMainDish"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="main-dish"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="main-dish">Main Dish</Label>
+                    {errors.isMainDish && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isMainDish.message}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Checkbox id="breakfast" />
+                    <Controller
+                      control={control}
+                      name="isBreakfast"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="breakfast"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="breakfast">Breakfast</Label>
+                    {errors.isBreakfast && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isBreakfast.message}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Checkbox id="lunch" />
+                    <Controller
+                      control={control}
+                      name="isLunch"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="lunch"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="lunch">Lunch</Label>
+                    {errors.isLunch && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isLunch.message}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Checkbox id="dinner" />
+                    <Controller
+                      control={control}
+                      name="isDinner"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="dinner"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="dinner">Dinner</Label>
+                    {errors.isDinner && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isDinner.message}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Checkbox id="dessert" />
+                    <Controller
+                      control={control}
+                      name="isDessert"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="dessert"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="dessert">Dessert</Label>
+                    {errors.isDessert && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isDessert.message}
+                      </span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Checkbox id="snack" />
+                    <Controller
+                      control={control}
+                      name="isSnack"
+                      render={({ field }) => (
+                        <Checkbox
+                          id="snack"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
                     <Label htmlFor="snack">Snack</Label>
+                    {errors.isSnack && (
+                      <span className="text-red-500 text-sm">
+                        {errors.isSnack.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </fieldset>
               <Separator />
 
               <fieldset>
-                <Label>Tags</Label>
+                <Label className={`${errors.tagCloud && 'text-red-500'}`}>
+                  Tags
+                </Label>
+                {errors.tagCloud && (
+                  <span className="text-red-500 text-sm">
+                    {errors.tagCloud.message}
+                  </span>
+                )}
                 <Separator className="my-2" />
-                <ToggleGroup type="multiple" className="flex-wrap">
-                  <ToggleGroupItem value="Healthy">Healthy</ToggleGroupItem>
-                  <ToggleGroupItem value="Romantic">Romantic</ToggleGroupItem>
-                  <ToggleGroupItem value="Mexican">Mexican</ToggleGroupItem>
-                  <ToggleGroupItem value="American">American</ToggleGroupItem>
-                  <ToggleGroupItem value="Dinner">Dinner</ToggleGroupItem>
-                  <ToggleGroupItem value="Lunch">Lunch</ToggleGroupItem>
-                  <ToggleGroupItem value="Breakfast">Breakfast</ToggleGroupItem>
-                  <ToggleGroupItem value="Low Carb">Low Carb</ToggleGroupItem>
-                  <ToggleGroupItem value="Vegetarian">
-                    Vegetarian
-                  </ToggleGroupItem>
-                </ToggleGroup>
+                <Controller
+                  control={control}
+                  name="tagCloud"
+                  render={({ field }) => (
+                    <ToggleGroup
+                      type="multiple"
+                      className="flex-wrap"
+                      value={field.value}
+                      onValueChange={field.onChange}>
+                      <ToggleGroupItem value="Healthy">Healthy</ToggleGroupItem>
+                      <ToggleGroupItem value="Romantic">
+                        Romantic
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="Mexican">Mexican</ToggleGroupItem>
+                      <ToggleGroupItem value="American">
+                        American
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="Dinner">Dinner</ToggleGroupItem>
+                      <ToggleGroupItem value="Lunch">Lunch</ToggleGroupItem>
+                      <ToggleGroupItem value="Breakfast">
+                        Breakfast
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="Low Carb">
+                        Low Carb
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="Vegetarian">
+                        Vegetarian
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  )}
+                />
               </fieldset>
               <Separator />
 
@@ -117,92 +325,174 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({}) => {
                 <Separator className="my-2" />
                 <div className="flex flex-wrap gap-4">
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="fats">Fats</Label>
+                    <Label
+                      htmlFor="fats"
+                      className={`${errors.fats && 'text-red-500'}`}>
+                      Fats
+                    </Label>
                     <Input
                       id="fats"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={100}
+                      {...register('fats')}
                     />
+                    {errors.fats && (
+                      <span className="text-red-500 text-sm">
+                        {errors.fats.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="carbs">Carbs</Label>
+                    <Label
+                      htmlFor="carbs"
+                      className={`${errors.carbs && 'text-red-500'}`}>
+                      Carbs
+                    </Label>
                     <Input
                       id="carbs"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={200}
+                      {...register('carbs')}
                     />
+                    {errors.carbs && (
+                      <span className="text-red-500 text-sm">
+                        {errors.carbs.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="fiber">Fiber</Label>
+                    <Label
+                      htmlFor="fiber"
+                      className={`${errors.fiber && 'text-red-500'}`}>
+                      Fiber
+                    </Label>
                     <Input
                       id="fiber"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={100}
+                      {...register('fiber')}
                     />
+                    {errors.fiber && (
+                      <span className="text-red-500 text-sm">
+                        {errors.fiber.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="sugar">Sugar</Label>
+                    <Label
+                      htmlFor="sugar"
+                      className={`${errors.sugar && 'text-red-500'}`}>
+                      Sugar
+                    </Label>
                     <Input
                       id="sugar"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={100}
+                      {...register('sugar')}
                     />
+                    {errors.sugar && (
+                      <span className="text-red-500 text-sm">
+                        {errors.sugar.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="protein">Protein</Label>
+                    <Label
+                      htmlFor="protein"
+                      className={`${errors.protein && 'text-red-500'}`}>
+                      Protein
+                    </Label>
                     <Input
                       id="protein"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={100}
+                      {...register('protein')}
                     />
+                    {errors.protein && (
+                      <span className="text-red-500 text-sm">
+                        {errors.protein.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="calories">Calories</Label>
+                    <Label
+                      htmlFor="calories"
+                      className={`${errors.calories && 'text-red-500'}`}>
+                      Calories
+                    </Label>
                     <Input
                       id="calories"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={1000}
+                      {...register('calories')}
                     />
+                    {errors.calories && (
+                      <span className="text-red-500 text-sm">
+                        {errors.calories.message}
+                      </span>
+                    )}
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="cholesterol">Cholesterol</Label>
+                    <Label
+                      htmlFor="cholesterol"
+                      className={`${errors.cholesterol && 'text-red-500'}`}>
+                      Cholesterol
+                    </Label>
                     <Input
                       id="cholesterol"
-                      type="number"
+                      type="text"
                       className="max-w-[4rem]"
+                      defaultValue="0"
                       max={300}
+                      {...register('cholesterol')}
                     />
+                    {errors.cholesterol && (
+                      <span className="text-red-500 text-sm">
+                        {errors.cholesterol.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </fieldset>
               <Separator />
 
               <fieldset>
-                <Label htmlFor="direction">Direction</Label>
-                <Textarea id="direction" />
+                <Label
+                  htmlFor="direction"
+                  className={`${errors.direction && 'text-red-500'}`}>
+                  Direction
+                </Label>
+                <Textarea id="direction" {...register('direction')} />
+                {errors.direction && (
+                  <span className="text-red-500 text-sm">
+                    {errors.direction.message}
+                  </span>
+                )}
               </fieldset>
             </div>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction type="submit">
+            <AlertDialogAction
+              type="submit"
+              disabled={Object.keys(errors).length > 0}>
               Create Custom Recipe
             </AlertDialogAction>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>
     </AlertDialog>
-  );
-};
+  )
+}

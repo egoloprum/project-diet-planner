@@ -1,6 +1,7 @@
-import { Label } from "@/src/shared/ui/label";
-import { RadioGroupItem, RadioGroup } from "@/src/shared/ui/radio-group";
-import { FC } from "react";
+import { FC } from 'react'
+
+import { Label } from '@/src/shared/ui/label'
+import { RadioGroupItem, RadioGroup } from '@/src/shared/ui/radio-group'
 
 interface GoalTrackerProps {}
 
@@ -30,5 +31,5 @@ export const GoalTracker: FC<GoalTrackerProps> = ({}) => {
         </RadioGroup>
       </div>
     </div>
-  );
-};
+  )
+}

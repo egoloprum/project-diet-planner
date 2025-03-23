@@ -1,4 +1,4 @@
-"use server"
+'use server'
 
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
@@ -23,8 +23,8 @@ export const createClient = async () => {
           try {
             cookieStore.set({ name, value: '', ...options })
           } catch {}
-        },
-      },
+        }
+      }
     }
   )
 }

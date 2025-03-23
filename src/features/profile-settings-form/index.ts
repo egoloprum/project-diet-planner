@@ -1,1 +1,1 @@
-export * from "./profileSettingsForm.component";
+export * from './profileSettingsForm.component'

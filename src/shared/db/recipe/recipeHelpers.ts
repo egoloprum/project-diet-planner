@@ -1,5 +1,6 @@
-import { QueryData } from "@supabase/supabase-js"
-import { createClient } from "../supabase"
+import { QueryData } from '@supabase/supabase-js'
+
+import { createClient } from '../supabase'
 
 export const recipeSearch = async (
   keyword: string,
@@ -29,8 +30,8 @@ export const recipeSearch = async (
     }
   } catch (error) {
     console.error('Search error:', error)
-    return { 
-      recipes: [], 
+    return {
+      recipes: [],
       total: 0,
       page: 1,
       pageSize,
@@ -41,12 +42,14 @@ export const recipeSearch = async (
 
 export const recipeGetById = async (recipe_id: string) => {
   const supabase = await createClient()
-  const { data, error } = await supabase
+  const { data, error } = (await supabase
     .from('recipe')
     .select('*')
     .eq('recipe_id', recipe_id)
-    .single() as QueryData<{ data: Recipe }>
+    .single()) as QueryData<{ data: Recipe }>
 
-  if (error) {return null}  
+  if (error) {
+    return null
+  }
   return data as Recipe
 }

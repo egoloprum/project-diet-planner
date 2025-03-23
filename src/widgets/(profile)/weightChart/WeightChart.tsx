@@ -1,5 +1,6 @@
-import { FC } from "react";
-import { Component } from "./charts";
+import { FC } from 'react'
+
+import { Component } from './charts'
 
 interface WeightChartProps {}
 
@@ -12,5 +13,5 @@ export const WeightChart: FC<WeightChartProps> = ({}) => {
         <Component />
       </div>
     </div>
-  );
-};
+  )
+}

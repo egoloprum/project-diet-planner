@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Montserrat } from 'next/font/google'
+import './globals.css'
 
-import { AuthNavbar, Navbar } from "@/src/widgets/navbar";
-import { createClient } from "@/src/shared/db/supabase";
+import { createClient } from '@/src/shared/db/supabase'
+import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
 
 const montserrat = Montserrat({
-  weight: "500",
-  subsets: ["latin"],
-});
+  weight: '500',
+  subsets: ['latin']
+})
 
 export const metadata: Metadata = {
-  title: "Diet planner",
-  description: "App is for planning diets.",
-};
+  title: 'Diet planner',
+  description: 'App is for planning diets.'
+}
 
 export default async function RootLayout({
-  children,
+  children
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
 
   return (
     <html lang="en">
@@ -32,5 +32,5 @@ export default async function RootLayout({
         <main className="min-h-[calc(100vh-108px)] my-6">{children}</main>
       </body>
     </html>
-  );
+  )
 }

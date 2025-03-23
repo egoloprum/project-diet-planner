@@ -1,24 +1,24 @@
-"use client";
+'use client'
 
-import { FC, useState } from "react";
-import { User } from "@supabase/supabase-js";
+import { User } from '@supabase/supabase-js'
+import { FC, useState } from 'react'
 
-import { Input } from "@/src/shared/ui/input";
-import { Button } from "@/src/shared/ui/button";
-import { Calendar } from "@/src/shared/ui/calendar";
-import { Label } from "@/src/shared/ui/label";
+import { Button } from '@/src/shared/ui/button'
+import { Calendar } from '@/src/shared/ui/calendar'
+import { Input } from '@/src/shared/ui/input'
+import { Label } from '@/src/shared/ui/label'
 
 interface WeightTrackerProps {
-  user: User;
+  user: User
 }
 
 export const WeightTracker: FC<WeightTrackerProps> = ({ user }) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date())
 
-  const minDate = new Date(user.created_at);
-  const maxDate = new Date();
+  const minDate = new Date(user.created_at)
+  const maxDate = new Date()
 
-  const [isEditable, setIsEditable] = useState<boolean>(true);
+  const [isEditable, setIsEditable] = useState<boolean>(true)
 
   return (
     <div className="min-w-[300px] flex flex-1 flex-col items-center gap-4">
@@ -35,8 +35,7 @@ export const WeightTracker: FC<WeightTrackerProps> = ({ user }) => {
             />
             <Button
               variant="outline"
-              onClick={() => setIsEditable(!isEditable)}
-            >
+              onClick={() => setIsEditable(!isEditable)}>
               Edit weight
             </Button>
           </div>
@@ -54,5 +53,5 @@ export const WeightTracker: FC<WeightTrackerProps> = ({ user }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

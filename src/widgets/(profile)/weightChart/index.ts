@@ -1,1 +1,1 @@
-export * from "./WeightChart";
+export * from './WeightChart'

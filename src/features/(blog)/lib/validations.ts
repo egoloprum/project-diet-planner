@@ -1,25 +1,106 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const CustomRecipeValidator = z.object({
-  foodName: z.string().nonempty("Required").max(100),
-  prepTime: z.number().default(0),
-  cookTime: z.number().default(0),
+  foodName: z
+    .string()
+    .nonempty('Food name is required.')
+    .max(100, 'Food name must not exceed 100 characters.'),
 
-  isMainDish: z.boolean().default(false),
-  isBreakfast: z.boolean().default(false),
-  isLunch: z.boolean().default(false),
-  isDinner: z.boolean().default(false),
-  isDessert: z.boolean().default(false),
-  isSnack: z.boolean().default(false),
-  tagCloud: z.string(),
+  prepTime: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(
+      val => val >= 0 && val <= 1440,
+      'Preparation time must be between 0 and 1440.'
+    ),
 
-  fats: z.number().min(0).max(100).default(0),
-  carbs: z.number().min(0).max(200).default(0),
-  fiber: z.number().min(0).max(100).default(0),
-  sugar: z.number().min(0).max(100).default(0),
-  protein: z.number().min(0).max(100).default(0),
-  calories: z.number().min(0).max(1000).default(0),
-  cholesterol: z.number().min(0).max(300).default(0),
+  cookTime: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(
+      val => val >= 0 && val <= 1440,
+      'Cook time must be between 0 and 1440.'
+    ),
 
-  direction: z.string().default(""),
-});
+  isMainDish: z.boolean().optional().default(false),
+  isBreakfast: z.boolean().optional().default(false),
+  isLunch: z.boolean().optional().default(false),
+  isDinner: z.boolean().optional().default(false),
+  isDessert: z.boolean().optional().default(false),
+  isSnack: z.boolean().optional().default(false),
+
+  tagCloud: z.array(z.string()).optional().default([]),
+
+  fats: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(val => val >= 0 && val <= 100, 'Fats must be between 0 and 100.'),
+
+  carbs: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(val => val >= 0 && val <= 200, 'Carbs must be between 0 and 200.'),
+
+  fiber: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(val => val >= 0 && val <= 100, 'Fiber must be between 0 and 100.'),
+
+  sugar: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(val => val >= 0 && val <= 100, 'Sugar must be between 0 and 100.'),
+
+  protein: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(
+      val => val >= 0 && val <= 100,
+      'Protein must be between 0 and 100.'
+    ),
+
+  calories: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(
+      val => val >= 0 && val <= 1000,
+      'Calories must be between 0 and 1000.'
+    ),
+
+  cholesterol: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      return isNaN(num) ? 0 : num
+    })
+    .refine(
+      val => val >= 0 && val <= 300,
+      'Cholesterol must be between 0 and 300.'
+    ),
+
+  direction: z.string().default('')
+})

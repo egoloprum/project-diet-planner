@@ -1,1 +1,1 @@
-export * from "./SocialTracker";
+export * from './SocialTracker'

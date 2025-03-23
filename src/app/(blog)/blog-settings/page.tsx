@@ -1,11 +1,5 @@
-
-
 const page = ({}) => {
-  return (
-    <div>
-      blog-settings
-    </div>
-  )
+  return <div>blog-settings</div>
 }
 
 export default page

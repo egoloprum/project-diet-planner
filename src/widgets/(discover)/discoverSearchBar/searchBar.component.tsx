@@ -1,15 +1,14 @@
-"use client";
+'use client'
 
+import { DiscoverSearchForm } from '@/src/features/discover-search-form'
+import { Button } from '@/src/shared/ui/button'
+import { Input } from '@/src/shared/ui/input'
+import { Label } from '@/src/shared/ui/label'
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
-} from "@/src/shared/ui/popover";
-import { Input } from "@/src/shared/ui/input";
-import { Button } from "@/src/shared/ui/button";
-import { Label } from "@/src/shared/ui/label";
-
-import { DiscoverSearchForm } from "@/src/features/discover-search-form";
+  PopoverTrigger
+} from '@/src/shared/ui/popover'
 
 export const DiscoverSearchBar = ({}) => {
   return (
@@ -67,5 +66,5 @@ export const DiscoverSearchBar = ({}) => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}

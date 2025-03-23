@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-import {  
+import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious, 
+  PaginationPrevious
 } from '@/src/shared/ui/pagination'
 
 interface DiscoverPaginationProps {
@@ -23,25 +23,19 @@ const range = (start: number, end: number) => {
 
 const getPaginationRange = (current: number, total: number) => {
   if (total <= 6) return range(1, total)
-  
+
   const shouldShowLeftEllipsis = current > 3
   const shouldShowRightEllipsis = current < total - 2
-  
+
   if (!shouldShowLeftEllipsis && shouldShowRightEllipsis) {
     return [1, 2, 3, 4, 'ellipsis', total]
   }
-  
+
   if (shouldShowLeftEllipsis && !shouldShowRightEllipsis) {
     return [1, 'ellipsis', total - 3, total - 2, total - 1, total]
   }
-  
-  return [
-    1,
-    'ellipsis',
-    ...range(current - 1, current + 1),
-    'ellipsis',
-    total
-  ]
+
+  return [1, 'ellipsis', ...range(current - 1, current + 1), 'ellipsis', total]
 }
 
 export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
@@ -50,7 +44,7 @@ export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
   query
 }) => {
   const pages = getPaginationRange(currentPage, totalPages)
-  
+
   const createURL = (page: number) => {
     const params = new URLSearchParams({
       query,
@@ -60,14 +54,16 @@ export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
   }
 
   return (
-    <Pagination className='py-4'>
+    <Pagination className="py-4">
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious 
+          <PaginationPrevious
             href={createURL(currentPage - 1)}
             aria-disabled={currentPage <= 1}
             tabIndex={currentPage <= 1 ? -1 : undefined}
-            className={currentPage <= 1 ? 'pointer-events-none opacity-50' : undefined}
+            className={
+              currentPage <= 1 ? 'pointer-events-none opacity-50' : undefined
+            }
           />
         </PaginationItem>
 
@@ -78,8 +74,7 @@ export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
             ) : (
               <PaginationLink
                 href={createURL(page as number)}
-                isActive={currentPage === page}
-              >
+                isActive={currentPage === page}>
                 {page}
               </PaginationLink>
             )}
@@ -87,11 +82,15 @@ export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
         ))}
 
         <PaginationItem>
-          <PaginationNext 
+          <PaginationNext
             href={createURL(currentPage + 1)}
             aria-disabled={currentPage >= totalPages}
             tabIndex={currentPage >= totalPages ? -1 : undefined}
-            className={currentPage >= totalPages ? 'pointer-events-none opacity-50' : undefined}
+            className={
+              currentPage >= totalPages
+                ? 'pointer-events-none opacity-50'
+                : undefined
+            }
           />
         </PaginationItem>
       </PaginationContent>

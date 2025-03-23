@@ -1,18 +1,19 @@
-import { FC } from "react";
-import { DataTable } from "./data-table";
-import { columns, Payment } from "./columns";
+import { FC } from 'react'
+
+import { columns, Payment } from './columns'
+import { DataTable } from './data-table'
 
 interface SocialTrackerProps {}
 
 export const SocialTracker: FC<SocialTrackerProps> = ({}) => {
   const data: Payment[] = [
     {
-      id: "728ed52f",
+      id: '728ed52f',
       amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-  ];
+      status: 'pending',
+      email: 'm@example.com'
+    }
+  ]
 
   return (
     <div className="min-w-[300px] flex flex-1 flex-col items-center gap-4">
@@ -20,5 +21,5 @@ export const SocialTracker: FC<SocialTrackerProps> = ({}) => {
 
       <DataTable columns={columns} data={data} />
     </div>
-  );
-};
+  )
+}

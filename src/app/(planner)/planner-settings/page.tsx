@@ -1,10 +1,5 @@
-
 const page = ({}) => {
-  return (
-    <div>
-      planner-settings
-    </div>
-  )
+  return <div>planner-settings</div>
 }
 
 export default page

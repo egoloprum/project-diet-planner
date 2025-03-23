@@ -1,6 +1,7 @@
-import { Input } from "@/src/shared/ui/input";
-import { Label } from "@/src/shared/ui/label";
-import { FC } from "react";
+import { FC } from 'react'
+
+import { Input } from '@/src/shared/ui/input'
+import { Label } from '@/src/shared/ui/label'
 
 interface StatsTrackerProps {}
 
@@ -32,5 +33,5 @@ export const StatsTracker: FC<StatsTrackerProps> = ({}) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

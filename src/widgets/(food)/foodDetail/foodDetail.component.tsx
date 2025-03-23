@@ -6,11 +6,11 @@ interface FoodDetailProps {
   recipe: Recipe
 }
 
-export const FoodDetail: FC<FoodDetailProps> = ({recipe}) => {
+export const FoodDetail: FC<FoodDetailProps> = ({ recipe }) => {
   return (
     <>
       <AspectRatio ratio={1 / 1}>
-        <Image 
+        <Image
           src={recipe?.images.image || '/default_thumbnail_recipe.jpg'}
           className="object-cover"
           fill
@@ -35,4 +35,3 @@ export const FoodDetail: FC<FoodDetailProps> = ({recipe}) => {
     </>
   )
 }
-

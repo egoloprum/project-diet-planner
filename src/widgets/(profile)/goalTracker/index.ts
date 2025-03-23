@@ -1,1 +1,1 @@
-export * from "./GoalTracker";
+export * from './GoalTracker'

@@ -1,9 +1,9 @@
-"use server"
+'use server'
 
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { createClient } from '.'
 
+import { createClient } from '.'
 
 export const signInWithGoogle = async () => {
   const origin = (await headers()).get('origin')
@@ -12,12 +12,12 @@ export const signInWithGoogle = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${origin}/auth/callback`,
+      redirectTo: `${origin}/auth/callback`
     }
   })
 
   if (data) {
-    return redirect(data.url as string) 
+    return redirect(data.url as string)
   }
   if (error) {
     throw error
@@ -27,10 +27,8 @@ export const signInWithGoogle = async () => {
 export const signInWithAnon = async () => {
   const supabase = await createClient()
 
-  const {data, error} = await supabase
-    .auth
-    .signInAnonymously()
-  
+  const { data, error } = await supabase.auth.signInAnonymously()
+
   if (data) {
     return redirect('/planner')
   }
@@ -43,6 +41,8 @@ export const signOut = async () => {
   const supabase = await createClient()
 
   const { error } = await supabase.auth.signOut()
-  if (error) { throw error }
+  if (error) {
+    throw error
+  }
   return redirect('/')
 }

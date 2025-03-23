@@ -1,23 +1,23 @@
-import { recipeGetById } from "@/src/shared/db/recipe/recipeHelpers";
-import { FoodDetail } from "@/src/widgets/(food)/foodDetail";
-import { FoodDirection } from "@/src/widgets/(food)/foodDirection";
-import { FoodIngredient } from "@/src/widgets/(food)/foodIngredient";
-import { FoodNutrition } from "@/src/widgets/(food)/foodNutrition";
+import { recipeGetById } from '@/src/shared/db/recipe/recipeHelpers'
+import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
+import { FoodDirection } from '@/src/widgets/(food)/foodDirection'
+import { FoodIngredient } from '@/src/widgets/(food)/foodIngredient'
+import { FoodNutrition } from '@/src/widgets/(food)/foodNutrition'
 
 interface pageProps {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
-const page = async ({ params }: { params: Promise<pageProps["params"]> }) => {
-  const resolvedParams = await params;
-  const { id } = resolvedParams;
+const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
+  const resolvedParams = await params
+  const { id } = resolvedParams
 
-  const recipe = await recipeGetById(id);
+  const recipe = await recipeGetById(id)
 
   if (!recipe) {
-    return null;
+    return null
   }
 
   return (
@@ -32,7 +32,7 @@ const page = async ({ params }: { params: Promise<pageProps["params"]> }) => {
       </section>
       <FoodDirection recipe={recipe} />
     </article>
-  );
-};
+  )
+}
 
-export default page;
+export default page

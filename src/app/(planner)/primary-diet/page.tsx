@@ -1,19 +1,20 @@
-import { getPrimaryDiet } from "@/src/shared/db/diet/dietHelper";
-import { createClient } from "@/src/shared/db/supabase";
-import { DietList } from "@/src/widgets/(diet)";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import Link from 'next/link'
+import { redirect } from 'next/navigation'
+
+import { getPrimaryDiet } from '@/src/shared/db/diet/dietHelper'
+import { createClient } from '@/src/shared/db/supabase'
+import { DietList } from '@/src/widgets/(diet)'
 
 const page = async ({}) => {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
 
   if (!data.user) {
-    redirect("/login");
+    redirect('/login')
   }
 
-  const user_id = data.user.id;
-  const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet;
+  const user_id = data.user.id
+  const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (
     <div className="flex flex-col gap-6">
@@ -27,8 +28,7 @@ const page = async ({}) => {
           exclusions from the
           <Link
             href="/food-exclusions"
-            className="underline underline-offset-4 ml-2"
-          >
+            className="underline underline-offset-4 ml-2">
             Exclusions menu screen.
           </Link>
         </p>
@@ -36,7 +36,7 @@ const page = async ({}) => {
 
       <DietList selectedDiet={selectedDiet} user_id={user_id} />
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page
