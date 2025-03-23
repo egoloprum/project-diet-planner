@@ -1,6 +1,4 @@
-
-
-import { LogoutBtn } from "@/src/features/logoutBtn"
+import { LogoutBtn } from "@/src/features/logoutBtn";
 import {
   ListItem,
   NavigationMenu,
@@ -8,12 +6,10 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../../shared/ui/navigation-menu"
-import React from "react"
-
+} from "../../shared/ui/navigation-menu";
+import React from "react";
 
 export const AuthNavbar = () => {
-  
   const plannerLinks: { title: string; href: string; description: string }[] = [
     {
       title: "Planner",
@@ -44,8 +40,8 @@ export const AuthNavbar = () => {
       description:
         "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     },
-  ]
-  
+  ];
+
   const accountLinks: { title: string; href: string; description: string }[] = [
     {
       title: "Profile",
@@ -54,29 +50,12 @@ export const AuthNavbar = () => {
         "A modal dialog that interrupts the user with important content and expects a response.",
     },
     {
-      title: "Physical Stats",
-      href: "/profile#physical-stats",
-      description:
-        "For sighted users to preview content available behind a link.",
-    },
-    {
-      title: "Weight and Goal",
-      href: "/profile#weight-goal",
-      description:
-        "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-      title: "Followers",
-      href: "/profile#followers",
-      description: "Visually or semantically separates content.",
-    },
-    {
       title: "User Settings",
       href: "/profile-settings",
       description:
         "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     },
-  ]
+  ];
 
   const blogLinks: { title: string; href: string; description: string }[] = [
     {
@@ -108,7 +87,7 @@ export const AuthNavbar = () => {
       description:
         "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
     },
-  ]
+  ];
 
   return (
     <NavigationMenu className="min-h-[60px] h-full">
@@ -118,11 +97,7 @@ export const AuthNavbar = () => {
           <NavigationMenuContent>
             <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {plannerLinks.map((link) => (
-                <ListItem
-                  key={link.title}
-                  title={link.title}
-                  href={link.href}
-                >
+                <ListItem key={link.title} title={link.title} href={link.href}>
                   {link.description}
                 </ListItem>
               ))}
@@ -135,11 +110,7 @@ export const AuthNavbar = () => {
           <NavigationMenuContent>
             <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {accountLinks.map((link) => (
-                <ListItem
-                  key={link.title}
-                  title={link.title}
-                  href={link.href}
-                >
+                <ListItem key={link.title} title={link.title} href={link.href}>
                   {link.description}
                 </ListItem>
               ))}
@@ -152,11 +123,7 @@ export const AuthNavbar = () => {
           <NavigationMenuContent>
             <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {blogLinks.map((link) => (
-                <ListItem
-                  key={link.title}
-                  title={link.title}
-                  href={link.href}
-                >
+                <ListItem key={link.title} title={link.title} href={link.href}>
                   {link.description}
                 </ListItem>
               ))}
@@ -169,8 +136,5 @@ export const AuthNavbar = () => {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
-}
-
-
-
+  );
+};
