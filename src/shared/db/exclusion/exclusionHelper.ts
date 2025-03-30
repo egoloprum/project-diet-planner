@@ -1,7 +1,7 @@
 import { QueryData } from '@supabase/supabase-js'
 
-import { createClient } from '../supabase'
 import { Exclusion } from '../../model'
+import { createClient } from '../supabase'
 
 export const createExclusion = async (user_id: string) => {
   const supabase = await createClient()

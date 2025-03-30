@@ -1,4 +1,6 @@
+import { RecipeDeleteModal } from '@/src/features/(discover)/recipe-delete-modal'
 import { RecipeEditModal } from '@/src/features/(discover)/recipe-edit-modal'
+import { NotFound } from '@/src/shared/components/notFound'
 import { recipeGetById } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
 import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
@@ -24,15 +26,16 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   const user = data.user
 
   if (!recipe || !user) {
-    return null
+    return <NotFound href="/custom-recipe" />
   }
 
   return (
     <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
       <section className="flex flex-col gap-4 md:col-start-1 md:col-end-2">
         <FoodDetail recipe={recipe} />
-        <div>
+        <div className="flex gap-4">
           <RecipeEditModal userId={user.id} recipe={recipe} />
+          <RecipeDeleteModal recipeId={recipe.recipe_id} />
         </div>
       </section>
       <section className=" flex flex-col gap-4 md:col-start-2 md:col-end-3">

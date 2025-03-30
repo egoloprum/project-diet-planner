@@ -48,8 +48,7 @@ export const DietItemForm: FC<DietItemFormProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<DietInput> = async data => {
-    console.log(data)
+  const onSubmit: SubmitHandler<DietInput> = async () => {
     try {
       setIsLoading(true)
       const name = defaultDiet.name

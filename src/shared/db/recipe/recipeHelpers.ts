@@ -93,3 +93,20 @@ export const recipeEdit = async (recipe: Recipe) => {
 
   return data
 }
+
+export const recipeDelete = async (recipe_id: number) => {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('recipe')
+    .delete()
+    .eq('recipe_id', recipe_id)
+    .select('recipe_id')
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to delete recipe: ${error.message}`)
+  }
+
+  return data
+}
