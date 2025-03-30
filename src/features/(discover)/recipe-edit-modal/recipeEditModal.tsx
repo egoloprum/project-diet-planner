@@ -89,7 +89,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
 
   const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
     try {
-      await axios.post('/api/custom-recipe/edit', {
+      await axios.patch('/api/custom-recipe/update', {
         ...data,
         recipe_id: recipe.recipe_id,
         userId: userId

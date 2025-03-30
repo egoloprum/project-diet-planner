@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 
-import { recipeEdit } from '@/src/shared/db/recipe/recipeHelpers'
+import { recipeUpdate } from '@/src/shared/db/recipe/recipeHelpers'
 import { Recipe } from '@/src/shared/model'
 
-export async function POST(req: Request) {
+export async function PATCH(req: Request) {
   try {
     const body = await req.json()
 
@@ -49,18 +49,18 @@ export async function POST(req: Request) {
       is_custom: true,
       user_id: body.userId
     }
-    const result = await recipeEdit(editRecipe)
+    const result = await recipeUpdate(editRecipe)
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to edit recipe' },
+        { error: 'Failed to update recipe' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Recipe edit successfully', data: result },
-      { status: 201 }
+      { message: 'Recipe updated successfully', data: result },
+      { status: 200 }
     )
   } catch {
     return NextResponse.json(

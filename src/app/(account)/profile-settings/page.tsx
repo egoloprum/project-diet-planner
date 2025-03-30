@@ -1,4 +1,6 @@
-import { ProfileSettingsForm } from '@/src/features/profile-settings-form'
+import { ProfileEditForm } from '@/src/features/profile-edit-form'
+import { NotFound } from '@/src/shared/components/notFound'
+import { getProfile } from '@/src/shared/db/profile/profileHelper'
 import { createClient } from '@/src/shared/db/supabase'
 
 const page = async ({}) => {
@@ -8,17 +10,21 @@ const page = async ({}) => {
   const user = data.user
 
   if (!user || !user.email) {
-    return <p>This page can not be accessed by unverified user.</p>
+    return (
+      <NotFound
+        href=""
+        text="This page can not be accessed by unverified user."
+      />
+    )
   }
 
-  const { data: profileData } = await supabase
-    .from('profile')
-    .select('*')
-    .eq('user_id', user.id)
+  const profile = await getProfile(user.id)
 
-  console.log(profileData)
+  if (!profile) {
+    return <NotFound href="" text="Something went wrong. Try again later." />
+  }
 
-  return <ProfileSettingsForm user={data.user} profile={profileData} />
+  return <ProfileEditForm user={data.user} profile={profile} />
 }
 
 export default page

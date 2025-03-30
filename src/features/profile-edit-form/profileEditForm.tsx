@@ -1,33 +1,70 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { User } from '@supabase/supabase-js'
+import axios from 'axios'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { FC, useRef, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
+import { Profile } from '@/src/shared/model'
 import { Button } from '@/src/shared/ui/button'
 import { Input } from '@/src/shared/ui/input'
 import { Label } from '@/src/shared/ui/label'
 import { Separator } from '@/src/shared/ui/separator'
 
-interface ProfileSettingsFormProps {
+import { ProfileValidator } from './lib/profileValidator'
+
+interface ProfileEditFormProps {
   user: User
-  profile: {
-    id: number
-    created_at: string
-    user_id: string
-    avatar_url: string
-  }
+  profile: Profile
 }
 
-export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
+type RecipeEditModalData = {
+  email: string
+  username: string
+  password: string
+}
+
+export const ProfileEditForm: FC<ProfileEditFormProps> = ({
   user,
   profile
 }) => {
   const [isEditable, setIsEditable] = useState<boolean>(true)
 
-  const onSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-    setIsEditable(true)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<RecipeEditModalData>({
+    resolver: zodResolver(ProfileValidator),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    defaultValues: {}
+  })
+
+  const router = useRouter()
+
+  const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
+    try {
+      await axios.patch('/api/profile-settings/update', {
+        ...data,
+        userId: user.id
+      })
+
+      toast.success('Recipe is edited successfully!')
+      setIsEditable(true)
+
+      router.refresh()
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.error || 'Deletion failed')
+      } else {
+        toast.error('An unexpected error occurred')
+      }
+    }
   }
 
   const onClick = () => {
@@ -72,7 +109,10 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
 
       <Separator className="my-4" />
 
-      <form className="flex flex-wrap gap-4" onSubmit={onSubmit} ref={formRef}>
+      <form
+        className="flex flex-wrap gap-4"
+        onSubmit={handleSubmit(onSubmit)}
+        ref={formRef}>
         <fieldset className="flex gap-4 justify-between sm:justify-normal items-center max-w-[300px] w-full">
           <Label className="text-nowrap">Email address</Label>
           <Input
@@ -81,7 +121,11 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
             disabled={isEditable}
             placeholder="Email"
             defaultValue={user.email}
+            {...register('email')}
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email.message}</span>
+          )}
         </fieldset>
         <fieldset className="flex gap-4 justify-between sm:justify-normal items-center max-w-[300px] w-full">
           <Label className="">Username</Label>
@@ -90,7 +134,14 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
             type="text"
             placeholder="Username"
             disabled={isEditable}
+            defaultValue={profile.user_name}
+            {...register('username')}
           />
+          {errors.username && (
+            <span className="text-red-500 text-sm">
+              {errors.username.message}
+            </span>
+          )}
         </fieldset>
         <fieldset className="flex gap-4 justify-between sm:justify-normal items-center max-w-[300px] w-full">
           <Label className="">Password</Label>
@@ -99,7 +150,13 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
             type="password"
             placeholder="Password"
             disabled={isEditable}
+            {...register('password')}
           />
+          {errors.password && (
+            <span className="text-red-500 text-sm">
+              {errors.password.message}
+            </span>
+          )}
         </fieldset>
       </form>
     </div>

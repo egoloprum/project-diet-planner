@@ -78,7 +78,7 @@ export const recipeCreate = async (recipe: Omit<Recipe, 'recipe_id'>) => {
   return data
 }
 
-export const recipeEdit = async (recipe: Recipe) => {
+export const recipeUpdate = async (recipe: Recipe) => {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('recipe')

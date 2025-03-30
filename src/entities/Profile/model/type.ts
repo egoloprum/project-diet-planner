@@ -29,7 +29,7 @@ export interface ProfileSettings {
   password: string
 }
 
-export interface Profile {
+export interface ProfileTracker {
   goal: '' | 'lose' | 'maintain' | ' gain'
   weightTracker: WeightTracker
   nutritionTracker: NutritionTracker
