@@ -7,6 +7,7 @@ import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
+import { Recipe } from '@/src/shared/model'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,9 +17,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/src/shared/ui'
-import {
+  AlertDialogTrigger,
   Button,
   Checkbox,
   Input,
@@ -30,11 +29,12 @@ import {
 } from '@/src/shared/ui'
 import { RecipeValidator } from '@/src/shared/validations'
 
-interface CreateCustomRecipeFormProps {
+interface RecipeEditModalProps {
   userId: string
+  recipe: Recipe
 }
 
-type CreateCustomRecipeData = {
+type RecipeEditModalData = {
   foodName: string
   prepTime: number
   cookTime: number
@@ -59,8 +59,9 @@ type CreateCustomRecipeData = {
   direction: string
 }
 
-export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
-  userId
+export const RecipeEditModal: FC<RecipeEditModalProps> = ({
+  userId,
+  recipe
 }) => {
   const {
     register,
@@ -68,31 +69,33 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
     control,
     reset,
     formState: { errors }
-  } = useForm<CreateCustomRecipeData>({
+  } = useForm<RecipeEditModalData>({
     resolver: zodResolver(RecipeValidator),
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      tagCloud: [],
-      isMainDish: false,
-      isBreakfast: false,
-      isLunch: false,
-      isDinner: false,
-      isDessert: false,
-      isSnack: false
+      isMainDish: recipe.is_main_dish,
+      isBreakfast: recipe.is_breakfast,
+      isLunch: recipe.is_lunch,
+      isDinner: recipe.is_dinner,
+      isDessert: recipe.is_dessert,
+      isSnack: recipe.is_snack,
+      tagCloud: recipe.tag_cloud.split(' '),
+      direction: recipe.directions.join(' ')
     }
   })
 
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<CreateCustomRecipeData> = async data => {
+  const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
     try {
-      await axios.post('/api/custom-recipe/create', {
+      await axios.post('/api/custom-recipe/edit', {
         ...data,
+        recipe_id: recipe.recipe_id,
         userId: userId
       })
 
-      toast.success('Recipe is successfuly created!')
+      toast.success('Recipe is edited successfully!')
 
       router.refresh()
       reset()
@@ -106,15 +109,14 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Create custom recipe</Button>
+        <Button variant="outline">Edit</Button>
       </AlertDialogTrigger>
-      <Separator className="my-4" />
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
           <AlertDialogHeader>
-            <AlertDialogTitle>Create Custom Recipe</AlertDialogTitle>
+            <AlertDialogTitle>Edit Recipe</AlertDialogTitle>
             <AlertDialogDescription>
-              User can create any recipe they want.
+              User can edit their custom recipe.
             </AlertDialogDescription>
             <div className="flex flex-col gap-4">
               <div>
@@ -123,7 +125,12 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   className={`${errors.foodName && 'text-red-500'}`}>
                   Food Name
                 </Label>
-                <Input type="text" id="food-name" {...register('foodName')} />
+                <Input
+                  type="text"
+                  id="food-name"
+                  defaultValue={recipe.food_name}
+                  {...register('foodName')}
+                />
                 {errors.foodName && (
                   <span className="text-red-500 text-sm">
                     {errors.foodName.message}
@@ -142,7 +149,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     type="text"
                     id="prep-time"
-                    defaultValue="0"
+                    defaultValue={`${recipe.prep_time}`}
                     {...register('prepTime')}
                   />
                   {errors.prepTime && (
@@ -160,7 +167,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     type="text"
                     id="cook-time"
-                    defaultValue="0"
+                    defaultValue={`${recipe.cook_time}`}
                     {...register('cookTime')}
                   />
                   {errors.cookTime && (
@@ -183,7 +190,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="main-dish"
-                          checked={field.value}
+                          defaultChecked={recipe.is_main_dish}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -202,7 +209,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="breakfast"
-                          checked={field.value}
+                          defaultChecked={recipe.is_breakfast}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -221,7 +228,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="lunch"
-                          checked={field.value}
+                          defaultChecked={recipe.is_lunch}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -240,7 +247,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="dinner"
-                          checked={field.value}
+                          defaultChecked={recipe.is_dinner}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -259,7 +266,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="dessert"
-                          checked={field.value}
+                          defaultChecked={recipe.is_dessert}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -278,7 +285,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       render={({ field }) => (
                         <Checkbox
                           id="snack"
-                          checked={field.value}
+                          defaultChecked={recipe.is_snack}
                           onCheckedChange={field.onChange}
                         />
                       )}
@@ -352,7 +359,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="fats"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.fat}`}
                       max={100}
                       {...register('fats')}
                     />
@@ -372,7 +379,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="carbs"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.carbs}`}
                       max={200}
                       {...register('carbs')}
                     />
@@ -392,7 +399,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="fiber"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.fiber}`}
                       max={100}
                       {...register('fiber')}
                     />
@@ -412,7 +419,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="sugar"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.sugar}`}
                       max={100}
                       {...register('sugar')}
                     />
@@ -432,7 +439,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="protein"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.protein}`}
                       max={100}
                       {...register('protein')}
                     />
@@ -452,7 +459,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="calories"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.calories}`}
                       max={1000}
                       {...register('calories')}
                     />
@@ -472,7 +479,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                       id="cholesterol"
                       type="text"
                       className="max-w-[4rem]"
-                      defaultValue="0"
+                      defaultValue={`${recipe.nutritions.cholesterol}`}
                       max={300}
                       {...register('cholesterol')}
                     />

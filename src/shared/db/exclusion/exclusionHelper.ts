@@ -1,6 +1,7 @@
 import { QueryData } from '@supabase/supabase-js'
 
 import { createClient } from '../supabase'
+import { Exclusion } from '../../model'
 
 export const createExclusion = async (user_id: string) => {
   const supabase = await createClient()
@@ -45,10 +46,8 @@ export const updateExclusion = async (
     .eq('user_id', user_id)
 
   if (error) {
-    console.log('exclusion update failed')
     return new Response('Invalid request', { status: 400 })
   }
 
-  console.log('exclusion update success')
   return new Response('OK', { status: 200 })
 }

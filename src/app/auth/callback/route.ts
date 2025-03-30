@@ -32,7 +32,6 @@ export async function GET(request: Request) {
               })
 
             if (insertError) {
-              console.error('Profile creation error:', insertError)
               return NextResponse.redirect(`${origin}/auth/auth-code-error`)
             }
           }

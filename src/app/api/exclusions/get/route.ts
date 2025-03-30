@@ -19,8 +19,7 @@ export async function GET(req: Request) {
       { exclusions: selectedExclusions?.list || [] },
       { status: 200 }
     )
-  } catch (error) {
-    console.error('Error fetching exclusions:', error)
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { FC, ForwardRefExoticComponent, SVGProps, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { PrimaryDiet } from '@/src/shared/model'
 
@@ -53,13 +54,20 @@ export const DietItemForm: FC<DietItemFormProps> = ({
       setIsLoading(true)
       const name = defaultDiet.name
       const list = defaultDiet.excludeList
+
       await axios.post('/api/diet/update', {
         user_id,
         name,
         list
       })
+
+      toast.success('Diet is updated successfully!')
+
       router.refresh()
-    } catch {
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
     } finally {
       setIsLoading(false)
     }

@@ -1,5 +1,6 @@
 import { QueryData } from '@supabase/supabase-js'
 
+import { PrimaryDiet } from '../../model'
 import { createClient } from '../supabase'
 
 export const getPrimaryDiet = async (user_id: string): Promise<PrimaryDiet> => {
@@ -34,10 +35,8 @@ export const updatePrimaryDiet = async (user_id: string, diet_type: string) => {
     .eq('user_id', user_id)
 
   if (error) {
-    console.log('primary diet update failed')
     return new Response('Invalid request', { status: 400 })
   }
 
-  console.log('primary diet update success')
   return new Response('OK', { status: 200 })
 }

@@ -24,8 +24,7 @@ export async function POST(req: Request) {
       { message: 'Primary diet updated' },
       { status: 200 }
     )
-  } catch (error) {
-    console.error('Error updating primary diet:', error)
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

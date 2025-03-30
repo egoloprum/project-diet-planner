@@ -11,9 +11,18 @@ import { Separator } from '@/src/shared/ui/separator'
 
 interface ProfileSettingsFormProps {
   user: User
+  profile: {
+    id: number
+    created_at: string
+    user_id: string
+    avatar_url: string
+  }
 }
 
-export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ user }) => {
+export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({
+  user,
+  profile
+}) => {
   const [isEditable, setIsEditable] = useState<boolean>(true)
 
   const onSubmit = (event: React.FormEvent) => {
@@ -46,7 +55,7 @@ export const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ user }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded-full"
-              src={'/pics/1.png'}
+              src={profile.avatar_url}
               alt="profile pic"
             />
           </div>

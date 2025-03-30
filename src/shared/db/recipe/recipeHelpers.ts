@@ -29,8 +29,7 @@ export const recipeSearch = async (
       pageSize,
       lastPage: Math.ceil((count || 0) / pageSize)
     }
-  } catch (error) {
-    console.error('Search error:', error)
+  } catch {
     return {
       recipes: [],
       total: 0,
@@ -73,8 +72,23 @@ export const recipeCreate = async (recipe: Omit<Recipe, 'recipe_id'>) => {
   const { data, error } = await supabase.from('recipe').insert(recipe).select()
 
   if (error) {
-    console.error('Database error:', error)
     throw new Error(`Failed to create recipe: ${error.message}`)
+  }
+
+  return data
+}
+
+export const recipeEdit = async (recipe: Recipe) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('recipe')
+    .update(recipe)
+    .eq('recipe_id', recipe.recipe_id)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to update recipe: ${error.message}`)
   }
 
   return data

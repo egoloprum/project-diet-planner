@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { recipeCreate } from '@/src/shared/db/recipe/recipeHelpers'
+import { recipeEdit } from '@/src/shared/db/recipe/recipeHelpers'
 import { Recipe } from '@/src/shared/model'
 
 export async function POST(req: Request) {
@@ -14,7 +14,8 @@ export async function POST(req: Request) {
       )
     }
 
-    const newRecipe: Omit<Recipe, 'recipe_id'> = {
+    const editRecipe: Recipe = {
+      recipe_id: body.recipe_id,
       food_name: body.foodName,
       prep_time: body.prepTime,
       cook_time: body.cookTime,
@@ -48,18 +49,17 @@ export async function POST(req: Request) {
       is_custom: true,
       user_id: body.userId
     }
-
-    const result = await recipeCreate(newRecipe)
+    const result = await recipeEdit(editRecipe)
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to create recipe' },
+        { error: 'Failed to edit recipe' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Recipe created successfully', data: result },
+      { message: 'Recipe edit successfully', data: result },
       { status: 201 }
     )
   } catch {

@@ -3,6 +3,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 import { ExclusionItemForm } from '@/src/features/exclusion-item-form'
 
@@ -28,8 +29,15 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({
           user_id,
           exclusions: selectItem
         })
+
+        toast.success('Successfully updated exclusions!')
+
         router.refresh()
-      } catch {}
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message)
+        }
+      }
     }
 
     if (selectItem !== selectedExclusions) {

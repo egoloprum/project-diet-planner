@@ -1,6 +1,7 @@
 'use client'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import {
   signInWithAnon,
@@ -28,13 +29,23 @@ export const LoginForm = ({}) => {
   const LoginGoogleHandler = async () => {
     try {
       await signInWithGoogle()
-    } catch {}
+      toast.success('Successfully signed in!')
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
   }
 
   const LoginAnonHandler = async () => {
     try {
       await signInWithAnon()
-    } catch {}
+      toast.success('Successfully signed in!')
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
   }
 
   return (

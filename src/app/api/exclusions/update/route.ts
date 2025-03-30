@@ -16,8 +16,7 @@ export async function POST(req: Request) {
 
     await updateExclusion(user_id, exclusions)
     return NextResponse.json({ message: 'Exclusions updated' }, { status: 200 })
-  } catch (error) {
-    console.error('Error updating exclusions:', error)
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

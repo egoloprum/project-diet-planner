@@ -2,6 +2,8 @@ import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 import { FC } from 'react'
 
+import { Recipe } from '@/src/shared/model'
+
 interface FoodDetailProps {
   recipe: Recipe
 }
@@ -29,7 +31,7 @@ export const FoodDetail: FC<FoodDetailProps> = ({ recipe }) => {
         </p>
         <p className="flex gap-2 justify-between text-sm sm:text-base">
           <span>Cook Time</span>
-          <span>{recipe?.prep_time || 0}</span>
+          <span>{recipe?.cook_time || 0}</span>
         </p>
       </div>
     </>
