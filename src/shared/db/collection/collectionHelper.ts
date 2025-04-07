@@ -3,9 +3,7 @@ import { QueryData } from '@supabase/supabase-js'
 import { Collection } from '../../model'
 import { createClient } from '../supabase'
 
-export const collectionCreate = async (
-  collection: Omit<Collection, 'collection_id'>
-) => {
+export const collectionCreate = async (collection: Omit<Collection, 'id'>) => {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('collection')

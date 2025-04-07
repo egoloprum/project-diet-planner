@@ -1,5 +1,6 @@
 import { FC } from 'react'
 
+import { CollectionCard } from '@/src/shared/components/collectionCard'
 import { Collection } from '@/src/shared/model'
 
 interface CollectionListProps {
@@ -8,12 +9,10 @@ interface CollectionListProps {
 
 export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
   return (
-    <div className={`py-4 gap-4 recipeList`}>
+    <div className={`py-4 gap-4 flex flex-wrap`}>
       {collectionData?.map((collection: Collection) => (
-        <div
-          key={collection.collection_id}
-          className="break-inside-avoid mb-4 min-w-[300px]">
-          {collection.name}
+        <div key={collection.id} className="mb-4">
+          <CollectionCard collection={collection} />
         </div>
       ))}
     </div>

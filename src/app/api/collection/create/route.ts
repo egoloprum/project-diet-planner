@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const newCollection: Omit<Collection, 'collection_id'> = {
+    const newCollection: Omit<Collection, 'id'> = {
       name: body.name,
       description: body.description,
       user_id: body.userId
