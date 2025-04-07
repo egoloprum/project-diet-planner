@@ -33,10 +33,13 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
     <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
       <section className="flex flex-col gap-4 md:col-start-1 md:col-end-2">
         <FoodDetail recipe={recipe} />
-        <div className="flex gap-4">
-          <RecipeEditModal userId={user.id} recipe={recipe} />
-          <RecipeDeleteModal recipeId={recipe.recipe_id} />
-        </div>
+
+        {user.id === recipe.user_id && (
+          <div className="flex gap-4">
+            <RecipeEditModal userId={user.id} recipe={recipe} />
+            <RecipeDeleteModal recipeId={recipe.recipe_id} />
+          </div>
+        )}
       </section>
       <section className=" flex flex-col gap-4 md:col-start-2 md:col-end-3">
         <FoodNutrition recipe={recipe} />
