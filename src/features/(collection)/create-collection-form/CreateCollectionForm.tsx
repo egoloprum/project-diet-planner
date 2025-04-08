@@ -91,42 +91,42 @@ export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
             <AlertDialogDescription>
               User can create any collection they want.
             </AlertDialogDescription>
-            <div className="flex flex-col gap-4">
-              <div>
-                <Label
-                  htmlFor="name"
-                  className={`${errors.name && 'text-red-500'}`}>
-                  Collection name
-                </Label>
-                <Input type="text" id="name" {...register('name')} />
-                {errors.name && (
-                  <span className="text-red-500 text-sm">
-                    {errors.name.message}
-                  </span>
-                )}
-              </div>
-              <div>
-                <Label
-                  htmlFor="description"
-                  className={`${errors.description && 'text-red-500'}`}>
-                  Collection description
-                </Label>
-                <Textarea id="description" {...register('description')} />
-                {errors.description && (
-                  <span className="text-red-500 text-sm">
-                    {errors.description.message}
-                  </span>
-                )}
-              </div>
-              <Separator />
-            </div>
           </AlertDialogHeader>
+          <div className="flex flex-col gap-4">
+            <div>
+              <Label
+                htmlFor="name"
+                className={`${errors.name && 'text-red-500'}`}>
+                Collection name
+              </Label>
+              <Input type="text" id="name" {...register('name')} />
+              {errors.name && (
+                <span className="text-red-500 text-sm">
+                  {errors.name.message}
+                </span>
+              )}
+            </div>
+            <div>
+              <Label
+                htmlFor="description"
+                className={`${errors.description && 'text-red-500'}`}>
+                Collection description
+              </Label>
+              <Textarea id="description" {...register('description')} />
+              {errors.description && (
+                <span className="text-red-500 text-sm">
+                  {errors.description.message}
+                </span>
+              )}
+            </div>
+            <Separator />
+          </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               type="submit"
               disabled={Object.keys(errors).length > 0}>
-              Create Collection
+              Continue
             </AlertDialogAction>
           </AlertDialogFooter>
         </form>

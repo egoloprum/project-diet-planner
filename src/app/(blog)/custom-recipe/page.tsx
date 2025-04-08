@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { CreateCustomRecipeForm } from '@/src/features/(blog)/create-custom-recipe-form'
+import { CreateCustomRecipeForm } from '@/src/features/(collection)/create-custom-recipe-form'
 import { recipeGetByUser } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
 import { RecipeList } from '@/src/widgets/(discover)/recipeList'

@@ -1,3 +1,5 @@
+import { CollectionDeleteModal } from '@/src/features/(collection)/collection-delete-modal'
+import { CollectionEditModal } from '@/src/features/(collection)/collection-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
 import { collectionGetById, recipeGetByCollection } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
@@ -29,12 +31,19 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
 
   return (
     <article className="flex gap-8 flex-col md:flex-row">
-      <section className="w-fit">
+      <section className="w-fit flex flex-col gap-4">
         <CollectionDetail
           collection={collection}
           userId={user.id}
           recipeCount={recipes?.length || 0}
         />
+
+        {user.id === collection.user_id && (
+          <div className="flex gap-4 flex-wrap sm:flex-nowrap">
+            <CollectionEditModal userId={user.id} collection={collection} />
+            <CollectionDeleteModal collectionId={collection.id} />
+          </div>
+        )}
       </section>
       <section className="w-full">
         <CollectionRecipe recipes={recipes} />

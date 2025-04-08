@@ -62,3 +62,36 @@ export const collectionAddRecipe = async (
 
   return data
 }
+
+export const collectionUpdate = async (collection: Collection) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('collection')
+    .update(collection)
+    .eq('id', collection.id)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to update collection: ${error.message}`)
+  }
+
+  return data
+}
+
+export const collectionDelete = async (collection_id: number) => {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('collection')
+    .delete()
+    .eq('id', collection_id)
+    .select('id')
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to delete collection: ${error.message}`)
+  }
+
+  return data
+}

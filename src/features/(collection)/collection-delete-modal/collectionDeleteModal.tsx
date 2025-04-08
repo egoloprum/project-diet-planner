@@ -18,28 +18,30 @@ import {
   Button
 } from '@/src/shared/ui'
 
-interface RecipeDeleteModalProps {
-  recipeId: number
+interface CollectionDeleteModalProps {
+  collectionId: number
 }
 
-export const RecipeDeleteModal: FC<RecipeDeleteModalProps> = ({ recipeId }) => {
+export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
+  collectionId
+}) => {
   const router = useRouter()
   const { toast } = useToast()
 
   const OnClick = async () => {
     try {
-      await axios.delete('/api/custom-recipe/delete', {
+      await axios.delete('/api/collection/delete', {
         data: {
-          recipeId: recipeId
+          collectionId: collectionId
         }
       })
 
       toast({
         variant: 'default',
-        title: 'Recipe is successfuly deleted!'
+        title: 'Collection is successfuly deleted!'
       })
 
-      router.push('/custom-recipe')
+      router.push('/collections')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast({
@@ -59,15 +61,15 @@ export const RecipeDeleteModal: FC<RecipeDeleteModalProps> = ({ recipeId }) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="w-full">
-          Delete Recipe
+          Delete Collection
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Recipe</AlertDialogTitle>
+            <AlertDialogTitle>Delete Collection</AlertDialogTitle>
             <AlertDialogDescription>
-              User can delete their custom recipe.
+              User can delete their collection.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

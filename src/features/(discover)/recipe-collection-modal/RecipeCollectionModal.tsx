@@ -106,6 +106,7 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <Separator />
+
           <Controller
             control={control}
             name="collections"
@@ -133,6 +134,7 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
               </ToggleGroup>
             )}
           />
+
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction type="submit">Save</AlertDialogAction>

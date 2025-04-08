@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { CreateCollectionForm } from '@/src/features/(blog)/create-collection-form'
+import { CreateCollectionForm } from '@/src/features/(collection)/create-collection-form'
 import { collectionGetByUser } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { CollectionList } from '@/src/widgets/(collection)/collectionList/'

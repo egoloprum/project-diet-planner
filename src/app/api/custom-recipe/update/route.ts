@@ -48,7 +48,7 @@ export async function PATCH(req: Request) {
 
       is_custom: true,
       user_id: body.userId,
-      collections: []
+      collections: body.collections
     }
     const result = await recipeUpdate(editRecipe)
 
