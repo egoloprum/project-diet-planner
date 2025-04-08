@@ -5,8 +5,8 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import { Recipe } from '@/src/shared/model'
 import {
   AlertDialog,
@@ -86,6 +86,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
   })
 
   const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
     try {
@@ -95,13 +96,24 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
         userId: userId
       })
 
-      toast.success('Recipe is edited successfully!')
+      toast({
+        variant: 'default',
+        title: 'Recipe is edited successfully!'
+      })
 
       router.refresh()
       reset()
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message)
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Edit failed!'
+        })
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred!'
+        })
       }
     }
   }

@@ -1,18 +1,26 @@
 'use client'
 
-import toast from 'react-hot-toast'
-
 import { signOut } from '@/src/shared/db/supabase/signin'
+import { useToast } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui/button'
 
 export const LogoutBtn = ({}) => {
+  const { toast } = useToast()
+
   const SignoutHandler = async () => {
     try {
       await signOut()
-      toast.success('Successfully signed out!')
+
+      toast({
+        variant: 'default',
+        title: 'Successfully signed out!'
+      })
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message)
+        toast({
+          variant: 'destructive',
+          title: error.message
+        })
       }
     }
   }

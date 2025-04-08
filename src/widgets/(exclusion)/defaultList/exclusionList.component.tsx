@@ -3,9 +3,9 @@
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 
 import { ExclusionItemForm } from '@/src/features/exclusion-item-form'
+import { useToast } from '@/src/shared/hooks'
 
 import { defaultExclusions } from './data'
 
@@ -21,6 +21,7 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({
   const [selectItem, setSelectItem] = useState<string[]>(selectedExclusions)
 
   const router = useRouter()
+  const { toast } = useToast()
 
   useEffect(() => {
     const updateExclusions = async () => {
@@ -30,12 +31,23 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({
           exclusions: selectItem
         })
 
-        toast.success('Successfully updated exclusions!')
+        toast({
+          variant: 'default',
+          title: 'Exclusion is updated successfully!'
+        })
 
         router.refresh()
       } catch (error) {
-        if (error instanceof Error) {
-          toast.error(error.message)
+        if (axios.isAxiosError(error)) {
+          toast({
+            variant: 'destructive',
+            title: error.response?.data?.error || 'Update failed!'
+          })
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'An unexpected error occurred!'
+          })
         }
       }
     }

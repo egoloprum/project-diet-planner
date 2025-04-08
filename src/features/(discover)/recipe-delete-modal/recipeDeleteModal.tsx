@@ -3,8 +3,8 @@
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,6 +24,7 @@ interface RecipeDeleteModalProps {
 
 export const RecipeDeleteModal: FC<RecipeDeleteModalProps> = ({ recipeId }) => {
   const router = useRouter()
+  const { toast } = useToast()
 
   const OnClick = async () => {
     try {
@@ -32,13 +33,24 @@ export const RecipeDeleteModal: FC<RecipeDeleteModalProps> = ({ recipeId }) => {
           recipeId: recipeId
         }
       })
-      toast.success('Recipe is deleted successfully!')
+
+      toast({
+        variant: 'default',
+        title: 'Recipe is successfuly deleted!'
+      })
+
       router.push('/custom-recipe')
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.error || 'Deletion failed')
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Deletion failed!'
+        })
       } else {
-        toast.error('An unexpected error occurred')
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred!'
+        })
       }
     }
   }

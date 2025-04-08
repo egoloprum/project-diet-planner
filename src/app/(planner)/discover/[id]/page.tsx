@@ -1,6 +1,8 @@
+import { RecipeCollectionModal } from '@/src/features/(discover)/recipe-collection-modal'
 import { RecipeDeleteModal } from '@/src/features/(discover)/recipe-delete-modal'
 import { RecipeEditModal } from '@/src/features/(discover)/recipe-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
+import { collectionGetByUser } from '@/src/shared/db'
 import { recipeGetById } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
 import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
@@ -29,10 +31,20 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
     return <NotFound href="/custom-recipe" />
   }
 
+  const collections = await collectionGetByUser(user.id)
+
   return (
     <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
       <section className="flex flex-col gap-4 md:col-start-1 md:col-end-2">
         <FoodDetail recipe={recipe} />
+
+        {collections && (
+          <RecipeCollectionModal
+            recipeCollections={recipe.collections}
+            recipeId={recipe.recipe_id}
+            collections={collections}
+          />
+        )}
 
         {user.id === recipe.user_id && (
           <div className="flex gap-4">

@@ -24,7 +24,7 @@ export const CollectionCard: FC<CollectionCardProps> = ({ collection }) => {
       <CardHeader>
         <CardTitle>
           <Link
-            href={`collection/${collection.id}`}
+            href={`collections/${collection.id}`}
             className="cursor-pointer hover:underline">
             {collection.name}
           </Link>

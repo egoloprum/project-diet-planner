@@ -1,12 +1,12 @@
 'use client'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
 import {
   signInWithAnon,
   signInWithGoogle
 } from '@/src/shared/db/supabase/signin'
+import { useToast } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui/button'
 import { Input } from '@/src/shared/ui/input'
 
@@ -25,14 +25,21 @@ export const LoginForm = ({}) => {
   } = useForm<LoginInput>()
 
   const onSubmit: SubmitHandler<LoginInput> = data => console.log(data)
+  const { toast } = useToast()
 
   const LoginGoogleHandler = async () => {
     try {
       await signInWithGoogle()
-      toast.success('Successfully signed in!')
+      toast({
+        variant: 'default',
+        title: 'Successfully signed in!'
+      })
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message)
+        toast({
+          variant: 'destructive',
+          title: error.message
+        })
       }
     }
   }
@@ -40,10 +47,16 @@ export const LoginForm = ({}) => {
   const LoginAnonHandler = async () => {
     try {
       await signInWithAnon()
-      toast.success('Successfully signed in!')
+      toast({
+        variant: 'default',
+        title: 'Successfully signed in!'
+      })
     } catch (error) {
       if (error instanceof Error) {
-        toast.error(error.message)
+        toast({
+          variant: 'destructive',
+          title: error.message
+        })
       }
     }
   }

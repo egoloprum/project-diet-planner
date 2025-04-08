@@ -13,8 +13,8 @@ import {
 import { useRouter } from 'next/navigation'
 import { FC, ForwardRefExoticComponent, SVGProps, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import { PrimaryDiet } from '@/src/shared/model'
 
 type DefaultDiet = {
@@ -47,6 +47,7 @@ export const DietItemForm: FC<DietItemFormProps> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<DietInput> = async () => {
     try {
@@ -60,12 +61,23 @@ export const DietItemForm: FC<DietItemFormProps> = ({
         list
       })
 
-      toast.success('Diet is updated successfully!')
+      toast({
+        variant: 'default',
+        title: 'Diet is updated successfully!'
+      })
 
       router.refresh()
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message)
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Update failed!'
+        })
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred!'
+        })
       }
     } finally {
       setIsLoading(false)

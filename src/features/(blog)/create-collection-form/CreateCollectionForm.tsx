@@ -5,8 +5,8 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,6 +47,7 @@ export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
   })
 
   const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<CreateCollectionData> = async data => {
     try {
@@ -55,15 +56,24 @@ export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
         userId: userId
       })
 
-      toast.success('Recipe is successfuly created!')
+      toast({
+        variant: 'default',
+        title: 'Collection is successfuly created!'
+      })
 
       router.refresh()
       reset()
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.error || 'Creating collection failed')
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Creating collection failed'
+        })
       } else {
-        toast.error('An unexpected error occurred')
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred'
+        })
       }
     }
   }

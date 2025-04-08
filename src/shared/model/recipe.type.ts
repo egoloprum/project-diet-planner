@@ -36,4 +36,5 @@ export interface Recipe {
 
   is_custom: boolean
   user_id: string
+  collections: number[]
 }

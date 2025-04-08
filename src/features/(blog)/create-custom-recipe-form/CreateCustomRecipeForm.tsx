@@ -5,8 +5,8 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -84,6 +84,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
   })
 
   const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<CreateCustomRecipeData> = async data => {
     try {
@@ -92,13 +93,24 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
         userId: userId
       })
 
-      toast.success('Recipe is successfuly created!')
+      toast({
+        variant: 'default',
+        title: 'Recipe is successfuly created!'
+      })
 
       router.refresh()
       reset()
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message)
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Creating recipe failed'
+        })
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred'
+        })
       }
     }
   }

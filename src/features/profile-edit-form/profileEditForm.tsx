@@ -7,8 +7,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { FC, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 
+import { useToast } from '@/src/shared/hooks'
 import { Profile } from '@/src/shared/model'
 import { Button } from '@/src/shared/ui/button'
 import { Input } from '@/src/shared/ui/input'
@@ -46,6 +46,7 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({
   })
 
   const router = useRouter()
+  const { toast } = useToast()
 
   const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
     try {
@@ -54,15 +55,24 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({
         userId: user.id
       })
 
-      toast.success('Recipe is edited successfully!')
+      toast({
+        variant: 'default',
+        title: 'Recipe is edited successfully!'
+      })
       setIsEditable(true)
 
       router.refresh()
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.error || 'Deletion failed')
+        toast({
+          variant: 'destructive',
+          title: error.response?.data?.error || 'Update failed!'
+        })
       } else {
-        toast.error('An unexpected error occurred')
+        toast({
+          variant: 'destructive',
+          title: 'An unexpected error occurred!'
+        })
       }
     }
   }

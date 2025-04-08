@@ -67,6 +67,38 @@ export const recipeGetByUser = async (user_id: string) => {
   return data as Recipe[]
 }
 
+export const recipeGetByCollection = async (collection_id: number) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('recipe')
+    .select('*')
+    .contains('collections', [collection_id])
+
+  if (error) {
+    return null
+  }
+  return data as Recipe[]
+}
+
+export const recipeAddToCollection = async (
+  recipe_id: string,
+  collections: number[]
+) => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('recipe')
+    .update({ collections: collections })
+    .eq('recipe_id', recipe_id)
+    .select()
+    .single()
+
+  if (error) {
+    throw new Error(`Failed to update recipe: ${error.message}`)
+  }
+
+  return data
+}
+
 export const recipeCreate = async (recipe: Omit<Recipe, 'recipe_id'>) => {
   const supabase = await createClient()
   const { data, error } = await supabase.from('recipe').insert(recipe).select()
