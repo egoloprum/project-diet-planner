@@ -1,7 +1,7 @@
 export interface NutritionRecipe {
   calories: number
   carbs: number
-  fat: number
+  fats: number
   fiber: number
   protein: number
   sugar: number

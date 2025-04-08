@@ -34,7 +34,7 @@ export async function PATCH(req: Request) {
       tag_cloud: body.tagCloud.join(' '),
 
       nutritions: {
-        fat: body.fats,
+        fats: body.fats,
         carbs: body.carbs,
         fiber: body.fiber,
         sugar: body.sugar,
@@ -47,7 +47,8 @@ export async function PATCH(req: Request) {
       ingredients: [],
 
       is_custom: true,
-      user_id: body.userId
+      user_id: body.userId,
+      collections: []
     }
     const result = await recipeUpdate(editRecipe)
 

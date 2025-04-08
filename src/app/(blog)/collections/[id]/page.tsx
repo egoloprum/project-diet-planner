@@ -28,15 +28,15 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   const recipes = await recipeGetByCollection(collection.id)
 
   return (
-    <article className="flex gap-8">
-      <section>
+    <article className="flex gap-8 flex-col md:flex-row">
+      <section className="w-fit">
         <CollectionDetail
           collection={collection}
           userId={user.id}
           recipeCount={recipes?.length || 0}
         />
       </section>
-      <section>
+      <section className="w-full">
         <CollectionRecipe recipes={recipes} />
       </section>
     </article>

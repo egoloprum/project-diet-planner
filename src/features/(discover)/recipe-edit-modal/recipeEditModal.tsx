@@ -121,7 +121,9 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Edit</Button>
+        <Button variant="outline" className="w-full">
+          Edit Recipe
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>

@@ -58,7 +58,9 @@ export const RecipeDeleteModal: FC<RecipeDeleteModalProps> = ({ recipeId }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Delete</Button>
+        <Button variant="outline" className="w-full">
+          Delete Recipe
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6">
