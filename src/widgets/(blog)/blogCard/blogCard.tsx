@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
+import { Blog } from '@/src/shared/model'
 import {
   Card,
   CardContent,
@@ -12,37 +13,34 @@ import {
   CardTitle
 } from '@/src/shared/ui/card'
 
-import { Collection } from '../../model'
-
-interface CollectionCardProps {
-  collection: Collection
+interface BlogCardProps {
+  blog: Blog
 }
 
-export const CollectionCard: FC<CollectionCardProps> = ({ collection }) => {
+export const BlogCard: FC<BlogCardProps> = ({ blog }) => {
   return (
     <Card className="max-w-[300px] w-full">
       <CardHeader>
         <CardTitle>
           <Link
-            href={`collections/${collection.id}`}
+            href={`blog/${blog.id}`}
             className="cursor-pointer hover:underline">
-            {collection.name}
+            {blog.name}
           </Link>
         </CardTitle>
         <CardDescription className="truncate">
-          {collection.description}
+          {blog.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative w-full overflow-hidden rounded-lg shadow-md pb-0 h-fit">
+      <CardContent className="relative w-full overflow-hidden rounded-lg shadow-md h-60">
         <Image
-          src={'/image_collection.jpg'}
+          src={'/image_blog.jpg'}
           className="transition-transform duration-300 ease-in-out transform hover:scale-105 object-cover"
-          width={200}
-          height={200}
+          fill
           loading="lazy"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={false}
-          alt={collection.name}
+          alt={blog.name}
         />
       </CardContent>
     </Card>

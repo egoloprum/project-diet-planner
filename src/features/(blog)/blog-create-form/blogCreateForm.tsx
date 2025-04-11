@@ -69,7 +69,6 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
 
   const onSubmit: SubmitHandler<BlogCreateData> = async data => {
     try {
-      console.log('data', data)
       await axios.post('/api/blog/create', {
         ...data,
         userId: userId
