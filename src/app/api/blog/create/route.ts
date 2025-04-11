@@ -1,37 +1,34 @@
 import { NextResponse } from 'next/server'
 
-import { collectionCreate } from '@/src/shared/db/collection/collectionHelper'
-import { Collection } from '@/src/shared/model'
+import { blogCreate } from '@/src/shared/db'
+import { Blog } from '@/src/shared/model'
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
 
     if (!body || Object.keys(body).length === 0) {
-      return NextResponse.json(
-        { error: 'Missing collection data' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Missing blog data' }, { status: 400 })
     }
 
-    const newCollection: Omit<Collection, 'id'> = {
+    const newBlog: Omit<Blog, 'id' | 'created_at'> = {
       name: body.name,
       description: body.description,
       user_id: body.userId,
-      recipes: []
+      list: body.list
     }
 
-    const result = await collectionCreate(newCollection)
+    const result = await blogCreate(newBlog)
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to create collection' },
+        { error: 'Failed to create blog' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Collection created successfully', data: result },
+      { message: 'Blog created successfully', data: result },
       { status: 201 }
     )
   } catch {

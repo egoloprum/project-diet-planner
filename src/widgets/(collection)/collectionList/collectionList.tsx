@@ -11,7 +11,7 @@ export const CollectionList: FC<CollectionListProps> = ({ collectionData }) => {
   return (
     <div className={`py-4 gap-4 flex flex-wrap`}>
       {collectionData?.map((collection: Collection) => (
-        <div key={collection.id} className="mb-4">
+        <div key={collection.id} className="mb-4 max-w-[300px] w-full">
           <CollectionCard collection={collection} />
         </div>
       ))}

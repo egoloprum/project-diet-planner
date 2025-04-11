@@ -20,7 +20,7 @@ interface CollectionCardProps {
 
 export const CollectionCard: FC<CollectionCardProps> = ({ collection }) => {
   return (
-    <Card>
+    <Card className="max-w-[300px] w-full">
       <CardHeader>
         <CardTitle>
           <Link
@@ -29,7 +29,9 @@ export const CollectionCard: FC<CollectionCardProps> = ({ collection }) => {
             {collection.name}
           </Link>
         </CardTitle>
-        <CardDescription>{collection.description}</CardDescription>
+        <CardDescription className="truncate">
+          {collection.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="relative w-full overflow-hidden rounded-lg shadow-md pb-0 h-fit">
         <Image
