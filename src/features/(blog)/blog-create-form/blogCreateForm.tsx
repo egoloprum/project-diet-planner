@@ -43,6 +43,7 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
     handleSubmit,
     reset,
     control,
+    setError,
     formState: { errors }
   } = useForm<BlogCreateData>({
     resolver: zodResolver(blogValidator),
@@ -67,7 +68,40 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
   const router = useRouter()
   const { toast } = useToast()
 
+  const checkRecipeExists = async (recipeId: number) => {
+    try {
+      const response = await axios.get('/api/recipe/get', {
+        params: { id: recipeId }
+      })
+      return response.status === 200
+    } catch (error) {
+      return false
+    }
+  }
+
   const onSubmit: SubmitHandler<BlogCreateData> = async data => {
+    if (!data || !data.list) {
+      return
+    }
+
+    const recipeChecks = await Promise.all(
+      data.list.map(item => checkRecipeExists(item.recipe_id))
+    )
+
+    const invalidRecipes = recipeChecks
+      .map((exists, index) => (!exists ? index : null))
+      .filter(index => index !== null) as number[]
+
+    if (invalidRecipes.length > 0) {
+      invalidRecipes.forEach(index => {
+        setError(`list.${index}.recipe_id`, {
+          type: 'manual',
+          message: 'Recipe not found'
+        })
+      })
+      return
+    }
+
     try {
       await axios.post('/api/blog/create', {
         ...data,
@@ -76,7 +110,7 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
 
       toast({
         variant: 'default',
-        title: 'Blog is successfuly created!'
+        title: 'Blog is successfully created!'
       })
 
       router.refresh()
@@ -221,7 +255,7 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
                           })}
                         />
                         {errors.list?.[index]?.recipe_id && (
-                          <span className="text-red-500">
+                          <span className="text-red-500 text-sm">
                             {errors.list?.[index]?.recipe_id?.message}
                           </span>
                         )}

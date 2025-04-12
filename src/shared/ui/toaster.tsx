@@ -1,3 +1,5 @@
+'use client'
+
 import { useToast } from '@/src/shared/hooks/use-toast'
 import {
   Toast,
