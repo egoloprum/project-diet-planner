@@ -518,7 +518,9 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
             </fieldset>
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => reset()}>
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
               disabled={Object.keys(errors).length > 0}>

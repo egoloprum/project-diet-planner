@@ -37,7 +37,7 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
   recipeId,
   collections
 }) => {
-  const { handleSubmit, control } = useForm<RecipeCollectionData>({
+  const { handleSubmit, control, reset } = useForm<RecipeCollectionData>({
     defaultValues: {
       collections: recipeCollections.map(String)
     }
@@ -136,7 +136,9 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
           />
 
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel onClick={() => reset()}>
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction type="submit">Save</AlertDialogAction>
           </AlertDialogFooter>
         </form>

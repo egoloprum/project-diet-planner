@@ -40,7 +40,6 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
       </section>
       <section className="w-full">
         <BlogItems blog={blog} />
-        {/* <CollectionRecipe recipes={recipes} /> */}
       </section>
     </article>
   )

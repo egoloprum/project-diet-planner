@@ -88,7 +88,7 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
       />
       <div className="flex flex-col gap-2">
         <p className="font-medium">{recipe.food_name}</p>
-        <p className="flex flex-col sm:flex-row gap-1 md:gap-4 text-gray-500 text-sm">
+        <p className="flex flex-row flex-wrap gap-1 md:gap-4 text-gray-500 text-sm">
           <span>cal: {recipe.nutritions.calories}</span>
           <span>carbs: {recipe.nutritions.carbs}g</span>
           <span>fats: {recipe.nutritions.fats}g</span>
