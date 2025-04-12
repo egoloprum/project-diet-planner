@@ -72,3 +72,18 @@ export const blogGetById = async (id: number) => {
   }
   return data as Blog
 }
+
+export const blogGetByOthers = async (userId: string) => {
+  const supabase = await createClient()
+  const { data, error } = (await supabase
+    .from('blog')
+    .select('*')
+    .neq('user_id', userId)
+    .limit(10)) as QueryData<{ data: Blog[] }>
+
+  if (error) {
+    return null
+  }
+
+  return data as Blog[]
+}

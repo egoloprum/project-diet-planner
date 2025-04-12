@@ -4,7 +4,7 @@ import { User } from '@supabase/supabase-js'
 import { FC, useState } from 'react'
 
 import { Button } from '@/src/shared/ui/button'
-import { Calendar } from '@/src/shared/ui/calendar'
+// import { Calendar } from '@/src/shared/ui/calendar'
 import { Input } from '@/src/shared/ui/input'
 import { Label } from '@/src/shared/ui/label'
 
@@ -41,14 +41,14 @@ export const WeightTracker: FC<WeightTrackerProps> = ({ user }) => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <Calendar
+            {/* <Calendar
               mode="single"
               selected={date}
               onSelect={setDate}
               fromDate={minDate}
               toDate={maxDate}
               className="rounded-md border"
-            />
+            /> */}
           </div>
         </div>
       </div>

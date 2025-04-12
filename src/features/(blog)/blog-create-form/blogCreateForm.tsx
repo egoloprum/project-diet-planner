@@ -74,7 +74,7 @@ export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
         params: { id: recipeId }
       })
       return response.status === 200
-    } catch (error) {
+    } catch {
       return false
     }
   }

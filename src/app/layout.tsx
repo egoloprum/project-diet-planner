@@ -4,6 +4,7 @@ import './globals.css'
 
 import { createClient } from '@/src/shared/db/supabase'
 import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
+
 import { Toaster } from '../shared/ui'
 
 const montserrat = Montserrat({
