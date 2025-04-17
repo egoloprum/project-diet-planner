@@ -56,26 +56,36 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
         const isSelected = data.collections.includes(String(collection.id))
         const recipeExists = collection.recipes.includes(recipeId)
 
+        console.log('collection.id', collection.id, isSelected)
+        console.log('recipeId', recipeId, recipeExists)
+
         if (isSelected) {
           if (!recipeExists) {
             axios.patch('/api/collection/add-recipe', {
               collection_id: collection.id,
               recipes: [...collection.recipes, recipeId]
             })
-          }
-        } else {
-          if (!recipeExists) {
-            axios.patch('/api/collection/add-recipe', {
-              collection_id: collection.id,
-              recipes: collection.recipes.filter(id => id !== recipeId)
+
+            console.log('added')
+
+            toast({
+              variant: 'default',
+              title: 'Recipe is successfuly added to collection!'
             })
           }
-        }
-      })
+        } else {
+          axios.patch('/api/collection/add-recipe', {
+            collection_id: collection.id,
+            recipes: collection.recipes.filter(id => id !== recipeId)
+          })
 
-      toast({
-        variant: 'default',
-        title: 'Recipe is successfuly added to collection!'
+          console.log('removed', collection.recipes, recipeId)
+
+          toast({
+            variant: 'default',
+            title: 'Recipe is successfuly removed from collection!'
+          })
+        }
       })
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -123,7 +133,8 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
                       <ToggleGroupItem
                         value={`${collection.id}`}
                         variant="outline"
-                        aria-label="Toggle collection">
+                        aria-label="Toggle collection"
+                        type="submit">
                         Add to
                       </ToggleGroupItem>
                       <p>{collection.name}</p>
