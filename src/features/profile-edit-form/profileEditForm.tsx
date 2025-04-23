@@ -91,7 +91,7 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({
 
   return (
     <div>
-      <h1 className="bold text-2xl">Profile Settings</h1>
+      <h1 className="font-bold text-2xl">Profile Settings</h1>
       <Separator className="my-4" />
 
       <div className="flex flex-1 flex-wrap justify-between items-center gap-4">

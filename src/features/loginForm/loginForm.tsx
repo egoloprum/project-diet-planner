@@ -30,10 +30,6 @@ export const LoginForm = ({}) => {
   const LoginGoogleHandler = async () => {
     try {
       await signInWithGoogle()
-      toast({
-        variant: 'default',
-        title: 'Successfully signed in!'
-      })
     } catch (error) {
       if (error instanceof Error) {
         toast({

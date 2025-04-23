@@ -1,0 +1,79 @@
+import { NotFound } from '@/src/shared/components/notFound'
+import { createClient } from '@/src/shared/db/supabase'
+import Image from 'next/image'
+import { FC } from 'react'
+
+interface pageProps {}
+
+const page: FC<pageProps> = async ({}) => {
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
+
+  const user = data.user
+
+  if (!user) {
+    return <NotFound href="/login" />
+  }
+
+  return (
+    <div className="h-[calc(100vh-150px)] flex justify-center items-center">
+      <div className="max-w-[600px] flex flex-col gap-4">
+        <div className="">
+          <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
+            Set up your account
+          </h1>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Let's get started setting up your account! We'll need to know a
+            little bit about you to make food recommendations.
+          </p>
+        </div>
+        <ul className="w-full flex flex-col gap-4">
+          <li className="flex gap-4 items-center border-b-2 pb-2">
+            <Image
+              src="/your-diet.webp"
+              height={100}
+              width={100}
+              alt="your diet"
+            />
+            <div className="flex flex-col">
+              <p className="text-sm sm:text-base font-bold">Your diet</p>
+              <span className="text-gray-500 text-sm sm:text-base">
+                Enter dietary restrictions or allergies
+              </span>
+            </div>
+          </li>
+          <li className="flex gap-4 items-center border-b-2 pb-2">
+            <Image
+              src="/about-you.webp"
+              height={100}
+              width={100}
+              alt="about you"
+            />
+            <div className="flex flex-col">
+              <p className="text-sm sm:text-base font-bold">About you</p>
+              <span className="text-gray-500 text-sm sm:text-base">
+                Your height, weight, and future goals
+              </span>
+            </div>
+          </li>
+          <li className="flex gap-4 items-center">
+            <Image
+              src="/your-meals.webp"
+              height={100}
+              width={100}
+              alt="your meals"
+            />
+            <div className="flex flex-col">
+              <p className="text-sm sm:text-base font-bold">Your meals</p>
+              <span className="text-gray-500 text-sm sm:text-base">
+                The meals you eat in a day and your favorite dishes
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+export default page

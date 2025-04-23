@@ -5,4 +5,5 @@ export interface Profile {
   avatar_url: string
   password: string
   user_id: string
+  is_setup: boolean
 }
