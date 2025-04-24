@@ -21,7 +21,7 @@ const page = async ({}) => {
   const blogsByOthers = await blogGetByOthers(user.id)
 
   return (
-    <div className="min-h-[calc(100vh-200px)]">
+    <div className="min-h-[calc(100vh-185.5px)]">
       <BlogCreateForm userId={user.id} />
 
       <p className="text-lg font-bold">Blog by You</p>

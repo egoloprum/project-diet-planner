@@ -1,1 +1,1 @@
-export * from './exclusionItemForm.component'
+export * from './exclusionItemForm'

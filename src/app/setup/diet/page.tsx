@@ -18,7 +18,7 @@ const page = async ({}) => {
   const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
+    <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
       <Image
         src="/setup/setup-diet.webp"
         height={250}
