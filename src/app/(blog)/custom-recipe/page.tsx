@@ -17,7 +17,7 @@ const page = async ({}) => {
   const recipes = await recipeGetByUser(user.id)
 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-200px)]">
       <CreateCustomRecipeForm userId={user.id} />
       <RecipeList recipeData={recipes} />
     </div>

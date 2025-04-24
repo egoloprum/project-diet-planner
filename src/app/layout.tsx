@@ -6,6 +6,8 @@ import { createClient } from '@/src/shared/db/supabase'
 import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
 
 import { Toaster } from '../shared/ui'
+import { SetupProgress } from '../features/setup-progress'
+import { getProfile } from '../shared/db/profile/profileHelper'
 
 const montserrat = Montserrat({
   weight: '500',
@@ -25,6 +27,8 @@ export default async function RootLayout({
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
+  const profile = await getProfile(data.user?.id || '')
+
   return (
     <html lang="en">
       <body className={`${montserrat.className} antialiased`}>
@@ -33,6 +37,7 @@ export default async function RootLayout({
         </div>
         <main className="min-h-[calc(100vh-120x)] my-6">{children}</main>
         <Toaster />
+        {!profile?.is_setup && <SetupProgress />}
       </body>
     </html>
   )

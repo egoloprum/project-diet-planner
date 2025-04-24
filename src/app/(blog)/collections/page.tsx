@@ -17,7 +17,7 @@ const page = async ({}) => {
   const collections = await collectionGetByUser(user.id)
 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-200px)]">
       <CreateCollectionForm userId={user.id} />
       <CollectionList collectionData={collections} />
     </div>

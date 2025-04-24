@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { getPrimaryDiet } from '@/src/shared/db/diet/dietHelper'
 import { createClient } from '@/src/shared/db/supabase'
 import { DietList } from '@/src/widgets/(diet)'
+import { PrimaryDiet } from '@/src/shared/model'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -17,7 +18,7 @@ const page = async ({}) => {
   const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 min-h-[calc(100vh-200px)]">
       <menu>
         <h1 className="font-bold text-lg sm:text-xl md:text-2xl">
           Primary Diet

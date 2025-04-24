@@ -16,7 +16,7 @@ const page: FC<pageProps> = async ({}) => {
   }
 
   return (
-    <div className="h-[calc(100vh-150px)] flex justify-center items-center">
+    <div className="h-[calc(100vh-200px)] flex justify-center items-center overflow-auto">
       <div className="max-w-[600px] flex flex-col gap-4">
         <div className="">
           <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">

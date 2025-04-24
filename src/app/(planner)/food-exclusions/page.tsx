@@ -17,7 +17,7 @@ const page = async ({}) => {
   const selectedExclusions = await getExclusion(user_id)
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 min-h-[calc(100vh-200px)]">
       <menu>
         <h1 className="font-bold text-lg sm:text-xl md:text-2xl">
           Food Exclusion

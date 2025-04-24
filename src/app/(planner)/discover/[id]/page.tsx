@@ -34,7 +34,7 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   const collections = await collectionGetByUser(user.id)
 
   return (
-    <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <article className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 min-h-[calc(100vh-200px)]">
       <section className="flex flex-col gap-4 md:col-start-1 md:col-end-2">
         <FoodDetail recipe={recipe} />
 

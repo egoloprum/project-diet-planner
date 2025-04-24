@@ -27,7 +27,7 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   }
 
   return (
-    <article className="flex gap-8 flex-col md:flex-row">
+    <article className="flex gap-8 flex-col md:flex-row min-h-[calc(100vh-200px)]">
       <section className="w-fit flex flex-col gap-4">
         <BlogDetail blog={blog} userId={user.id} />
 

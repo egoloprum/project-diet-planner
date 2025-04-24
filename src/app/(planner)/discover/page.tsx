@@ -28,7 +28,7 @@ const page = async ({
   }
 
   return (
-    <>
+    <div className="min-h-[calc(100vh-200px)]">
       <DiscoverSearchBar />
       <RecipeList recipeData={recipeData?.recipes || []} />
 
@@ -39,7 +39,7 @@ const page = async ({
           query={query}
         />
       )}
-    </>
+    </div>
   )
 }
 
