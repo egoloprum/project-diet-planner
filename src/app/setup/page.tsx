@@ -1,11 +1,9 @@
+import Image from 'next/image'
+
 import { NotFound } from '@/src/shared/components/notFound'
 import { createClient } from '@/src/shared/db/supabase'
-import Image from 'next/image'
-import { FC } from 'react'
 
-interface pageProps {}
-
-const page: FC<pageProps> = async ({}) => {
+const page = async ({}) => {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
@@ -16,15 +14,15 @@ const page: FC<pageProps> = async ({}) => {
   }
 
   return (
-    <div className="h-[calc(100vh-200px)] flex justify-center items-center overflow-auto">
+    <div className="min-h-[calc(100vh-200px)] flex justify-center items-center overflow-auto">
       <div className="max-w-[600px] flex flex-col gap-4">
-        <div className="">
+        <div>
           <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
             Set up your account
           </h1>
           <p className="text-gray-500 text-sm sm:text-base">
-            Let's get started setting up your account! We'll need to know a
-            little bit about you to make food recommendations.
+            Let&apos;s get started setting up your account! We&apos;ll need to
+            know a little bit about you to make food recommendations.
           </p>
         </div>
         <ul className="w-full flex flex-col gap-4">

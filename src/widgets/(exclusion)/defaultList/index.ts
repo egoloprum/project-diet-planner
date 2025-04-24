@@ -1,1 +1,1 @@
-export * from './exclusionList.component'
+export * from './exclusionList'

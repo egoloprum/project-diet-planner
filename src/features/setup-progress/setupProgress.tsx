@@ -1,11 +1,9 @@
 'use client'
 
-import { Button } from '@/src/shared/ui'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
-import { FC } from 'react'
 
-interface SetupProgressProps {}
+import { Button } from '@/src/shared/ui'
 
 // profile is path where height, weight, sex and activity level are added
 
@@ -25,7 +23,7 @@ const paths = [
   'meals'
 ]
 
-export const SetupProgress: FC<SetupProgressProps> = ({}) => {
+export const SetupProgress = ({}) => {
   const pathname = usePathname()
   const router = useRouter()
 

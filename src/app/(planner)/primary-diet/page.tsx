@@ -3,8 +3,8 @@ import { redirect } from 'next/navigation'
 
 import { getPrimaryDiet } from '@/src/shared/db/diet/dietHelper'
 import { createClient } from '@/src/shared/db/supabase'
-import { DietList } from '@/src/widgets/(diet)'
 import { PrimaryDiet } from '@/src/shared/model'
+import { DietList } from '@/src/widgets/(diet)'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -35,7 +35,11 @@ const page = async ({}) => {
         </p>
       </menu>
 
-      <DietList selectedDiet={selectedDiet} user_id={user_id} />
+      <DietList
+        selectedDiet={selectedDiet}
+        user_id={user_id}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 grid-auto-rows-fr"
+      />
     </div>
   )
 }

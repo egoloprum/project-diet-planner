@@ -56,17 +56,12 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
         const isSelected = data.collections.includes(String(collection.id))
         const recipeExists = collection.recipes.includes(recipeId)
 
-        console.log('collection.id', collection.id, isSelected)
-        console.log('recipeId', recipeId, recipeExists)
-
         if (isSelected) {
           if (!recipeExists) {
             axios.patch('/api/collection/add-recipe', {
               collection_id: collection.id,
               recipes: [...collection.recipes, recipeId]
             })
-
-            console.log('added')
 
             toast({
               variant: 'default',
@@ -78,8 +73,6 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
             collection_id: collection.id,
             recipes: collection.recipes.filter(id => id !== recipeId)
           })
-
-          console.log('removed', collection.recipes, recipeId)
 
           toast({
             variant: 'default',

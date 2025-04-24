@@ -1,1 +1,1 @@
-export * from './dietItemForm.component'
+export * from './dietItemForm'

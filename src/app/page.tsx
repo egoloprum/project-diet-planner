@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/src/shared/db/supabase'
+
 import { getProfile } from '../shared/db/profile/profileHelper'
 
 export default async function Home() {

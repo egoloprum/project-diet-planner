@@ -1,1 +1,1 @@
-export * from './dietList.component'
+export * from './dietList'
