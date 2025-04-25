@@ -1,1 +1,1 @@
-export * from './discoverPagination.component'
+export * from './discoverPagination'

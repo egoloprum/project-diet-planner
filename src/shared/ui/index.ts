@@ -20,3 +20,5 @@ export * from './toggle'
 
 export * from './toast'
 export * from './toaster'
+
+export * from './select'

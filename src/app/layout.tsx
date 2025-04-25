@@ -35,7 +35,9 @@ export default async function RootLayout({
         <div className="border-b flex justify-center ">
           {data.user ? <AuthNavbar /> : <Navbar />}
         </div>
-        <main className="min-h-[calc(100vh-120x)] my-6">{children}</main>
+        <main className="min-h-[calc(100vh-120x)] my-6 px-4 sm:px-8">
+          {children}
+        </main>
         <Toaster />
         {!profile?.is_setup && <SetupProgress />}
       </body>
