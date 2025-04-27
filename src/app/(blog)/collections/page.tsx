@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { CreateCollectionForm } from '@/src/features/(collection)/create-collection-form'
+import { CollectionCreateModal } from '@/src/features/(collection)/collection-create-modal'
 import { collectionGetByUser } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { CollectionList } from '@/src/widgets/(collection)/collectionList/'
@@ -18,7 +18,7 @@ const page = async ({}) => {
 
   return (
     <div className="min-h-[calc(100vh-200px)]">
-      <CreateCollectionForm userId={user.id} />
+      <CollectionCreateModal userId={user.id} />
       <CollectionList collectionData={collections} />
     </div>
   )

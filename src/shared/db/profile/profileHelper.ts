@@ -2,38 +2,158 @@ import { Profile } from '@/src/shared/model'
 
 import { createClient } from '../supabase'
 
-export const getProfile = async (user_id: string): Promise<Profile | null> => {
-  const supabase = await createClient()
+export const getProfile = async (userId: string): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
 
+  const supabase = await createClient()
   const { data: profileData, error } = await supabase
     .from('profile')
     .select('*')
-    .eq('user_id', user_id)
+    .eq('user_id', userId)
     .single()
 
   if (error) {
-    throw new Error(`Failed to fetch profile: ${error.message}`)
+    return null
+  }
+
+  return profileData
+}
+
+export const createProfile = async (userId: string) => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data: profileData, error } = await supabase
+    .from('profile')
+    .insert({
+      user_id: userId,
+      avatar_url: `/pics/${Math.floor(Math.random() * (24 - 1 + 1)) + 1}.png`
+    })
+    .select()
+    .single()
+
+  if (error) {
+    return null
   }
 
   return profileData
 }
 
 export const updateProfile = async (
-  user_id: string,
+  userId: string,
   profile: Omit<Profile, 'avatar_url' | 'id' | 'user_id'>
 ): Promise<Profile | null> => {
-  const supabase = await createClient()
+  if (!userId) {
+    return null
+  }
 
+  const supabase = await createClient()
   const { data: profileData, error } = await supabase
     .from('profile')
     .update(profile)
-    .eq('user_id', user_id)
+    .eq('user_id', userId)
     .select()
     .single()
 
   if (error) {
-    throw new Error(`Failed to update profile: ${error.message}`)
+    return null
   }
 
   return profileData
+}
+
+export const setGender = async (
+  userId: string,
+  gender: string
+): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({ gender: gender })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}
+
+export const setAge = async (
+  userId: string,
+  age: number
+): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({ age: age })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}
+
+export const setHeight = async (
+  userId: string,
+  height: number
+): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({ height: height })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}
+
+export const setActivityLevel = async (
+  userId: string,
+  activityLevel: number
+): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({ activity_level: activityLevel })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
 }

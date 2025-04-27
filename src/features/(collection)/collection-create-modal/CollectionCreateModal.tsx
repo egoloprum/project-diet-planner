@@ -22,16 +22,16 @@ import { Button, Input, Label, Separator, Textarea } from '@/src/shared/ui'
 
 import { CollectionValidator } from './lib/validations'
 
-interface CreateCollectionFormProps {
+interface CollectionCreateModalProps {
   userId: string
 }
 
-type CreateCollectionData = {
+type CollectionCreateData = {
   name: string
   description: string | null
 }
 
-export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
+export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
   userId
 }) => {
   const {
@@ -39,7 +39,7 @@ export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<CreateCollectionData>({
+  } = useForm<CollectionCreateData>({
     resolver: zodResolver(CollectionValidator),
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -49,7 +49,7 @@ export const CreateCollectionForm: FC<CreateCollectionFormProps> = ({
   const router = useRouter()
   const { toast } = useToast()
 
-  const onSubmit: SubmitHandler<CreateCollectionData> = async data => {
+  const onSubmit: SubmitHandler<CollectionCreateData> = async data => {
     try {
       await axios.post('/api/collection/create', {
         ...data,

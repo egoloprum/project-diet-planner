@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { LogoutBtn } from '@/src/features/logoutBtn'
+import { LogoutBtn } from '@/src/features/logout-btn'
 
 import {
   ListItem,

@@ -5,5 +5,10 @@ export interface Profile {
   avatar_url: string
   password: string
   user_id: string
+
   is_setup: boolean
+  gender: 'male' | 'female'
+  age: number
+  height: number
+  activity_level: number
 }

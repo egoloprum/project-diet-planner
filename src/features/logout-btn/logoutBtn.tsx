@@ -15,14 +15,7 @@ export const LogoutBtn = ({}) => {
         variant: 'default',
         title: 'Successfully signed out!'
       })
-    } catch (error) {
-      if (error instanceof Error) {
-        toast({
-          variant: 'destructive',
-          title: error.message
-        })
-      }
-    }
+    } catch {}
   }
 
   return (

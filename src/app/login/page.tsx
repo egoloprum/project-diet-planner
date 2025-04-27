@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { LoginForm } from '@/src/features/loginForm'
+import { LoginForm } from '@/src/features/login-form'
 import { createClient } from '@/src/shared/db/supabase'
 
 const page = async ({}) => {

@@ -1,2 +1,2 @@
-export { Navbar } from './navbar.component'
-export { AuthNavbar } from './authNavbar.component'
+export { Navbar } from './navbar'
+export { AuthNavbar } from './authNavbar'

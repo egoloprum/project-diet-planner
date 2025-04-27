@@ -23,7 +23,7 @@ import { Button, Input, Label, Separator, Textarea } from '@/src/shared/ui'
 
 import { blogValidator } from './lib/validations'
 
-interface BlogCreateFormProps {
+interface BlogCreateModalProps {
   userId: string
 }
 
@@ -37,7 +37,7 @@ type BlogCreateData = {
   }[]
 }
 
-export const BlogCreateForm: FC<BlogCreateFormProps> = ({ userId }) => {
+export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
   const {
     register,
     handleSubmit,

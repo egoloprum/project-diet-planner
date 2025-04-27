@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { BlogCreateForm } from '@/src/features/(blog)/blog-create-form'
+import { BlogCreateModal } from '@/src/features/(blog)/blog-create-modal'
 import { blogGetByOthers, blogGetByUser } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { BlogByOthers } from '@/src/widgets/(blog)/blogByOthers'
@@ -22,7 +22,7 @@ const page = async ({}) => {
 
   return (
     <div className="min-h-[calc(100vh-185.5px)]">
-      <BlogCreateForm userId={user.id} />
+      <BlogCreateModal userId={user.id} />
 
       <p className="text-lg font-bold">Blog by You</p>
 

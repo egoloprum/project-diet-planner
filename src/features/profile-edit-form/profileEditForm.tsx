@@ -50,7 +50,7 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({
 
   const onSubmit: SubmitHandler<RecipeEditModalData> = async data => {
     try {
-      await axios.patch('/api/profile-settings/update', {
+      await axios.patch('/api/profile/update', {
         ...data,
         userId: user.id
       })

@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server'
 
+import {
+  createProfile,
+  createWeightTracker,
+  getProfile,
+  getWeightByDate
+} from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
+import { getTodayDate } from '@/src/shared/lib'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
@@ -15,27 +22,38 @@ export async function GET(request: Request) {
         data: { user }
       } = await supabase.auth.getUser()
 
-      if (user) {
-        try {
-          const { error: profileError } = await supabase
-            .from('profile')
-            .select('id')
-            .eq('user_id', user.id)
-            .single()
+      if (!user) {
+        return NextResponse.redirect(`${origin}/auth/login`)
+      }
 
-          if (profileError) {
-            const { error: insertError } = await supabase
-              .from('profile')
-              .insert({
-                user_id: user.id,
-                avatar_url: `/pics/${Math.floor(Math.random() * (24 - 1 + 1)) + 1}.png`
-              })
+      try {
+        const profile = await getProfile(user.id)
+        if (profile) {
+          return NextResponse.redirect(
+            profile.is_setup ? `${origin}${next}` : `${origin}/setup`
+          )
+        }
 
-            if (insertError) {
-              return NextResponse.redirect(`${origin}/auth/auth-code-error`)
-            }
-          }
-        } catch {}
+        const newProfile = await createProfile(user.id)
+
+        if (!newProfile) {
+          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+        }
+
+        const today = getTodayDate()
+        const weightTracker = await getWeightByDate(user.id, today)
+
+        if (weightTracker) {
+          return NextResponse.redirect(`${origin}${next}`)
+        }
+
+        const newWeightTracker = await createWeightTracker(user.id, today)
+
+        if (!newWeightTracker) {
+          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+        }
+      } catch {
+        return NextResponse.redirect(`${origin}/auth/auth-code-error`)
       }
 
       const forwardedHost = request.headers.get('x-forwarded-host')
