@@ -13,4 +13,9 @@ export interface Profile {
   activity_level: number
 
   goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
+
+  calories: number
+  fats: number
+  carbs: number
+  protein: number
 }
