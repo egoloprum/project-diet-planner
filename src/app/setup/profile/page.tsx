@@ -38,7 +38,7 @@ const page = async ({}) => {
         alt="setup-profile"
       />
       <div className="max-w-[600px] flex flex-col gap-4">
-        <div>
+        <section>
           <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
             Tell us about yourself
           </h1>
@@ -46,7 +46,7 @@ const page = async ({}) => {
             This information lets us estimate your nutrition requirements for
             each day.
           </p>
-        </div>
+        </section>
 
         <GenderForm userId={user_id} gender={profile.gender} />
         <AgeForm userId={user_id} age={profile.age} />

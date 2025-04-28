@@ -11,4 +11,6 @@ export interface Profile {
   age: number
   height: number
   activity_level: number
+
+  goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
 }

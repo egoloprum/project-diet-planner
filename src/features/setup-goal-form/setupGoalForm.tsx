@@ -10,50 +10,50 @@ import { z } from 'zod'
 import { useToast } from '@/src/shared/hooks'
 import { Button, Label } from '@/src/shared/ui'
 
-interface GenderFormProps {
+interface SetupGoalFormProps {
   userId: string
-  gender: 'male' | 'female'
+  goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
 }
 
-type GenderFormData = {
-  gender: 'male' | 'female'
+type SetupGoalData = {
+  goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
 }
 
-export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
+export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
   const {
     handleSubmit,
     setValue,
     formState: { errors }
-  } = useForm<GenderFormData>({
+  } = useForm<SetupGoalData>({
     resolver: zodResolver(
       z.object({
-        gender: z.enum(['male', 'female'])
+        goal: z.enum(['Lose fat', 'Maintain weight', 'Build muscle'])
       })
     ),
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      gender: gender
+      goal: goal
     }
   })
 
   const router = useRouter()
   const { toast } = useToast()
 
-  const onSubmit: SubmitHandler<GenderFormData> = async data => {
+  const onSubmit: SubmitHandler<SetupGoalData> = async data => {
     if (!data) {
       return
     }
 
     try {
-      await axios.patch('/api/profile/set-gender', {
+      await axios.patch('/api/profile/set-goal', {
         ...data,
         userId: userId
       })
 
       toast({
         variant: 'default',
-        title: 'Gender is successfully changed!'
+        title: 'Goal is successfully changed!'
       })
 
       router.refresh()
@@ -61,7 +61,7 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing gender failed'
+          title: error.response?.data?.error || 'Changing goal failed'
         })
       } else {
         toast({
@@ -73,36 +73,47 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
   }
 
   return (
-    <form className="text-sm sm:text-base border-b-2 pb-4">
-      <div className="flex items-center gap-2 justify-between">
-        <Label id="gender" className="font-bold">
-          Gender
+    <form className="text-sm sm:text-base">
+      <div className="flex flex-wrap items-center gap-2 justify-between">
+        <Label id="goal" className="font-bold">
+          Set a goal
         </Label>
+
         <div className="flex items-center">
           <Button
-            variant={gender === 'male' ? 'secondary' : 'outline'}
+            variant={goal === 'Lose fat' ? 'secondary' : 'outline'}
             className="rounded-s-xl"
             type="button"
             onClick={() => {
-              setValue('gender', 'male')
+              setValue('goal', 'Lose fat')
               handleSubmit(onSubmit)()
             }}>
-            Male
+            Lose fat
           </Button>
           <Button
-            variant={gender === 'female' ? 'secondary' : 'outline'}
+            variant={goal === 'Maintain weight' ? 'secondary' : 'outline'}
+            className=""
+            type="button"
+            onClick={() => {
+              setValue('goal', 'Maintain weight')
+              handleSubmit(onSubmit)()
+            }}>
+            Maintain weight
+          </Button>
+          <Button
+            variant={goal === 'Build muscle' ? 'secondary' : 'outline'}
             className="rounded-e-xl"
             type="button"
             onClick={() => {
-              setValue('gender', 'female')
+              setValue('goal', 'Build muscle')
               handleSubmit(onSubmit)()
             }}>
-            Female
+            Build muscle
           </Button>
         </div>
       </div>
-      {errors.gender && (
-        <span className="text-red-500">{errors.gender.message}</span>
+      {errors.goal && (
+        <span className="text-red-500">{errors.goal.message}</span>
       )}
     </form>
   )

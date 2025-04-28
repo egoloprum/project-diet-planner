@@ -157,3 +157,26 @@ export const setActivityLevel = async (
 
   return data
 }
+
+export const setGoal = async (
+  userId: string,
+  goal: string
+): Promise<Profile | null> => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({ goal: goal })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}
