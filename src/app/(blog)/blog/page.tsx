@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import { BlogCreateModal } from '@/src/features/(blog)/blog-create-modal'
-import { blogGetByOthers, blogGetByUser } from '@/src/shared/db'
+import { blogGetByOthers, blogGetByUser, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { BlogByOthers } from '@/src/widgets/(blog)/blogByOthers'
 import { BlogList } from '@/src/widgets/(blog)/blogList'
@@ -15,9 +15,13 @@ const page = async ({}) => {
   }
 
   const user = data.user
+  const profile = await getProfile(user.id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
 
   const blogs = await blogGetByUser(user.id)
-
   const blogsByOthers = await blogGetByOthers(user.id)
 
   return (

@@ -1,10 +1,11 @@
 import { BlogDeleteModal } from '@/src/features/(blog)/blog-delete-modal'
 import { BlogEditModal } from '@/src/features/(blog)/blog-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
-import { blogGetById } from '@/src/shared/db'
+import { blogGetById, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { BlogDetail } from '@/src/widgets/(blog)/blogDetail'
 import { BlogItems } from '@/src/widgets/(blog)/blogItems'
+import { redirect } from 'next/navigation'
 
 interface pageProps {
   params: {
@@ -24,6 +25,13 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
 
   if (!blog || !user) {
     return <NotFound href="/blog" />
+  }
+
+  const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
   }
 
   return (

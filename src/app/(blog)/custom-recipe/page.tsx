@@ -4,6 +4,7 @@ import { CreateCustomRecipeForm } from '@/src/features/(collection)/create-custo
 import { recipeGetByUser } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
 import { RecipeList } from '@/src/widgets/(discover)/recipeList'
+import { getProfile } from '@/src/shared/db'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -14,6 +15,12 @@ const page = async ({}) => {
   }
 
   const user = data.user
+  const profile = await getProfile(user.id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
+
   const recipes = await recipeGetByUser(user.id)
 
   return (

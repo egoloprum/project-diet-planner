@@ -1,7 +1,10 @@
+import { getProfile } from '@/src/shared/db'
 import { recipeSearch } from '@/src/shared/db/recipe/recipeHelpers'
+import { createClient } from '@/src/shared/db/supabase'
 import { DiscoverPagination } from '@/src/widgets/(discover)/discoverPagination'
 import { DiscoverSearchBar } from '@/src/widgets/(discover)/discoverSearchBar'
 import { RecipeList } from '@/src/widgets/(discover)/recipeList'
+import { redirect } from 'next/navigation'
 
 interface SearchParams {
   query: string
@@ -13,6 +16,20 @@ const page = async ({
 }: {
   searchParams: Promise<SearchParams>
 }) => {
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getUser()
+
+  if (!data.user) {
+    return redirect('/login')
+  }
+
+  const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
+
   const resolvedSearchParams = await searchParams
   const query = resolvedSearchParams?.query || ''
 

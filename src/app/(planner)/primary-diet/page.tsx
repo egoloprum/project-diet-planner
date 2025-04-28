@@ -5,6 +5,7 @@ import { getPrimaryDiet } from '@/src/shared/db/diet/dietHelper'
 import { createClient } from '@/src/shared/db/supabase'
 import { PrimaryDiet } from '@/src/shared/model'
 import { DietList } from '@/src/widgets/(diet)'
+import { getProfile } from '@/src/shared/db'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -15,6 +16,12 @@ const page = async ({}) => {
   }
 
   const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
+
   const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (

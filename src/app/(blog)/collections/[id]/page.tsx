@@ -1,10 +1,15 @@
 import { CollectionDeleteModal } from '@/src/features/(collection)/collection-delete-modal'
 import { CollectionEditModal } from '@/src/features/(collection)/collection-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
-import { collectionGetById, recipeGetByCollection } from '@/src/shared/db'
+import {
+  collectionGetById,
+  getProfile,
+  recipeGetByCollection
+} from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { CollectionDetail } from '@/src/widgets/(collection)/collectionDetail'
 import { CollectionRecipe } from '@/src/widgets/(collection)/collectionRecipe'
+import { redirect } from 'next/navigation'
 
 interface pageProps {
   params: {
@@ -25,6 +30,12 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
 
   if (!collection || !user) {
     return <NotFound href="/collections" />
+  }
+
+  const profile = await getProfile(user.id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
   }
 
   const recipes = await recipeGetByCollection(collection.id)

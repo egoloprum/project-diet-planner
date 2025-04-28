@@ -2,13 +2,14 @@ import { RecipeCollectionModal } from '@/src/features/(discover)/recipe-collecti
 import { RecipeDeleteModal } from '@/src/features/(discover)/recipe-delete-modal'
 import { RecipeEditModal } from '@/src/features/(discover)/recipe-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
-import { collectionGetByUser } from '@/src/shared/db'
+import { collectionGetByUser, getProfile } from '@/src/shared/db'
 import { recipeGetById } from '@/src/shared/db/recipe/recipeHelpers'
 import { createClient } from '@/src/shared/db/supabase'
 import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
 import { FoodDirection } from '@/src/widgets/(food)/foodDirection'
 import { FoodIngredient } from '@/src/widgets/(food)/foodIngredient'
 import { FoodNutrition } from '@/src/widgets/(food)/foodNutrition'
+import { redirect } from 'next/navigation'
 
 interface pageProps {
   params: {
@@ -29,6 +30,12 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
 
   if (!recipe || !user) {
     return <NotFound href="/custom-recipe" />
+  }
+
+  const profile = await getProfile(user.id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
   }
 
   const collections = await collectionGetByUser(user.id)

@@ -4,6 +4,7 @@ import { getExclusion } from '@/src/shared/db/exclusion/exclusionHelper'
 import { createClient } from '@/src/shared/db/supabase'
 import { DefaultExclusionList } from '@/src/widgets/(exclusion)/defaultList'
 import { SelectedExclusionList } from '@/src/widgets/(exclusion)/selectedList'
+import { getProfile } from '@/src/shared/db'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -14,6 +15,12 @@ const page = async ({}) => {
   }
 
   const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
+
   const selectedExclusions = await getExclusion(user_id)
 
   return (

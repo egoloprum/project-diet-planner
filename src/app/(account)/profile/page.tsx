@@ -1,3 +1,4 @@
+import { getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { GoalTracker } from '@/src/widgets/(profile)/goalTracker'
 import { NutritionTracker } from '@/src/widgets/(profile)/nutritionTracker'
@@ -5,10 +6,22 @@ import { SocialTracker } from '@/src/widgets/(profile)/socialTracker'
 import { StatsTracker } from '@/src/widgets/(profile)/statsTracker'
 import { WeightChart } from '@/src/widgets/(profile)/weightChart'
 import { WeightTracker } from '@/src/widgets/(profile)/weightTracker'
+import { redirect } from 'next/navigation'
 
 const page = async ({}) => {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
+
+  if (!data.user) {
+    redirect('/login')
+  }
+
+  const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (!profile?.is_setup) {
+    redirect('/setup')
+  }
 
   if (data.user?.email) {
     return (
