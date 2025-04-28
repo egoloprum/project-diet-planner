@@ -66,12 +66,12 @@ export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing height failed'
+          title: error.response?.data?.error || 'Changing height failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }
@@ -88,7 +88,7 @@ export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
       className="text-sm sm:text-base border-b-2 pb-4"
       onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center gap-2 justify-between">
-        <Label id="height" className="font-bold">
+        <Label htmlFor="height" className="font-bold">
           Height
         </Label>
         <div className="flex items-center gap-2">

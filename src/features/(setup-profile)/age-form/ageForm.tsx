@@ -66,12 +66,12 @@ export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing age failed'
+          title: error.response?.data?.error || 'Changing age failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }
@@ -88,7 +88,7 @@ export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
       className="text-sm sm:text-base border-b-2 pb-4"
       onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center gap-2 justify-between">
-        <Label id="age" className="font-bold">
+        <Label htmlFor="age" className="font-bold">
           Age
         </Label>
         <div className="flex items-center gap-2">

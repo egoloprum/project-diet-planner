@@ -61,12 +61,12 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing goal failed'
+          title: error.response?.data?.error || 'Changing goal failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }

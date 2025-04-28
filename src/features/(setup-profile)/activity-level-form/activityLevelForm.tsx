@@ -80,12 +80,13 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing activity level failed'
+          title:
+            error.response?.data?.error || 'Changing activity level failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }

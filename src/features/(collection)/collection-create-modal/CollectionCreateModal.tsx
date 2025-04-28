@@ -67,12 +67,12 @@ export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Creating collection failed'
+          title: error.response?.data?.error || 'Creating collection failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }

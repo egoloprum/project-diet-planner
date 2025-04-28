@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getPrimaryDiet } from '@/src/shared/db'
+import { getPrimaryDiet, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { PrimaryDiet } from '@/src/shared/model'
 import { DietList } from '@/src/widgets/(diet)'
@@ -15,6 +15,11 @@ const page = async ({}) => {
   }
 
   const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (profile && profile.is_setup) {
+    redirect('/planner')
+  }
   const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (

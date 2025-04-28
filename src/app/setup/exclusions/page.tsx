@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getExclusion } from '@/src/shared/db'
+import { getExclusion, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { SetupExclusionList } from '@/src/widgets/(exclusion)/setupList'
 
@@ -14,6 +14,12 @@ const page = async ({}) => {
   }
 
   const user_id = data.user.id
+  const profile = await getProfile(user_id)
+
+  if (profile && profile.is_setup) {
+    redirect('/planner')
+  }
+
   const selectedExclusions = await getExclusion(user_id)
 
   return (

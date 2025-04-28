@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 
 import {
+  createMenu,
   createProfile,
   createWeightTracker,
+  getMenu,
   getProfile,
   getWeightByDate
 } from '@/src/shared/db'
@@ -50,6 +52,18 @@ export async function GET(request: Request) {
         const newWeightTracker = await createWeightTracker(user.id, today)
 
         if (!newWeightTracker) {
+          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+        }
+
+        const menu = await getMenu(user.id)
+
+        if (menu) {
+          return NextResponse.redirect(`${origin}${next}`)
+        }
+
+        const newMenu = await createMenu(user.id)
+
+        if (!newMenu) {
           return NextResponse.redirect(`${origin}/auth/auth-code-error`)
         }
       } catch {

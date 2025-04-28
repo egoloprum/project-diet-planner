@@ -70,12 +70,12 @@ export const WeightForm: FC<WeightFormProps> = ({ userId, weight }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing weight failed'
+          title: error.response?.data?.error || 'Changing weight failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }
@@ -92,7 +92,7 @@ export const WeightForm: FC<WeightFormProps> = ({ userId, weight }) => {
       className="text-sm sm:text-base border-b-2 pb-4"
       onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center gap-2 justify-between">
-        <Label id="weight" className="font-bold">
+        <Label htmlFor="weight" className="font-bold">
           Weight
         </Label>
         <div className="flex items-center gap-2">

@@ -119,12 +119,12 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Creating blog failed'
+          title: error.response?.data?.error || 'Creating blog failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }

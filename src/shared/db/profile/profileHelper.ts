@@ -2,6 +2,26 @@ import { Profile } from '@/src/shared/model'
 
 import { createClient } from '../supabase'
 
+export const finishSetup = async (userId: string) => {
+  if (!userId) {
+    return null
+  }
+
+  const supabase = await createClient()
+  const { data: profileData, error } = await supabase
+    .from('profile')
+    .update({ is_setup: true })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return profileData
+}
+
 export const getProfile = async (userId: string): Promise<Profile | null> => {
   if (!userId) {
     return null

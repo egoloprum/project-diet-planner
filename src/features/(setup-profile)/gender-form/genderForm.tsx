@@ -61,12 +61,12 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
       if (axios.isAxiosError(error)) {
         toast({
           variant: 'destructive',
-          title: error.response?.data?.error || 'Changing gender failed'
+          title: error.response?.data?.error || 'Changing gender failed!'
         })
       } else {
         toast({
           variant: 'destructive',
-          title: 'An unexpected error occurred'
+          title: 'An unexpected error occurred!'
         })
       }
     }

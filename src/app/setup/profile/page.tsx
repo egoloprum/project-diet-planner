@@ -26,6 +26,10 @@ const page = async ({}) => {
     redirect('/login')
   }
 
+  if (profile.is_setup) {
+    redirect('/planner')
+  }
+
   const today = getTodayDate()
   const weightTracker = await getWeightByDate(user_id, today)
 

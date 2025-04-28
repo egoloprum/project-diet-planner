@@ -20,6 +20,10 @@ const page = async ({}) => {
     redirect('/login')
   }
 
+  if (profile.is_setup) {
+    redirect('/planner')
+  }
+
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
       <Image

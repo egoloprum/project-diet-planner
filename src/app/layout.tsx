@@ -39,7 +39,9 @@ export default async function RootLayout({
           {children}
         </main>
         <Toaster />
-        {profile ? !profile.is_setup && <SetupProgress /> : null}
+        {profile
+          ? !profile.is_setup && <SetupProgress userId={profile.user_id} />
+          : null}
       </body>
     </html>
   )
