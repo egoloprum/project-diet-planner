@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import { getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { GoalTracker } from '@/src/widgets/(profile)/goalTracker'
@@ -6,7 +8,6 @@ import { SocialTracker } from '@/src/widgets/(profile)/socialTracker'
 import { StatsTracker } from '@/src/widgets/(profile)/statsTracker'
 import { WeightChart } from '@/src/widgets/(profile)/weightChart'
 import { WeightTracker } from '@/src/widgets/(profile)/weightTracker'
-import { redirect } from 'next/navigation'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -28,14 +29,14 @@ const page = async ({}) => {
       <div className="flex flex-col gap-8">
         <div className="flex flex-wrap gap-4">
           <WeightTracker user={data.user} />
-          <WeightChart />
-          <SocialTracker />
+          <WeightChart userId={user_id} />
+          <SocialTracker userId={user_id} />
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <GoalTracker />
-          <NutritionTracker />
-          <StatsTracker />
+          <GoalTracker userId={user_id} />
+          <NutritionTracker userId={user_id} />
+          <StatsTracker userId={user_id} />
         </div>
       </div>
     )

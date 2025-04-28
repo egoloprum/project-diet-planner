@@ -1,1 +1,1 @@
-export { DiscoverSearchBar } from './searchBar.component'
+export { DiscoverSearchBar } from './searchBar'

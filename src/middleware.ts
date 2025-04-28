@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 // import { getProfile } from './shared/db'
 // import { createClient } from './shared/db/supabase'

@@ -45,15 +45,15 @@ const page = async ({}) => {
         <section>
           <p>{profile.calories} Calories per day</p>
           <p className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-yellow-400"></div>
+            <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
             <span>At least {profile.carbs}g Carbs</span>
           </p>
           <p className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-cyan-400"></div>
+            <span className="h-2 w-2 rounded-full bg-cyan-400"></span>
             <span>At least {profile.fats}g Fats</span>
           </p>
           <p className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-purple-400"></div>
+            <span className="h-2 w-2 rounded-full bg-purple-400"></span>
             <span>At least {profile.protein}g Protein</span>
           </p>
         </section>

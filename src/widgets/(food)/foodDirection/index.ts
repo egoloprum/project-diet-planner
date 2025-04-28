@@ -1,1 +1,1 @@
-export * from './foodDirection.component'
+export * from './foodDirection'

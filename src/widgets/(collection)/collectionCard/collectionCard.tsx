@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
+import { Collection } from '@/src/shared/model'
 import {
   Card,
   CardContent,
@@ -11,8 +12,6 @@ import {
   CardHeader,
   CardTitle
 } from '@/src/shared/ui/card'
-
-import { Collection } from '../../model'
 
 interface CollectionCardProps {
   collection: Collection

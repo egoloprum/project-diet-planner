@@ -1,12 +1,13 @@
 'use client'
 
-import { useToast } from '@/src/shared/hooks'
-import { Menu } from '@/src/shared/model'
-import { Label, Separator, Switch } from '@/src/shared/ui'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+
+import { useToast } from '@/src/shared/hooks'
+import { Menu } from '@/src/shared/model'
+import { Label, Separator, Switch } from '@/src/shared/ui'
 
 interface SetupMealsFormProps {
   userId: string
@@ -14,11 +15,7 @@ interface SetupMealsFormProps {
 }
 
 export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors }
-  } = useForm<Omit<Menu, 'id' | 'user_id'>>({
+  const { handleSubmit, control } = useForm<Omit<Menu, 'id' | 'user_id'>>({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {

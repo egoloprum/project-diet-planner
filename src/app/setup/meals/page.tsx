@@ -1,8 +1,9 @@
+import Image from 'next/image'
+import { redirect } from 'next/navigation'
+
 import { SetupMealsForm } from '@/src/features/setup-meals-form'
 import { getMenu, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
-import Image from 'next/image'
-import { redirect } from 'next/navigation'
 
 const page = async ({}) => {
   const supabase = await createClient()

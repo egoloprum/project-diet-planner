@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+
 import { updateMenu } from '@/src/shared/db'
 
 export async function PATCH(req: Request) {

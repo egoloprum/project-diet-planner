@@ -3,9 +3,11 @@ import { FC } from 'react'
 import { Input } from '@/src/shared/ui/input'
 import { Label } from '@/src/shared/ui/label'
 
-interface NutritionTrackerProps {}
+interface NutritionTrackerProps {
+  userId: string
+}
 
-export const NutritionTracker: FC<NutritionTrackerProps> = ({}) => {
+export const NutritionTracker: FC<NutritionTrackerProps> = ({ userId }) => {
   return (
     <div className="min-w-[300px] flex flex-1 flex-col items-center gap-4">
       <h2 className="text-2xl">Nutrition Tracker</h2>

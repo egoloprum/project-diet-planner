@@ -65,7 +65,22 @@ export const createProfile = async (userId: string) => {
 
 export const updateProfile = async (
   userId: string,
-  profile: Omit<Profile, 'avatar_url' | 'id' | 'user_id'>
+  profile: Omit<
+    Profile,
+    | 'avatar_url'
+    | 'id'
+    | 'user_id'
+    | 'is_setup'
+    | 'gender'
+    | 'age'
+    | 'height'
+    | 'activity_level'
+    | 'goal'
+    | 'calories'
+    | 'fats'
+    | 'carbs'
+    | 'protein'
+  >
 ): Promise<Profile | null> => {
   if (!userId) {
     return null

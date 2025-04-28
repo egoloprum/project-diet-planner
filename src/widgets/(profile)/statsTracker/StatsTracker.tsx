@@ -3,9 +3,11 @@ import { FC } from 'react'
 import { Input } from '@/src/shared/ui/input'
 import { Label } from '@/src/shared/ui/label'
 
-interface StatsTrackerProps {}
+interface StatsTrackerProps {
+  userId: string
+}
 
-export const StatsTracker: FC<StatsTrackerProps> = ({}) => {
+export const StatsTracker: FC<StatsTrackerProps> = ({ userId }) => {
   return (
     <div className="min-w-[300px] flex flex-1 flex-col items-center gap-4">
       <h2 className="text-2xl bold">Physical Stats Tracker</h2>

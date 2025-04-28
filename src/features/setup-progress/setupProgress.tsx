@@ -1,20 +1,12 @@
 'use client'
 
+import axios from 'axios'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
-
-import { Button } from '@/src/shared/ui'
 import { FC } from 'react'
-import axios from 'axios'
+
 import { useToast } from '@/src/shared/hooks'
-
-// profile is path where height, weight, sex and activity level are added
-
-// goal is path where regime is selected
-
-// nutrition is path where user can see suggested nutritional values
-
-// meals is path where user can add or remove type of meals per day
+import { Button } from '@/src/shared/ui'
 
 const paths = [
   'setup',

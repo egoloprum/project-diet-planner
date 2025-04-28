@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import { RecipeCollectionModal } from '@/src/features/(discover)/recipe-collection-modal'
 import { RecipeDeleteModal } from '@/src/features/(discover)/recipe-delete-modal'
 import { RecipeEditModal } from '@/src/features/(discover)/recipe-edit-modal'
@@ -9,7 +11,6 @@ import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
 import { FoodDirection } from '@/src/widgets/(food)/foodDirection'
 import { FoodIngredient } from '@/src/widgets/(food)/foodIngredient'
 import { FoodNutrition } from '@/src/widgets/(food)/foodNutrition'
-import { redirect } from 'next/navigation'
 
 interface pageProps {
   params: {

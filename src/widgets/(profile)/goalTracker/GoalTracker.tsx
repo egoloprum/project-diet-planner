@@ -3,9 +3,11 @@ import { FC } from 'react'
 import { Label } from '@/src/shared/ui/label'
 import { RadioGroupItem, RadioGroup } from '@/src/shared/ui/radio-group'
 
-interface GoalTrackerProps {}
+interface GoalTrackerProps {
+  userId: string
+}
 
-export const GoalTracker: FC<GoalTrackerProps> = ({}) => {
+export const GoalTracker: FC<GoalTrackerProps> = ({ userId }) => {
   return (
     <div className="min-w-[300px] flex flex-1 flex-col items-center gap-4">
       <h2 className="text-2xl">Goal Tracker</h2>

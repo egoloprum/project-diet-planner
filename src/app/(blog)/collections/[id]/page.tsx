@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+
 import { CollectionDeleteModal } from '@/src/features/(collection)/collection-delete-modal'
 import { CollectionEditModal } from '@/src/features/(collection)/collection-edit-modal'
 import { NotFound } from '@/src/shared/components/notFound'
@@ -9,7 +11,6 @@ import {
 import { createClient } from '@/src/shared/db/supabase'
 import { CollectionDetail } from '@/src/widgets/(collection)/collectionDetail'
 import { CollectionRecipe } from '@/src/widgets/(collection)/collectionRecipe'
-import { redirect } from 'next/navigation'
 
 interface pageProps {
   params: {

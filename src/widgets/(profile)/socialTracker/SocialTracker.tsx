@@ -3,9 +3,11 @@ import { FC } from 'react'
 import { columns, Payment } from './columns'
 import { DataTable } from './data-table'
 
-interface SocialTrackerProps {}
+interface SocialTrackerProps {
+  userId: string
+}
 
-export const SocialTracker: FC<SocialTrackerProps> = ({}) => {
+export const SocialTracker: FC<SocialTrackerProps> = ({ userId }) => {
   const data: Payment[] = [
     {
       id: '728ed52f',

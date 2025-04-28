@@ -19,7 +19,22 @@ export async function PATCH(req: Request) {
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
-    const editProfile: Omit<Profile, 'avatar_url' | 'id' | 'user_id'> = {
+    const editProfile: Omit<
+      Profile,
+      | 'avatar_url'
+      | 'id'
+      | 'user_id'
+      | 'is_setup'
+      | 'gender'
+      | 'age'
+      | 'height'
+      | 'activity_level'
+      | 'goal'
+      | 'calories'
+      | 'fats'
+      | 'carbs'
+      | 'protein'
+    > = {
       email: email,
       user_name: username,
       password: hashedPassword

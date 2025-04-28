@@ -1,5 +1,7 @@
 import { FC } from 'react'
 
+import { Recipe } from '@/src/shared/model'
+
 interface FoodIngredientProps {
   recipe: Recipe
 }
