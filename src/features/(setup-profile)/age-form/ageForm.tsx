@@ -8,18 +8,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
+import { Profile } from '@/src/shared/model'
 import { Input, Label } from '@/src/shared/ui'
 
 interface AgeFormProps {
-  userId: string
-  age: number
+  profile: Profile
+  weight: number
 }
 
 type AgeFormData = {
   age: number
 }
 
-export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
+export const AgeForm: FC<AgeFormProps> = ({ profile, weight }) => {
   const {
     handleSubmit,
     register,
@@ -36,11 +37,11 @@ export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      age: age
+      age: profile.age
     }
   })
 
-  const [currentAge, setCurrentAge] = useState<number>(age)
+  const [currentAge, setCurrentAge] = useState<number>(profile.age)
 
   const router = useRouter()
   const { toast } = useToast()
@@ -53,12 +54,22 @@ export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
     try {
       await axios.patch('/api/profile/set-age', {
         ...data,
-        userId: userId
+        userId: profile.user_id
       })
 
       toast({
         variant: 'default',
         title: 'Age is successfully changed!'
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        height: profile.height,
+        weight: weight,
+        gender: profile.gender,
+        activityLevel: profile.activity_level,
+        goal: profile.goal
       })
 
       router.refresh()
@@ -78,7 +89,7 @@ export const AgeForm: FC<AgeFormProps> = ({ userId, age }) => {
   }
 
   const handleBlur = () => {
-    if (currentAge !== age) {
+    if (currentAge !== profile.age) {
       handleSubmit(onSubmit)()
     }
   }

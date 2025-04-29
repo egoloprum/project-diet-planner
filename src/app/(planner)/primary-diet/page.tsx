@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-import { getProfile } from '@/src/shared/db'
-import { getPrimaryDiet } from '@/src/shared/db/diet/dietHelper'
+import { getPrimaryDiet, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { PrimaryDiet } from '@/src/shared/model'
 import { DietList } from '@/src/widgets/(diet)'

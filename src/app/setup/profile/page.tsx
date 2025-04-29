@@ -6,8 +6,7 @@ import { AgeForm } from '@/src/features/(setup-profile)/age-form'
 import { GenderForm } from '@/src/features/(setup-profile)/gender-form'
 import { HeightForm } from '@/src/features/(setup-profile)/height-form'
 import { WeightForm } from '@/src/features/(setup-profile)/weight-form/weightForm'
-import { getWeightByDate } from '@/src/shared/db'
-import { getProfile } from '@/src/shared/db/profile/profileHelper'
+import { getProfile, getWeightByDate } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 
@@ -52,13 +51,13 @@ const page = async ({}) => {
           </p>
         </section>
 
-        <GenderForm userId={user_id} gender={profile.gender} />
-        <AgeForm userId={user_id} age={profile.age} />
-        <HeightForm userId={user_id} height={profile.height} />
-        <WeightForm userId={user_id} weight={weightTracker?.weight || 0} />
+        <GenderForm profile={profile} weight={weightTracker?.weight || 70} />
+        <AgeForm profile={profile} weight={weightTracker?.weight || 70} />
+        <HeightForm profile={profile} weight={weightTracker?.weight || 70} />
+        <WeightForm profile={profile} weight={weightTracker?.weight || 70} />
         <ActivityLevelForm
-          userId={user_id}
-          activityLevel={profile.activity_level}
+          profile={profile}
+          weight={weightTracker?.weight || 70}
         />
       </div>
     </div>

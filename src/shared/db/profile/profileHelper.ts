@@ -215,3 +215,32 @@ export const setGoal = async (
 
   return data
 }
+
+export const setNutritions = async (
+  calories: number,
+  nutritions: {
+    carbs: number
+    fats: number
+    protein: number
+  },
+  userId: string
+): Promise<Profile | null> => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({
+      calories: calories,
+      carbs: nutritions.carbs,
+      fats: nutritions.fats,
+      protein: nutritions.protein
+    })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}

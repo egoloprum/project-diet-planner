@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { recipeUpdate } from '@/src/shared/db/recipe/recipeHelpers'
+import { recipeUpdate } from '@/src/shared/db'
 import { Recipe } from '@/src/shared/model'
 
 export async function PATCH(req: Request) {

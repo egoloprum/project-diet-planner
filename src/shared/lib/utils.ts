@@ -42,7 +42,7 @@ export const calculateCalories = (TDEE: number, goal: string) => {
     'Build muscle': 1.15
   }
 
-  return TDEE * goalStats[goal]
+  return (TDEE * goalStats[goal]) | 0
 }
 
 export const calculateCarbs = (calories: number, goal: string) => {
@@ -52,7 +52,7 @@ export const calculateCarbs = (calories: number, goal: string) => {
     'Build muscle': 0.55
   }
 
-  return (calories * goalStats[goal]) / 4
+  return ((calories * goalStats[goal]) / 4) | 0
 }
 
 export const calculateFats = (calories: number, goal: string) => {
@@ -62,7 +62,7 @@ export const calculateFats = (calories: number, goal: string) => {
     'Build muscle': 0.15
   }
 
-  return (calories * goalStats[goal]) / 9
+  return ((calories * goalStats[goal]) / 9) | 0
 }
 
 export const calculateProtein = (calories: number, goal: string) => {
@@ -72,5 +72,26 @@ export const calculateProtein = (calories: number, goal: string) => {
     'Build muscle': 0.3
   }
 
-  return (calories * goalStats[goal]) / 4
+  return ((calories * goalStats[goal]) / 4) | 0
+}
+
+export const calculator = (
+  gender: string,
+  weight: number,
+  height: number,
+  age: number,
+  activityLevel: number,
+  goal: string
+) => {
+  const BMR = calculateBMR(gender, weight, height, age)
+  const TDEE = calculateTDEE(BMR, activityLevel)
+  const calories = calculateCalories(TDEE, goal)
+
+  const nutritions = {
+    carbs: calculateCarbs(calories, goal),
+    fats: calculateFats(calories, goal),
+    protein: calculateProtein(calories, goal)
+  }
+
+  return { calories, nutritions }
 }

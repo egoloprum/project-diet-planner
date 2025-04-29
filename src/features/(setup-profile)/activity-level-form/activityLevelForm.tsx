@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
+import { Profile } from '@/src/shared/model'
 import {
   Label,
   Select,
@@ -18,8 +19,8 @@ import {
 } from '@/src/shared/ui'
 
 interface ActivityLevelFormProps {
-  userId: string
-  activityLevel: number
+  profile: Profile
+  weight: number
 }
 
 type ActivityLevelFormData = {
@@ -35,8 +36,8 @@ const ActivityLevel = [
 ]
 
 export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
-  userId,
-  activityLevel
+  profile,
+  weight
 }) => {
   const {
     handleSubmit,
@@ -52,7 +53,7 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      activityLevel: activityLevel
+      activityLevel: profile.activity_level
     }
   })
 
@@ -67,7 +68,17 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
     try {
       await axios.patch('/api/profile/set-activity-level', {
         ...data,
-        userId: userId
+        userId: profile.user_id
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        height: profile.height,
+        weight: weight,
+        age: profile.age,
+        gender: profile.gender,
+        goal: profile.goal
       })
 
       toast({
@@ -112,7 +123,8 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
           <SelectTrigger className="max-w-[350px] w-full">
             <SelectValue
               placeholder={
-                ActivityLevel[activityLevel - 1] || 'Select an activity level'
+                ActivityLevel[profile.activity_level - 1] ||
+                'Select an activity level'
               }
             />
           </SelectTrigger>

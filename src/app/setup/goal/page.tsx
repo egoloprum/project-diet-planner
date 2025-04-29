@@ -2,8 +2,9 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { SetupGoalForm } from '@/src/features/setup-goal-form'
-import { getProfile } from '@/src/shared/db'
+import { getProfile, getWeightByDate } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
+import { getTodayDate } from '@/src/shared/lib'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -24,6 +25,9 @@ const page = async ({}) => {
     redirect('/planner')
   }
 
+  const today = getTodayDate()
+  const weightTracker = await getWeightByDate(user_id, today)
+
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
       <Image
@@ -42,7 +46,7 @@ const page = async ({}) => {
           </p>
         </section>
 
-        <SetupGoalForm userId={user_id} goal={profile.goal} />
+        <SetupGoalForm profile={profile} weight={weightTracker?.weight || 70} />
 
         <p className="text-gray-500 text-sm ">
           The calorie target we suggest will be based on your goals. If you

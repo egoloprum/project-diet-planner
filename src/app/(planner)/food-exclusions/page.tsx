@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { getProfile } from '@/src/shared/db'
-import { getExclusion } from '@/src/shared/db/exclusion/exclusionHelper'
+import { getExclusion, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { DefaultExclusionList } from '@/src/widgets/(exclusion)/defaultList'
 import { SelectedExclusionList } from '@/src/widgets/(exclusion)/selectedList'

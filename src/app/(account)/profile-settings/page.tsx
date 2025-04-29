@@ -1,6 +1,6 @@
 import { ProfileEditForm } from '@/src/features/profile-edit-form'
 import { NotFound } from '@/src/shared/components/notFound'
-import { getProfile } from '@/src/shared/db/profile/profileHelper'
+import { getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 
 const page = async ({}) => {

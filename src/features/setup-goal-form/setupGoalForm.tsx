@@ -8,18 +8,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
+import { Profile } from '@/src/shared/model'
 import { Button, Label } from '@/src/shared/ui'
 
 interface SetupGoalFormProps {
-  userId: string
-  goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
+  profile: Profile
+  weight: number
 }
 
 type SetupGoalData = {
   goal: 'Lose fat' | 'Maintain weight' | 'Build muscle'
 }
 
-export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
+export const SetupGoalForm: FC<SetupGoalFormProps> = ({ profile, weight }) => {
   const {
     handleSubmit,
     setValue,
@@ -33,7 +34,7 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      goal: goal
+      goal: profile.goal
     }
   })
 
@@ -48,12 +49,22 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
     try {
       await axios.patch('/api/profile/set-goal', {
         ...data,
-        userId: userId
+        userId: profile.user_id
       })
 
       toast({
         variant: 'default',
         title: 'Goal is successfully changed!'
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        height: profile.height,
+        weight: weight,
+        gender: profile.gender,
+        age: profile.age,
+        activityLevel: profile.activity_level
       })
 
       router.refresh()
@@ -81,7 +92,7 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
 
         <div className="flex items-center">
           <Button
-            variant={goal === 'Lose fat' ? 'secondary' : 'outline'}
+            variant={profile.goal === 'Lose fat' ? 'secondary' : 'outline'}
             className="rounded-s-xl"
             type="button"
             onClick={() => {
@@ -91,7 +102,9 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
             Lose fat
           </Button>
           <Button
-            variant={goal === 'Maintain weight' ? 'secondary' : 'outline'}
+            variant={
+              profile.goal === 'Maintain weight' ? 'secondary' : 'outline'
+            }
             className=""
             type="button"
             onClick={() => {
@@ -101,7 +114,7 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ userId, goal }) => {
             Maintain weight
           </Button>
           <Button
-            variant={goal === 'Build muscle' ? 'secondary' : 'outline'}
+            variant={profile.goal === 'Build muscle' ? 'secondary' : 'outline'}
             className="rounded-e-xl"
             type="button"
             onClick={() => {

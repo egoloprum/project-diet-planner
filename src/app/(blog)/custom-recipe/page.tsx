@@ -1,8 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import { CreateCustomRecipeForm } from '@/src/features/(collection)/create-custom-recipe-form'
-import { getProfile } from '@/src/shared/db'
-import { recipeGetByUser } from '@/src/shared/db/recipe/recipeHelpers'
+import { getProfile, recipeGetByUser } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { RecipeList } from '@/src/widgets/(discover)/recipeList'
 

@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { getProfile } from '@/src/shared/db'
-import { recipeSearch } from '@/src/shared/db/recipe/recipeHelpers'
+import { getProfile, recipeSearch } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { DiscoverPagination } from '@/src/widgets/(discover)/discoverPagination'
 import { DiscoverSearchBar } from '@/src/widgets/(discover)/discoverSearchBar'

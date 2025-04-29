@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { recipeCreate } from '@/src/shared/db/recipe/recipeHelpers'
+import { recipeCreate } from '@/src/shared/db'
 import { Recipe } from '@/src/shared/model'
 
 export async function POST(req: Request) {

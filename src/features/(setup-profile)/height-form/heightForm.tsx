@@ -8,18 +8,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
+import { Profile } from '@/src/shared/model'
 import { Input, Label } from '@/src/shared/ui'
 
 interface HeightFormProps {
-  userId: string
-  height: number
+  profile: Profile
+  weight: number
 }
 
 type HeightFormData = {
   height: number
 }
 
-export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
+export const HeightForm: FC<HeightFormProps> = ({ profile, weight }) => {
   const {
     handleSubmit,
     register,
@@ -36,11 +37,11 @@ export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      height: height
+      height: profile.height
     }
   })
 
-  const [currentHeight, setCurrentHeight] = useState<number>(height)
+  const [currentHeight, setCurrentHeight] = useState<number>(profile.height)
 
   const router = useRouter()
   const { toast } = useToast()
@@ -53,12 +54,22 @@ export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
     try {
       await axios.patch('/api/profile/set-height', {
         ...data,
-        userId: userId
+        userId: profile.user_id
       })
 
       toast({
         variant: 'default',
         title: 'Height is successfully changed!'
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        gender: profile.gender,
+        weight: weight,
+        age: profile.age,
+        activityLevel: profile.activity_level,
+        goal: profile.goal
       })
 
       router.refresh()
@@ -78,7 +89,7 @@ export const HeightForm: FC<HeightFormProps> = ({ userId, height }) => {
   }
 
   const handleBlur = () => {
-    if (currentHeight !== height) {
+    if (currentHeight !== profile.height) {
       handleSubmit(onSubmit)()
     }
   }

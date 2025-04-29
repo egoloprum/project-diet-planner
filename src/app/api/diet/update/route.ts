@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { updatePrimaryDiet } from '@/src/shared/db/diet/dietHelper'
-import { updateExclusion } from '@/src/shared/db/exclusion/exclusionHelper'
+import { updateExclusion, updatePrimaryDiet } from '@/src/shared/db'
 
 export async function POST(req: Request) {
   try {

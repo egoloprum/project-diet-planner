@@ -9,10 +9,11 @@ import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
 import { getTodayDate } from '@/src/shared/lib'
+import { Profile } from '@/src/shared/model'
 import { Input, Label } from '@/src/shared/ui'
 
 interface WeightFormProps {
-  userId: string
+  profile: Profile
   weight: number
 }
 
@@ -20,7 +21,7 @@ type WeightFormData = {
   weight: number
 }
 
-export const WeightForm: FC<WeightFormProps> = ({ userId, weight }) => {
+export const WeightForm: FC<WeightFormProps> = ({ profile, weight }) => {
   const {
     handleSubmit,
     register,
@@ -56,13 +57,23 @@ export const WeightForm: FC<WeightFormProps> = ({ userId, weight }) => {
     try {
       await axios.patch('/api/weight/update', {
         ...data,
-        userId: userId,
+        userId: profile.user_id,
         date: today
       })
 
       toast({
         variant: 'default',
         title: 'Weight is successfully changed!'
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        gender: profile.gender,
+        height: profile.height,
+        age: profile.age,
+        activityLevel: profile.activity_level,
+        goal: profile.goal
       })
 
       router.refresh()

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 
-import { updateProfile } from '@/src/shared/db/profile/profileHelper'
+import { updateProfile } from '@/src/shared/db'
 import { Profile } from '@/src/shared/model'
 
 export async function PATCH(req: Request) {

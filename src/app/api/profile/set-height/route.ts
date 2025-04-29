@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setHeight } from '@/src/shared/db/profile/profileHelper'
+import { setHeight } from '@/src/shared/db'
 
 export async function PATCH(req: Request) {
   try {

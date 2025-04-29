@@ -6,7 +6,7 @@ import { createClient } from '@/src/shared/db/supabase'
 import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
 
 import { SetupProgress } from '../features/setup-progress'
-import { getProfile } from '../shared/db/profile/profileHelper'
+import { getProfile } from '../shared/db'
 import { Toaster } from '../shared/ui'
 
 const montserrat = Montserrat({

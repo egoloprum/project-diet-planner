@@ -8,18 +8,19 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { useToast } from '@/src/shared/hooks'
+import { Profile } from '@/src/shared/model'
 import { Button, Label } from '@/src/shared/ui'
 
 interface GenderFormProps {
-  userId: string
-  gender: 'male' | 'female'
+  profile: Profile
+  weight: number
 }
 
 type GenderFormData = {
   gender: 'male' | 'female'
 }
 
-export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
+export const GenderForm: FC<GenderFormProps> = ({ profile, weight }) => {
   const {
     handleSubmit,
     setValue,
@@ -33,7 +34,7 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      gender: gender
+      gender: profile.gender
     }
   })
 
@@ -48,12 +49,22 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
     try {
       await axios.patch('/api/profile/set-gender', {
         ...data,
-        userId: userId
+        userId: profile.user_id
       })
 
       toast({
         variant: 'default',
         title: 'Gender is successfully changed!'
+      })
+
+      await axios.patch('/api/profile/set-nutritions', {
+        ...data,
+        userId: profile.user_id,
+        height: profile.height,
+        weight: weight,
+        age: profile.age,
+        activityLevel: profile.activity_level,
+        goal: profile.goal
       })
 
       router.refresh()
@@ -80,7 +91,7 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
         </Label>
         <div className="flex items-center">
           <Button
-            variant={gender === 'male' ? 'secondary' : 'outline'}
+            variant={profile.gender === 'male' ? 'secondary' : 'outline'}
             className="rounded-s-xl"
             type="button"
             onClick={() => {
@@ -90,7 +101,7 @@ export const GenderForm: FC<GenderFormProps> = ({ userId, gender }) => {
             Male
           </Button>
           <Button
-            variant={gender === 'female' ? 'secondary' : 'outline'}
+            variant={profile.gender === 'female' ? 'secondary' : 'outline'}
             className="rounded-e-xl"
             type="button"
             onClick={() => {

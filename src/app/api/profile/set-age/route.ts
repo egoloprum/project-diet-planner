@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setAge } from '@/src/shared/db/profile/profileHelper'
+import { setAge } from '@/src/shared/db'
 
 export async function PATCH(req: Request) {
   try {
