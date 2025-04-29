@@ -2,13 +2,13 @@ import { Profile } from '@/src/shared/model'
 
 import { createClient } from '../supabase'
 
-export const finishSetup = async (userId: string) => {
+export const finishSetup = async (userId: string): Promise<Profile | null> => {
   if (!userId) {
     return null
   }
 
   const supabase = await createClient()
-  const { data: profileData, error } = await supabase
+  const { data, error } = await supabase
     .from('profile')
     .update({ is_setup: true })
     .eq('user_id', userId)
@@ -19,7 +19,7 @@ export const finishSetup = async (userId: string) => {
     return null
   }
 
-  return profileData
+  return data
 }
 
 export const getProfile = async (userId: string): Promise<Profile | null> => {
@@ -28,7 +28,7 @@ export const getProfile = async (userId: string): Promise<Profile | null> => {
   }
 
   const supabase = await createClient()
-  const { data: profileData, error } = await supabase
+  const { data, error } = await supabase
     .from('profile')
     .select('*')
     .eq('user_id', userId)
@@ -38,16 +38,18 @@ export const getProfile = async (userId: string): Promise<Profile | null> => {
     return null
   }
 
-  return profileData
+  return data
 }
 
-export const createProfile = async (userId: string) => {
+export const createProfile = async (
+  userId: string
+): Promise<Profile | null> => {
   if (!userId) {
     return null
   }
 
   const supabase = await createClient()
-  const { data: profileData, error } = await supabase
+  const { data, error } = await supabase
     .from('profile')
     .insert({
       user_id: userId,
@@ -60,7 +62,7 @@ export const createProfile = async (userId: string) => {
     return null
   }
 
-  return profileData
+  return data
 }
 
 export const updateProfile = async (
@@ -87,7 +89,7 @@ export const updateProfile = async (
   }
 
   const supabase = await createClient()
-  const { data: profileData, error } = await supabase
+  const { data, error } = await supabase
     .from('profile')
     .update(profile)
     .eq('user_id', userId)
@@ -98,7 +100,7 @@ export const updateProfile = async (
     return null
   }
 
-  return profileData
+  return data
 }
 
 export const setGender = async (

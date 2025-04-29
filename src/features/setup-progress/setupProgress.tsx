@@ -1,9 +1,9 @@
 'use client'
 
 import axios from 'axios'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useToast } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui'
@@ -27,12 +27,22 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
   const router = useRouter()
   const { toast } = useToast()
 
+  const [isNavigatingBack, setIsNavigatingBack] = useState<boolean>(false)
+  const [isNavigatingForward, setIsNavigatingForward] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   const currentStep = pathname.split('/').pop() || ''
   const currentIndex = paths.indexOf(currentStep)
 
-  const handleBack = () => {
-    if (currentIndex <= 0) return
+  useEffect(() => {
+    setIsNavigatingBack(false)
+    setIsNavigatingForward(false)
+  }, [pathname])
 
+  const handleBack = () => {
+    if (currentIndex <= 0 || isNavigatingBack || isLoading) return
+
+    setIsNavigatingBack(true)
     const previousIndex = currentIndex - 1
     const previousPath =
       previousIndex === 0 ? '/setup' : `/setup/${paths[previousIndex]}`
@@ -40,8 +50,10 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
   }
 
   const handleContinue = () => {
-    if (currentIndex >= paths.length - 1) return
+    if (currentIndex >= paths.length - 1 || isNavigatingForward || isLoading)
+      return
 
+    setIsNavigatingForward(true)
     const nextIndex = currentIndex + 1
     const nextPath = `/setup/${paths[nextIndex]}`
     router.push(nextPath)
@@ -49,6 +61,7 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
 
   const handleFinish = async () => {
     try {
+      setIsLoading(true)
       await axios.patch('/api/profile/finish-setup', {
         userId: userId
       })
@@ -72,6 +85,8 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
           title: 'An unexpected error occurred!'
         })
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -83,7 +98,10 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
           className="flex gap-2 items-center"
           onClick={handleBack}>
           <ArrowLeft />
-          <span>Back</span>
+          <span className="flex gap-2 items-center">
+            {isNavigatingBack && <Loader2 className="h-4 w-4 animate-spin" />}
+            Back
+          </span>
         </Button>
       ) : (
         <div></div>
@@ -94,7 +112,10 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
           variant="default"
           className="flex gap-2 items-center"
           onClick={handleFinish}>
-          <span>Finish</span>
+          <span className="flex gap-2 items-center">
+            Finish
+            {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+          </span>
           <ArrowRight />
         </Button>
       ) : (
@@ -102,7 +123,12 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
           variant="default"
           className="flex gap-2 items-center"
           onClick={handleContinue}>
-          <span>Continue </span>
+          <span className="flex gap-2 items-center">
+            Continue
+            {isNavigatingForward && (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            )}
+          </span>
           <ArrowRight />
         </Button>
       )}

@@ -4,83 +4,77 @@ import {
   createMenu,
   createProfile,
   createWeightTracker,
-  getMenu,
-  getProfile,
-  getWeightByDate
+  getProfile
 } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
+
+type RedirectParams = {
+  origin: string
+  path?: string
+  error?: boolean
+}
+
+const handleRedirect = ({
+  origin,
+  path = '/',
+  error = false
+}: RedirectParams) => {
+  const redirectPath = error ? '/auth/auth-code-error' : path
+  return NextResponse.redirect(`${origin}${redirectPath}`)
+}
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/'
 
-  if (code) {
+  if (!code) return handleRedirect({ origin, error: true })
+
+  try {
     const supabase = await createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      const {
-        data: { user }
-      } = await supabase.auth.getUser()
+    const { error: authError } =
+      await supabase.auth.exchangeCodeForSession(code)
 
-      if (!user) {
-        return NextResponse.redirect(`${origin}/auth/login`)
-      }
+    if (authError) throw new Error('Authentication failed')
 
-      try {
-        const profile = await getProfile(user.id)
-        if (profile) {
-          return NextResponse.redirect(
-            profile.is_setup ? `${origin}${next}` : `${origin}/setup`
-          )
-        }
+    const {
+      data: { user }
+    } = await supabase.auth.getUser()
+    if (!user) return handleRedirect({ origin, path: '/auth/login' })
 
-        const newProfile = await createProfile(user.id)
-
-        if (!newProfile) {
-          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
-        }
-
-        const today = getTodayDate()
-        const weightTracker = await getWeightByDate(user.id, today)
-
-        if (weightTracker) {
-          return NextResponse.redirect(`${origin}${next}`)
-        }
-
-        const newWeightTracker = await createWeightTracker(user.id, today)
-
-        if (!newWeightTracker) {
-          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
-        }
-
-        const menu = await getMenu(user.id)
-
-        if (menu) {
-          return NextResponse.redirect(`${origin}${next}`)
-        }
-
-        const newMenu = await createMenu(user.id)
-
-        if (!newMenu) {
-          return NextResponse.redirect(`${origin}/auth/auth-code-error`)
-        }
-      } catch {
-        return NextResponse.redirect(`${origin}/auth/auth-code-error`)
-      }
-
-      const forwardedHost = request.headers.get('x-forwarded-host')
-      const isLocalEnv = process.env.NODE_ENV === 'development'
-      if (isLocalEnv) {
-        return NextResponse.redirect(`${origin}${next}`)
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}${next}`)
-      } else {
-        return NextResponse.redirect(`${origin}${next}`)
-      }
+    const existingProfile = await getProfile(user.id)
+    if (existingProfile) {
+      return handleRedirect({
+        origin,
+        path: existingProfile.is_setup ? next : '/setup'
+      })
     }
+
+    const [profile, weightTracker, menu] = await Promise.all([
+      createProfile(user.id),
+      createWeightTracker(user.id, getTodayDate()),
+      createMenu(user.id)
+    ])
+
+    if (!profile || !weightTracker || !menu) {
+      throw new Error('Resource creation failed')
+    }
+
+    return handleRedirect({ origin, path: '/setup' })
+  } catch {
+    return handleRedirect({ origin, error: true })
   }
 
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+  // const forwardedHost = request.headers.get('x-forwarded-host')
+  // const isLocalEnv = process.env.NODE_ENV === 'development'
+  // if (isLocalEnv) {
+  //   return NextResponse.redirect(`${origin}${next}`)
+  // } else if (forwardedHost) {
+  //   return NextResponse.redirect(`https://${forwardedHost}${next}`)
+  // } else {
+  //   return NextResponse.redirect(`${origin}${next}`)
+  // }
+
+  // return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }
