@@ -13,15 +13,25 @@ type RedirectParams = {
   origin: string
   path?: string
   error?: boolean
+  forwardedHost?: string | null
 }
 
 const handleRedirect = ({
   origin,
   path = '/',
-  error = false
+  error = false,
+  forwardedHost
 }: RedirectParams) => {
   const redirectPath = error ? '/auth/error' : path
-  return NextResponse.redirect(`${origin}${redirectPath}`)
+  const isLocalEnv = process.env.NODE_ENV === 'development'
+
+  if (isLocalEnv) {
+    return NextResponse.redirect(`${origin}${redirectPath}`)
+  } else if (forwardedHost) {
+    return NextResponse.redirect(`https://${forwardedHost}${redirectPath}`)
+  } else {
+    return NextResponse.redirect(`${origin}${redirectPath}`)
+  }
 }
 
 export async function GET(request: Request) {
@@ -31,7 +41,9 @@ export async function GET(request: Request) {
 
   console.log('origin', origin)
 
-  if (!code) return handleRedirect({ origin, error: true })
+  const forwardedHost = request.headers.get('x-forwarded-host')
+
+  if (!code) return handleRedirect({ origin, forwardedHost, error: true })
 
   try {
     const supabase = await createClient()
@@ -43,12 +55,14 @@ export async function GET(request: Request) {
     const {
       data: { user }
     } = await supabase.auth.getUser()
-    if (!user) return handleRedirect({ origin, path: '/auth/login' })
+    if (!user)
+      return handleRedirect({ origin, forwardedHost, path: '/auth/login' })
 
     const existingProfile = await getProfile(user.id)
     if (existingProfile) {
       return handleRedirect({
         origin,
+        forwardedHost,
         path: existingProfile.is_setup ? next : '/setup'
       })
     }
@@ -63,20 +77,8 @@ export async function GET(request: Request) {
       throw new Error('Resource creation failed')
     }
 
-    return handleRedirect({ origin, path: '/setup' })
+    return handleRedirect({ origin, forwardedHost, path: '/setup' })
   } catch {
-    return handleRedirect({ origin, error: true })
+    return handleRedirect({ origin, forwardedHost, error: true })
   }
-
-  // const forwardedHost = request.headers.get('x-forwarded-host')
-  // const isLocalEnv = process.env.NODE_ENV === 'development'
-  // if (isLocalEnv) {
-  //   return NextResponse.redirect(`${origin}${next}`)
-  // } else if (forwardedHost) {
-  //   return NextResponse.redirect(`https://${forwardedHost}${next}`)
-  // } else {
-  //   return NextResponse.redirect(`${origin}${next}`)
-  // }
-
-  // return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }
