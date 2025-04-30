@@ -10,40 +10,27 @@ import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 
 type RedirectParams = {
-  origin: string
+  test?: string
   path?: string
   error?: boolean
-  forwardedHost?: string | null
 }
 
 const handleRedirect = ({
-  origin,
+  test,
   path = '/',
-  error = false,
-  forwardedHost
+  error = false
 }: RedirectParams) => {
+  console.log('test', test)
   const redirectPath = error ? '/auth/error' : path
-  const isLocalEnv = process.env.NODE_ENV === 'development'
-
-  if (isLocalEnv) {
-    return NextResponse.redirect(`${origin}${redirectPath}`)
-  } else if (forwardedHost) {
-    return NextResponse.redirect(`https://${forwardedHost}${redirectPath}`)
-  } else {
-    return NextResponse.redirect(`${origin}${redirectPath}`)
-  }
+  return NextResponse.redirect(`${process.env.NEXTAUTH_URL}${redirectPath}`)
 }
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url)
+  const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/'
 
-  console.log('origin', origin)
-
-  const forwardedHost = request.headers.get('x-forwarded-host')
-
-  if (!code) return handleRedirect({ origin, forwardedHost, error: true })
+  if (!code) return handleRedirect({ test: '1', error: true })
 
   try {
     const supabase = await createClient()
@@ -55,14 +42,12 @@ export async function GET(request: Request) {
     const {
       data: { user }
     } = await supabase.auth.getUser()
-    if (!user)
-      return handleRedirect({ origin, forwardedHost, path: '/auth/login' })
+    if (!user) return handleRedirect({ test: '2', path: '/auth/login' })
 
     const existingProfile = await getProfile(user.id)
     if (existingProfile) {
       return handleRedirect({
-        origin,
-        forwardedHost,
+        test: '3',
         path: existingProfile.is_setup ? next : '/setup'
       })
     }
@@ -77,8 +62,9 @@ export async function GET(request: Request) {
       throw new Error('Resource creation failed')
     }
 
-    return handleRedirect({ origin, forwardedHost, path: '/setup' })
-  } catch {
-    return handleRedirect({ origin, forwardedHost, error: true })
+    return handleRedirect({ test: '4', path: '/setup' })
+  } catch (error) {
+    console.log('error', error)
+    return handleRedirect({ test: '5', error: true })
   }
 }
