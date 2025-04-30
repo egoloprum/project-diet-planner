@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { getPrimaryDiet, getProfile } from '@/src/shared/db'
@@ -24,28 +24,35 @@ const page = async ({}) => {
   const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
 
   return (
-    <div className="flex flex-col gap-6 min-h-[calc(100vh-200px)]">
-      <menu>
-        <h1 className="font-bold text-lg sm:text-xl md:text-2xl">
-          Primary Diet
-        </h1>
-        <p className="text-sm sm:text-base">
-          We will base your meals off this main main diet type. Choose Anything
-          to customize your own unique diet from scratch and set specific
-          exclusions from the
-          <Link
-            href="/food-exclusions"
-            className="underline underline-offset-4 ml-2">
-            Exclusions menu screen.
-          </Link>
-        </p>
-      </menu>
-
-      <DietList
-        selectedDiet={selectedDiet}
-        user_id={user_id}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 grid-auto-rows-fr"
+    <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center">
+      <Image
+        className="select-none"
+        src="/setup/setup-diet.webp"
+        height={250}
+        width={250}
+        alt="setup-diet"
       />
+      <div className="flex flex-col gap-4 xl:w-[60%]">
+        <div>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
+            What do you like to eat?
+          </h1>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Choose from a primary diet type. You can exclude specific foods in
+            the next step.
+          </p>
+        </div>
+        <DietList
+          selectedDiet={selectedDiet}
+          user_id={user_id}
+          className="grid grid-cols-1 gap-2 md:gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full"
+        />
+
+        <p className="text-gray-500 text-sm sm:text-base">
+          Don&apos;t see your preferred diet? Choose &quot;Anything&quot; and
+          then customize it later.
+        </p>
+      </div>
     </div>
   )
 }

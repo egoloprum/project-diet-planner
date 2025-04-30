@@ -17,7 +17,7 @@ const page = async ({}) => {
     <div className="min-h-[calc(100vh-185.5px)] flex justify-center items-center overflow-auto">
       <div className="max-w-[600px] flex flex-col gap-4">
         <div>
-          <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
             Set up your account
           </h1>
           <p className="text-gray-500 text-sm sm:text-base">

@@ -23,3 +23,4 @@ export * from './toaster'
 
 export * from './select'
 export * from './switch'
+export * from './hover-card'

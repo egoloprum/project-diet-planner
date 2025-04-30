@@ -54,7 +54,7 @@ export const ExclusionItemForm: FC<ExclusionItemFormProps> = ({
       <Button
         variant="outline"
         type="submit"
-        className={`${selectItem.includes(exclusionItem) && 'bg-purple-100'}`}>
+        className={`${selectItem.includes(exclusionItem) && 'bg-purple-100'} rounded-xl`}>
         {exclusionItem}
       </Button>
     </form>

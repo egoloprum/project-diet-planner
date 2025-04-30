@@ -16,6 +16,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useToast } from '@/src/shared/hooks'
 import { PrimaryDiet } from '@/src/shared/model'
+import {
+  Button,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from '@/src/shared/ui'
 
 type DefaultDiet = {
   name: string
@@ -101,25 +107,23 @@ export const DietItemForm: FC<DietItemFormProps> = ({
 
   return (
     <form action="" onSubmit={handleSubmit(onSubmit)} className="h-full">
-      <button
-        type="submit"
-        className={`w-full h-full flex gap-4 p-4 items-center border-2 rounded hover:bg-gray-100 active:bg-purple-100 
-          ${selectedDiet.diet_type === defaultDiet.name && 'bg-purple-100'}
-        `}>
-        {isLoading ? (
-          <Loader2 className="animate-spin sm:min-w-10 sm:min-h-10 min-w-8 min-h-8" />
-        ) : (
-          <IconComponent className="sm:min-w-10 sm:min-h-10 min-w-8 min-h-8" />
-        )}
-        <p className="flex flex-col gap-1">
-          <span className="self-start font-bold text-base sm:text-lg">
-            {defaultDiet.name}
-          </span>
-          <span className="text-sm sm:text-base text-start">
-            Excludes: {defaultDiet.exclusion}
-          </span>
-        </p>
-      </button>
+      <HoverCard>
+        <HoverCardTrigger>
+          <Button
+            type="submit"
+            variant="secondary"
+            className={`p-4 w-full h-full justify-start rounded-xl hover:bg-gray-100 active:bg-purple-100 
+            ${selectedDiet.diet_type === defaultDiet.name && 'bg-purple-100'}`}>
+            {isLoading ? (
+              <Loader2 className="animate-spin sm:min-w-10 sm:min-h-10 min-w-8 min-h-8" />
+            ) : (
+              <IconComponent className="sm:min-w-10 sm:min-h-10 min-w-8 min-h-8" />
+            )}
+            <p className="font-bold text-sm lg:text-base">{defaultDiet.name}</p>
+          </Button>
+        </HoverCardTrigger>
+        <HoverCardContent>Excludes: {defaultDiet.exclusion}</HoverCardContent>
+      </HoverCard>
     </form>
   )
 }

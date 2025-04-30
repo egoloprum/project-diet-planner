@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { getExclusion, getProfile } from '@/src/shared/db'
@@ -23,21 +24,31 @@ const page = async ({}) => {
   const selectedExclusions = await getExclusion(user_id)
 
   return (
-    <div className="flex flex-col gap-6 min-h-[calc(100vh-200px)]">
-      <menu>
-        <h1 className="font-bold text-lg sm:text-xl md:text-2xl">
-          Food Exclusion
-        </h1>
-        <p className="text-sm sm:text-base">
-          Add exclusions to filter out recipes from the generator suggestions.
-          Any recipes that match their title or ingredients will not be included
-          in your plans.
-        </p>
-      </menu>
-
-      <SelectedExclusionList
-        selectedExclusions={selectedExclusions?.list ?? []}
-      />
+    <div className="min-h-[calc(100vh-185.5px)] flex flex-col gap-4 md:gap-8 justify-center items-center overflow-auto">
+      <div className="flex flex-wrap justify-center gap-4">
+        <Image
+          className="select-none"
+          src="/setup/setup-diet.webp"
+          height={250}
+          width={250}
+          alt="setup-diet"
+        />
+        <div className="max-w-[600px] flex flex-col gap-4">
+          <div>
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
+              What do you like to eat?
+            </h1>
+            <p className="text-gray-500 text-sm sm:text-base">
+              Add exclusions to filter out recipes from the generator
+              suggestions. Any recipes that match their title or ingredients
+              will not be included in your plans.
+            </p>
+          </div>
+          <SelectedExclusionList
+            selectedExclusions={selectedExclusions?.list ?? []}
+          />
+        </div>
+      </div>
 
       <DefaultExclusionList
         selectedExclusions={selectedExclusions?.list ?? []}

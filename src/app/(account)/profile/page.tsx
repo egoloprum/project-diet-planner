@@ -38,7 +38,7 @@ const page = async ({}) => {
       />
       <div className="max-w-[600px] flex flex-col gap-4">
         <div>
-          <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
             Profile
           </h1>
           <p className="text-gray-500 text-sm sm:text-base">

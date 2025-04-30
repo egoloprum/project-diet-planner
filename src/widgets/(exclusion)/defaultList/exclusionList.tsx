@@ -58,15 +58,17 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({
   }, [selectItem])
 
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="recipeList gap-4">
       {defaultExclusions.map((defaultList, index1) => {
         return (
-          <li key={index1} className="flex flex-col gap-2">
+          <li
+            key={index1}
+            className="flex flex-col flex-nowrap py-2 gap-2 break-inside-avoid">
             <p className="text-base sm:text-lg md:text-xl font-bold">
               {defaultList.name}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 max-w-[600px]">
               {defaultList.list.map((exclusionItem, index2) => (
                 <ExclusionItemForm
                   key={`${index1}-${index2}`}

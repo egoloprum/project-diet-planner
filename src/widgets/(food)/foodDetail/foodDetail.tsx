@@ -21,7 +21,7 @@ export const FoodDetail: FC<FoodDetailProps> = ({ recipe }) => {
           alt={recipe.food_name}
         />
       </AspectRatio>
-      <h1 className="text-base sm:text-lg md:text-xl font-bold">
+      <h1 className="text-lg sm:text-xl md:text-2xl font-bold">
         {recipe.food_name}
       </h1>
       <div>

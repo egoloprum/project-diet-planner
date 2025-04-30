@@ -47,7 +47,7 @@ export const BlogDetail: FC<BlogDetailProps> = ({ blog, userId }) => {
         alt={blog.name}
       />
       <div>
-        <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
+        <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
           {blog.name}
         </h1>
         <p className="text-gray-500 text-sm sm:text-base">{blog.description}</p>
