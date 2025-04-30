@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
+import { NutritionCard } from '@/src/shared/components/nutritionCard'
 import { getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 
@@ -26,6 +27,7 @@ const page = async ({}) => {
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
       <Image
+        className="select-none"
         src="/setup/setup-nutrition.webp"
         height={250}
         width={150}
@@ -42,21 +44,7 @@ const page = async ({}) => {
           </p>
         </section>
 
-        <section>
-          <p>{profile.calories} Calories per day</p>
-          <p className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
-            <span>At least {profile.carbs}g Carbs</span>
-          </p>
-          <p className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-cyan-400"></span>
-            <span>At least {profile.fats}g Fats</span>
-          </p>
-          <p className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-purple-400"></span>
-            <span>At least {profile.protein}g Protein</span>
-          </p>
-        </section>
+        <NutritionCard profile={profile} />
       </div>
     </div>
   )

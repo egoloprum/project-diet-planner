@@ -85,7 +85,7 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ profile, weight }) => {
 
   return (
     <form className="text-sm sm:text-base">
-      <div className="flex flex-wrap items-center gap-2 justify-between">
+      <div className="flex flex-wrap items-center gap-4 justify-between">
         <Label id="goal" className="font-bold">
           Set a goal
         </Label>

@@ -12,9 +12,14 @@ import { Label, Separator, Switch } from '@/src/shared/ui'
 interface SetupMealsFormProps {
   userId: string
   menu: Menu
+  isStatic?: boolean
 }
 
-export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
+export const SetupMealsForm: FC<SetupMealsFormProps> = ({
+  userId,
+  menu,
+  isStatic
+}) => {
   const { handleSubmit, control } = useForm<Omit<Menu, 'id' | 'user_id'>>({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -89,6 +94,7 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
                 field.onChange(checked)
                 handleSubmit(onSubmit)()
               }}
+              disabled={isStatic}
             />
           )}
         />
@@ -109,6 +115,7 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
                 field.onChange(checked)
                 handleSubmit(onSubmit)()
               }}
+              disabled={isStatic}
             />
           )}
         />
@@ -129,6 +136,7 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
                 field.onChange(checked)
                 handleSubmit(onSubmit)()
               }}
+              disabled={isStatic}
             />
           )}
         />
@@ -149,6 +157,7 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
                 field.onChange(checked)
                 handleSubmit(onSubmit)()
               }}
+              disabled={isStatic}
             />
           )}
         />
@@ -169,13 +178,16 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({ userId, menu }) => {
                 field.onChange(checked)
                 handleSubmit(onSubmit)()
               }}
+              disabled={isStatic}
             />
           )}
         />
       </div>
 
       <p className="text-gray-500 text-sm sm:text-base">
-        There should be at least 3 combinations of meals.
+        {isStatic
+          ? 'You can choose meals at planner page.'
+          : 'There should be at least 3 combinations of meals.'}
       </p>
     </form>
   )

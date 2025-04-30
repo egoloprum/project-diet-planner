@@ -109,7 +109,7 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
 
   return (
     <form className="text-sm sm:text-base">
-      <div className="flex flex-wrap items-center gap-2 justify-between">
+      <div className="flex flex-wrap items-center gap-4 justify-between">
         <Label id="activity-level" className="font-bold">
           Activity Level
         </Label>
@@ -120,7 +120,7 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
             setValue('activityLevel', Number(value))
             handleBlur()
           }}>
-          <SelectTrigger className="max-w-[350px] w-full">
+          <SelectTrigger className="max-w-[350px] w-full rounded-xl">
             <SelectValue
               placeholder={
                 ActivityLevel[profile.activity_level - 1] ||

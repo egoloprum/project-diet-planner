@@ -106,7 +106,7 @@ export const HeightForm: FC<HeightFormProps> = ({ profile, weight }) => {
           <Input
             id="height"
             type="number"
-            className="w-20"
+            className="w-20 rounded-xl"
             {...register('height', {
               valueAsNumber: true,
               validate: value => value > 0 || 'Must be positive number',

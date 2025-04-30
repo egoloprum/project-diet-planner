@@ -28,6 +28,7 @@ const page = async ({}) => {
         <ul className="w-full flex flex-col gap-4">
           <li className="flex gap-4 items-center border-b-2 pb-2">
             <Image
+              className="select-none"
               src="/your-diet.webp"
               height={100}
               width={100}
@@ -42,6 +43,7 @@ const page = async ({}) => {
           </li>
           <li className="flex gap-4 items-center border-b-2 pb-2">
             <Image
+              className="select-none"
               src="/about-you.webp"
               height={100}
               width={100}
@@ -56,6 +58,7 @@ const page = async ({}) => {
           </li>
           <li className="flex gap-4 items-center">
             <Image
+              className="select-none"
               src="/your-meals.webp"
               height={100}
               width={100}

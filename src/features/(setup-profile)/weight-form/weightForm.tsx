@@ -110,7 +110,7 @@ export const WeightForm: FC<WeightFormProps> = ({ profile, weight }) => {
           <Input
             id="weight"
             type="number"
-            className="w-20"
+            className="w-20 rounded-xl"
             {...register('weight', {
               valueAsNumber: true,
               validate: value => value > 0 || 'Must be positive number',

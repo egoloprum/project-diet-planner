@@ -31,6 +31,7 @@ const page = async ({}) => {
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
       <Image
+        className="select-none"
         src="/setup/setup-goal.webp"
         height={250}
         width={150}

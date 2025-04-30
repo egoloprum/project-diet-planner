@@ -20,7 +20,7 @@ const handleRedirect = ({
   path = '/',
   error = false
 }: RedirectParams) => {
-  const redirectPath = error ? '/auth/auth-code-error' : path
+  const redirectPath = error ? '/auth/error' : path
   return NextResponse.redirect(`${origin}${redirectPath}`)
 }
 
@@ -28,6 +28,8 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/'
+
+  console.log('origin', origin)
 
   if (!code) return handleRedirect({ origin, error: true })
 

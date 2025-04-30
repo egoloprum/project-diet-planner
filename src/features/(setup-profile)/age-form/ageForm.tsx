@@ -106,7 +106,7 @@ export const AgeForm: FC<AgeFormProps> = ({ profile, weight }) => {
           <Input
             id="age"
             type="number"
-            className="w-20"
+            className="w-20 rounded-xl"
             {...register('age', {
               valueAsNumber: true,
               validate: value => value > 0 || 'Must be positive number',

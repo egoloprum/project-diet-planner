@@ -1,13 +1,10 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getProfile } from '@/src/shared/db'
+import { SetupMealsForm } from '@/src/features/setup-meals-form'
+import { NutritionCard } from '@/src/shared/components/nutritionCard'
+import { getMenu, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
-import { GoalTracker } from '@/src/widgets/(profile)/goalTracker'
-import { NutritionTracker } from '@/src/widgets/(profile)/nutritionTracker'
-import { SocialTracker } from '@/src/widgets/(profile)/socialTracker'
-import { StatsTracker } from '@/src/widgets/(profile)/statsTracker'
-import { WeightChart } from '@/src/widgets/(profile)/weightChart'
-import { WeightTracker } from '@/src/widgets/(profile)/weightTracker'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -24,25 +21,37 @@ const page = async ({}) => {
     redirect('/setup')
   }
 
-  if (data.user?.email) {
-    return (
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-wrap gap-4">
-          <WeightTracker user={data.user} />
-          <WeightChart userId={user_id} />
-          <SocialTracker userId={user_id} />
-        </div>
+  const menu = await getMenu(user_id)
 
-        <div className="flex flex-wrap gap-4">
-          <GoalTracker userId={user_id} />
-          <NutritionTracker userId={user_id} />
-          <StatsTracker userId={user_id} />
-        </div>
-      </div>
-    )
+  if (!menu) {
+    redirect('/login')
   }
 
-  return <p>This page can not be accessed by unverified user.</p>
+  return (
+    <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
+      <Image
+        src="/image_profile.png"
+        height={250}
+        width={250}
+        alt="profile"
+        className="select-none"
+      />
+      <div className="max-w-[600px] flex flex-col gap-4">
+        <div>
+          <h1 className="text-base sm:text-lg md:text-xl font-bold capitalize">
+            Profile
+          </h1>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Changing this data will affect your other settings such as
+            nutritions settings.
+          </p>
+        </div>
+
+        <NutritionCard profile={profile} />
+        <SetupMealsForm userId={user_id} menu={menu} isStatic={true} />
+      </div>
+    </div>
+  )
 }
 
 export default page
