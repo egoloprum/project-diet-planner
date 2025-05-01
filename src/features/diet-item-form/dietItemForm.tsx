@@ -119,7 +119,7 @@ export const DietItemForm: FC<DietItemFormProps> = ({
             ) : (
               <IconComponent className="sm:min-w-10 sm:min-h-10 min-w-8 min-h-8" />
             )}
-            <p className="font-bold text-sm lg:text-base">{defaultDiet.name}</p>
+            <p className="text-sm lg:text-base">{defaultDiet.name}</p>
           </Button>
         </HoverCardTrigger>
         <HoverCardContent>Excludes: {defaultDiet.exclusion}</HoverCardContent>

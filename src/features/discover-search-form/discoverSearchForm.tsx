@@ -43,13 +43,11 @@ export const DiscoverSearchForm = ({}) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      action=""
-      className="max-w-72 w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-72 w-full">
       <Input
         placeholder="Search..."
         {...register('searchValue')}
+        className="rounded-xl"
         onChange={e => setSearchParam(e.target.value)}
       />
     </form>

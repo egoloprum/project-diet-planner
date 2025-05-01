@@ -81,7 +81,9 @@ export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Create collection</Button>
+        <Button variant="outline" className="rounded-xl">
+          Create collection
+        </Button>
       </AlertDialogTrigger>
       <Separator className="my-4" />
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
@@ -99,7 +101,12 @@ export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
                 className={`${errors.name && 'text-red-500'}`}>
                 Collection name
               </Label>
-              <Input type="text" id="name" {...register('name')} />
+              <Input
+                type="text"
+                id="name"
+                {...register('name')}
+                className="rounded-xl"
+              />
               {errors.name && (
                 <span className="text-red-500 text-sm">
                   {errors.name.message}
@@ -112,7 +119,11 @@ export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
                 className={`${errors.description && 'text-red-500'}`}>
                 Collection description
               </Label>
-              <Textarea id="description" {...register('description')} />
+              <Textarea
+                id="description"
+                {...register('description')}
+                className="rounded-xl"
+              />
               {errors.description && (
                 <span className="text-red-500 text-sm">
                   {errors.description.message}
@@ -122,12 +133,13 @@ export const CollectionCreateModal: FC<CollectionCreateModalProps> = ({
             <Separator />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
-              disabled={Object.keys(errors).length > 0}>
+              disabled={Object.keys(errors).length > 0}
+              className="rounded-xl">
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

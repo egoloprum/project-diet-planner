@@ -9,7 +9,7 @@ export const SelectedExclusionList: FC<SelectedExclusionListProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-base sm:text-lg md:text-xl font-bold">
+      <p className="text-base sm:text-lg md:text-xl underline underline-offset-2 decoration-green-300 select-none">
         Your exclusions
       </p>
 

@@ -12,15 +12,33 @@ export const NutritionCard: FC<NutritionCardProps> = ({ profile }) => {
       <p>{profile.calories} Calories per day</p>
       <p className="flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-yellow-400"></span>
-        <span>At least {profile.carbs}g Carbs</span>
+        <span className="flex gap-1">
+          At least
+          <small className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
+            {profile.carbs}g
+          </small>
+          Carbs
+        </span>
       </p>
       <p className="flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-cyan-400"></span>
-        <span>At least {profile.fats}g Fats</span>
+        <span className="flex gap-1">
+          At least
+          <small className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
+            {profile.fats}g
+          </small>
+          Fats
+        </span>
       </p>
       <p className="flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-purple-400"></span>
-        <span>At least {profile.protein}g Protein</span>
+        <span className="flex gap-1">
+          At least
+          <small className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
+            {profile.protein}g
+          </small>
+          Protein
+        </span>
       </p>
     </section>
   )

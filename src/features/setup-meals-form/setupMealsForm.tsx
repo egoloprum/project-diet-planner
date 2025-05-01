@@ -80,7 +80,9 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="py-4 flex items-center gap-4 justify-between">
-        <Label className="text-base font-semibold" htmlFor="breakfast">
+        <Label
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none"
+          htmlFor="breakfast">
           Breakfast
         </Label>
         <Controller
@@ -101,7 +103,9 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({
       </div>
       <Separator />
       <div className="py-4 flex items-center gap-4 justify-between">
-        <Label className="text-base font-semibold" htmlFor="lunch">
+        <Label
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none"
+          htmlFor="lunch">
           Lunch
         </Label>
         <Controller
@@ -122,7 +126,9 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({
       </div>
       <Separator />
       <div className="py-4 flex items-center gap-4 justify-between">
-        <Label className="text-base font-semibold" htmlFor="dinner">
+        <Label
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none"
+          htmlFor="dinner">
           Dinner
         </Label>
         <Controller
@@ -143,7 +149,9 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({
       </div>
       <Separator />
       <div className="py-4 flex items-center gap-4 justify-between">
-        <Label className="text-base font-semibold" htmlFor="snack">
+        <Label
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none"
+          htmlFor="snack">
           Snack
         </Label>
         <Controller
@@ -164,7 +172,9 @@ export const SetupMealsForm: FC<SetupMealsFormProps> = ({
       </div>
       <Separator />
       <div className="py-4 flex items-center gap-4 justify-between">
-        <Label className="text-base font-semibold" htmlFor="dessert">
+        <Label
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none"
+          htmlFor="dessert">
           Dessert
         </Label>
         <Controller

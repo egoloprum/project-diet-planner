@@ -86,7 +86,9 @@ export const GenderForm: FC<GenderFormProps> = ({ profile, weight }) => {
   return (
     <form className="text-sm sm:text-base border-b-2 pb-4">
       <div className="flex items-center gap-2 justify-between">
-        <Label id="gender" className="font-bold">
+        <Label
+          id="gender"
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
           Gender
         </Label>
         <div className="flex items-center">

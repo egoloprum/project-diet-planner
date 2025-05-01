@@ -64,7 +64,7 @@ export const DefaultExclusionList: FC<DefaultExclusionListProps> = ({
           <li
             key={index1}
             className="flex flex-col flex-nowrap py-2 gap-2 break-inside-avoid">
-            <p className="text-base sm:text-lg md:text-xl font-bold">
+            <p className="text-base sm:text-base md:text-lg underline underline-offset-2 decoration-green-300 select-none">
               {defaultList.name}
             </p>
 

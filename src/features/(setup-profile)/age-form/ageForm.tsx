@@ -99,7 +99,9 @@ export const AgeForm: FC<AgeFormProps> = ({ profile, weight }) => {
       className="text-sm sm:text-base border-b-2 pb-4"
       onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center gap-2 justify-between">
-        <Label htmlFor="age" className="font-bold">
+        <Label
+          htmlFor="age"
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
           Age
         </Label>
         <div className="flex items-center gap-2">

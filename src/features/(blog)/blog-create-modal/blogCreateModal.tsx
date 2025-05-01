@@ -143,7 +143,9 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Create blog</Button>
+        <Button variant="outline" className="rounded-xl">
+          Create blog
+        </Button>
       </AlertDialogTrigger>
       <Separator className="my-4" />
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
@@ -161,7 +163,12 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                 className={`${errors.name && 'text-red-500'}`}>
                 Blog name
               </Label>
-              <Input type="text" id="name" {...register('name')} />
+              <Input
+                type="text"
+                id="name"
+                {...register('name')}
+                className="rounded-xl"
+              />
               {errors.name && (
                 <span className="text-red-500 text-sm">
                   {errors.name.message}
@@ -174,7 +181,11 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                 className={`${errors.description && 'text-red-500'}`}>
                 Blog description
               </Label>
-              <Textarea id="description" {...register('description')} />
+              <Textarea
+                id="description"
+                {...register('description')}
+                className="rounded-xl"
+              />
               {errors.description && (
                 <span className="text-red-500 text-sm">
                   {errors.description.message}
@@ -218,6 +229,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                         <Input
                           id={`list-${index}-header`}
                           {...register(`list.${index}.header`)}
+                          className="rounded-xl"
                         />
                         {errors.list?.[index]?.header && (
                           <span className="text-red-500 text-sm">
@@ -234,6 +246,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                         <Textarea
                           id={`list-${index}-text`}
                           {...register(`list.${index}.text`)}
+                          className="rounded-xl"
                         />
                         {errors.list?.[index]?.text && (
                           <span className="text-red-500 text-sm">
@@ -248,6 +261,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                         <Input
                           type="number"
                           id={`list-${index}-recipe_id`}
+                          className="rounded-xl"
                           {...register(`list.${index}.recipe_id`, {
                             valueAsNumber: true,
                             validate: value =>
@@ -269,12 +283,13 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
             <Separator />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
-              disabled={Object.keys(errors).length > 0}>
+              disabled={Object.keys(errors).length > 0}
+              className="rounded-xl">
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -110,7 +110,9 @@ export const ActivityLevelForm: FC<ActivityLevelFormProps> = ({
   return (
     <form className="text-sm sm:text-base">
       <div className="flex flex-wrap items-center gap-4 justify-between">
-        <Label id="activity-level" className="font-bold">
+        <Label
+          id="activity-level"
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
           Activity Level
         </Label>
 

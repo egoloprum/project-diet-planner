@@ -103,7 +103,9 @@ export const WeightForm: FC<WeightFormProps> = ({ profile, weight }) => {
       className="text-sm sm:text-base border-b-2 pb-4"
       onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center gap-2 justify-between">
-        <Label htmlFor="weight" className="font-bold">
+        <Label
+          htmlFor="weight"
+          className="text-sm md:text-base underline underline-offset-2 decoration-green-300 select-none">
           Weight
         </Label>
         <div className="flex items-center gap-2">

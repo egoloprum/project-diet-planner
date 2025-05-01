@@ -98,7 +98,9 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Add to Collection</Button>
+        <Button variant="outline" className="rounded-xl">
+          Add to Collection
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
         <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -140,10 +142,12 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
           />
 
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction type="submit">Save</AlertDialogAction>
+            <AlertDialogAction type="submit" className="rounded-xl">
+              Save
+            </AlertDialogAction>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>

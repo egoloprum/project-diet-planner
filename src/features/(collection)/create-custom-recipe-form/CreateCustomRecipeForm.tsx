@@ -118,7 +118,9 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Create custom recipe</Button>
+        <Button variant="outline" className="rounded-xl">
+          Create custom recipe
+        </Button>
       </AlertDialogTrigger>
       <Separator className="my-4" />
       <AlertDialogContent className="max-h-[80%] overflow-y-auto">
@@ -136,7 +138,12 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                 className={`${errors.foodName && 'text-red-500'}`}>
                 Food Name
               </Label>
-              <Input type="text" id="food-name" {...register('foodName')} />
+              <Input
+                type="text"
+                id="food-name"
+                className="rounded-xl"
+                {...register('foodName')}
+              />
               {errors.foodName && (
                 <span className="text-red-500 text-sm">
                   {errors.foodName.message}
@@ -155,6 +162,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                 <Input
                   type="text"
                   id="prep-time"
+                  className="rounded-xl"
                   defaultValue="0"
                   {...register('prepTime')}
                 />
@@ -173,6 +181,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                 <Input
                   type="text"
                   id="cook-time"
+                  className="rounded-xl"
                   defaultValue="0"
                   {...register('cookTime')}
                 />
@@ -326,17 +335,31 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                     className="flex-wrap"
                     value={field.value}
                     onValueChange={field.onChange}>
-                    <ToggleGroupItem value="Healthy">Healthy</ToggleGroupItem>
-                    <ToggleGroupItem value="Romantic">Romantic</ToggleGroupItem>
-                    <ToggleGroupItem value="Mexican">Mexican</ToggleGroupItem>
-                    <ToggleGroupItem value="American">American</ToggleGroupItem>
-                    <ToggleGroupItem value="Dinner">Dinner</ToggleGroupItem>
-                    <ToggleGroupItem value="Lunch">Lunch</ToggleGroupItem>
-                    <ToggleGroupItem value="Breakfast">
+                    <ToggleGroupItem value="Healthy" className="rounded-xl">
+                      Healthy
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Romantic" className="rounded-xl">
+                      Romantic
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Mexican" className="rounded-xl">
+                      Mexican
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="American" className="rounded-xl">
+                      American
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Dinner" className="rounded-xl">
+                      Dinner
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Lunch" className="rounded-xl">
+                      Lunch
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Breakfast" className="rounded-xl">
                       Breakfast
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="Low Carb">Low Carb</ToggleGroupItem>
-                    <ToggleGroupItem value="Vegetarian">
+                    <ToggleGroupItem value="Low Carb" className="rounded-xl">
+                      Low Carb
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Vegetarian" className="rounded-xl">
                       Vegetarian
                     </ToggleGroupItem>
                   </ToggleGroup>
@@ -358,7 +381,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="fats"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={100}
                     {...register('fats')}
@@ -378,7 +401,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="carbs"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={200}
                     {...register('carbs')}
@@ -398,7 +421,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="fiber"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={100}
                     {...register('fiber')}
@@ -418,7 +441,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="sugar"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={100}
                     {...register('sugar')}
@@ -438,7 +461,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="protein"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={100}
                     {...register('protein')}
@@ -458,7 +481,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="calories"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={1000}
                     {...register('calories')}
@@ -478,7 +501,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   <Input
                     id="cholesterol"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue="0"
                     max={300}
                     {...register('cholesterol')}
@@ -499,7 +522,11 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                 className={`${errors.direction && 'text-red-500'}`}>
                 Direction
               </Label>
-              <Textarea id="direction" {...register('direction')} />
+              <Textarea
+                id="direction"
+                {...register('direction')}
+                className="rounded-xl"
+              />
               {errors.direction && (
                 <span className="text-red-500 text-sm">
                   {errors.direction.message}
@@ -508,10 +535,11 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
             </fieldset>
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
+              className="rounded-xl"
               type="submit"
               disabled={Object.keys(errors).length > 0}>
               Continue
