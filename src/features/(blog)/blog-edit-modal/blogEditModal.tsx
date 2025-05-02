@@ -112,7 +112,7 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full rounded-xl">
           Edit Blog
         </Button>
       </AlertDialogTrigger>
@@ -131,7 +131,12 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
                 className={`${errors.name && 'text-red-500'}`}>
                 Blog name
               </Label>
-              <Input type="text" id="name" {...register('name')} />
+              <Input
+                type="text"
+                id="name"
+                {...register('name')}
+                className="rounded-xl"
+              />
               {errors.name && (
                 <span className="text-red-500 text-sm">
                   {errors.name.message}
@@ -144,7 +149,11 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
                 className={`${errors.description && 'text-red-500'}`}>
                 Blog description
               </Label>
-              <Textarea id="description" {...register('description')} />
+              <Textarea
+                id="description"
+                {...register('description')}
+                className="rounded-xl"
+              />
               {errors.description && (
                 <span className="text-red-500 text-sm">
                   {errors.description.message}
@@ -187,6 +196,7 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
                         <Input
                           id={`list-${index}-header`}
                           {...register(`list.${index}.header`)}
+                          className="rounded-xl"
                         />
                         {errors.list?.[index]?.header && (
                           <span className="text-red-500 text-sm">
@@ -203,6 +213,7 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
                         <Textarea
                           id={`list-${index}-text`}
                           {...register(`list.${index}.text`)}
+                          className="rounded-xl"
                         />
                         {errors.list?.[index]?.text && (
                           <span className="text-red-500 text-sm">
@@ -222,6 +233,7 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
                             validate: value =>
                               value > 0 || 'Must be positive number'
                           })}
+                          className="rounded-xl"
                         />
                         {errors.list?.[index]?.recipe_id && (
                           <span className="text-red-500">
@@ -238,12 +250,13 @@ export const BlogEditModal: FC<BlogEditModalProps> = ({ userId, blog }) => {
             <Separator />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
-              disabled={Object.keys(errors).length > 0}>
+              disabled={Object.keys(errors).length > 0}
+              className="rounded-xl">
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

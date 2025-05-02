@@ -14,7 +14,7 @@ export const createWeightTracker = async (
     .single()
 
   if (error) {
-    throw new Error(`Failed to fetch weight: ${error.message}`)
+    throw new Error(`Failed to add weight: ${error.message}`)
   }
 
   return data
@@ -73,7 +73,7 @@ export const setWeightByDate = async (
     .single()
 
   if (error) {
-    throw new Error(`Failed to fetch weight: ${error.message}`)
+    throw new Error(`Failed to update weight: ${error.message}`)
   }
 
   return data

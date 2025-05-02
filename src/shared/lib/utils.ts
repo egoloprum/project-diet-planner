@@ -14,6 +14,61 @@ export const getTodayDate = () => {
   return newDate
 }
 
+export const extractDate = (date: string) => {
+  const newDate = new Date(date)
+  const year = newDate.getFullYear()
+  const month = newDate.getMonth() + 1
+  const day = newDate.getDate()
+
+  return `${year}-${month}-${day}`
+}
+
+// fix 2025-4-31
+export const isValidDate = (
+  date: string,
+  userDate: string,
+  today: string
+): boolean => {
+  const regex = /^\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[12][0-9]|3[01])$/
+
+  if (!regex.test(date)) {
+    return false
+  }
+
+  const dateObj = new Date(date)
+  const userDateObj = new Date(userDate)
+  const todayObj = new Date(today)
+
+  return dateObj >= userDateObj && dateObj <= todayObj
+}
+
+export function humanizeDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    month: 'long'
+  }
+
+  const { weekday, month: monthName } = new Intl.DateTimeFormat(
+    'en-US',
+    options
+  )
+    .formatToParts(date)
+    .reduce(
+      (acc, part) => {
+        acc[part.type as keyof typeof acc] = part.value
+        return acc
+      },
+      { weekday: '', month: '' }
+    )
+
+  const dayOfMonth = date.getDate()
+
+  return `${weekday}, ${monthName} ${dayOfMonth}`
+}
+
 export const calculateBMR = (
   gender: string,
   weight: number,
@@ -94,4 +149,52 @@ export const calculator = (
   }
 
   return { calories, nutritions }
+}
+
+type calculateMealCaloriesPercentagesData = {
+  breakfast?: boolean
+  lunch?: boolean
+  dinner?: boolean
+  snack?: boolean
+  dessert?: boolean
+}
+
+export const calculateMealCaloriesPercentages = (
+  data: calculateMealCaloriesPercentagesData
+) => {
+  const mealPercentages = {
+    breakfast: 25,
+    lunch: 25,
+    dinner: 35,
+    snack: 10,
+    dessert: 5
+  }
+
+  const selectedMeals = []
+
+  if (data.breakfast)
+    selectedMeals.push({
+      name: 'breakfast',
+      percentage: mealPercentages.breakfast
+    })
+  if (data.lunch)
+    selectedMeals.push({ name: 'lunch', percentage: mealPercentages.lunch })
+  if (data.dinner)
+    selectedMeals.push({ name: 'dinner', percentage: mealPercentages.dinner })
+  if (data.snack)
+    selectedMeals.push({ name: 'snack', percentage: mealPercentages.snack })
+  if (data.dessert)
+    selectedMeals.push({ name: 'dessert', percentage: mealPercentages.dessert })
+
+  const totalSelectedPercentage = selectedMeals.reduce(
+    (total, meal) => total + meal.percentage,
+    0
+  )
+
+  const adjustedPercentages = selectedMeals.map(meal => ({
+    name: meal.name,
+    percentage: Math.floor((meal.percentage / totalSelectedPercentage) * 100)
+  }))
+
+  return adjustedPercentages
 }
