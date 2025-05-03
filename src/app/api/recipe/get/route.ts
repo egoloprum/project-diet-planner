@@ -13,14 +13,14 @@ export async function GET(req: Request) {
 
     const id = parseInt(idParam, 10)
     if (isNaN(id)) {
-      return NextResponse.json({ error: 'Invalid recipe id' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid recipe id!' }, { status: 400 })
     }
 
     const result = await recipeGetById(`${id}`)
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to fetch recipe' },
+        { error: 'Failed to fetch recipe!' },
         { status: 500 }
       )
     }
@@ -28,7 +28,7 @@ export async function GET(req: Request) {
     return NextResponse.json(result, { status: 200 })
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }
