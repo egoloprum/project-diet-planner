@@ -1,15 +1,18 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { FC } from 'react'
 
+import { Recipe } from '@/src/shared/model'
 import { Checkbox } from '@/src/shared/ui'
 
 interface MealItemProps {
   type: 'breakfast' | 'lunch' | 'dinner' | 'snack' | 'dessert'
+  recipe: Recipe
 }
 
-export const MealItem: FC<MealItemProps> = ({ type }) => {
+export const MealItem: FC<MealItemProps> = ({ type, recipe }) => {
   return (
     <div className="py-4 bg-gray-50">
       <p className="flex items-end justify-between gap-2 px-4">
@@ -17,52 +20,32 @@ export const MealItem: FC<MealItemProps> = ({ type }) => {
           {type}
         </span>
         <span className="text-gray-500 text-xs sm:text-sm lg:text-base">
-          254 calories
+          {recipe.nutritions.calories}
         </span>
       </p>
 
-      <ul className="flex flex-col gap-2">
-        <li className="py-2 px-4 hover:bg-gray-100 flex items-center gap-4">
-          <Checkbox />
-          <div className="flex items-start gap-4 w-full">
-            <Image
-              src="/default_thumbnail_recipe.jpg"
-              height={100}
-              width={100}
-              loading="lazy"
-              alt="thumbnail"
-            />
-            <p className="flex flex-col">
-              <span className="text-sm md:text-base underline underline-offset-2 decoration-green-300">
-                Fried Chicken And Egg Rice Bowl (Chicken Katsudon)
-              </span>
-              <span className="text-gray-500 text-xs sm:text-sm lg:text-base">
-                1 serving
-              </span>
-            </p>
-          </div>
-        </li>
-        <li className="py-2 px-4 hover:bg-gray-100 flex items-center gap-4">
-          <Checkbox />
-          <div className="flex items-start gap-4 w-full">
-            <Image
-              src="/default_thumbnail_recipe.jpg"
-              height={100}
-              width={100}
-              loading="lazy"
-              alt="thumbnail"
-            />
-            <p className="flex flex-col">
-              <span className="text-sm md:text-base underline underline-offset-2 decoration-green-300">
-                Fried Chicken And Egg Rice Bowl (Chicken Katsudon)
-              </span>
-              <span className="text-gray-500 text-xs sm:text-sm lg:text-base">
-                1 serving
-              </span>
-            </p>
-          </div>
-        </li>
-      </ul>
+      <section className="py-2 px-4 hover:bg-gray-100 flex items-center gap-4">
+        <Checkbox />
+        <div className="flex items-start gap-4 w-full">
+          <Image
+            src={recipe.images?.thumbnail || '/default_thumbnail_recipe.jpg'}
+            height={100}
+            width={100}
+            loading="lazy"
+            alt="thumbnail"
+          />
+          <p className="flex flex-col">
+            <Link
+              href={`/discover/${recipe.recipe_id}`}
+              className="text-sm md:text-base underline underline-offset-2 decoration-green-300">
+              {recipe.food_name}
+            </Link>
+            <span className="text-gray-500 text-xs sm:text-sm lg:text-base">
+              1 serving
+            </span>
+          </p>
+        </div>
+      </section>
     </div>
   )
 }

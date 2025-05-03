@@ -1,11 +1,11 @@
 import { Recipe } from './recipe.type'
 
 export interface Planner {
-  breakfast: Recipe[]
-  lunch: Recipe[]
-  dinner: Recipe[]
-  snack: Recipe[]
-  dessert: Recipe[]
+  breakfast: Recipe | null
+  lunch: Recipe | null
+  dinner: Recipe | null
+  snack: Recipe | null
+  dessert: Recipe | null
 
   id: number
   user_id: string

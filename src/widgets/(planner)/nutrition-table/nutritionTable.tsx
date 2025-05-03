@@ -1,12 +1,16 @@
 import { FC } from 'react'
 
-import { Profile } from '@/src/shared/model'
+import { Planner, Profile } from '@/src/shared/model'
 
 interface NutritionTableProps {
   profile: Profile
+  planner: Planner
 }
 
-export const NutritionTable: FC<NutritionTableProps> = ({ profile }) => {
+export const NutritionTable: FC<NutritionTableProps> = ({
+  profile,
+  planner
+}) => {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
@@ -39,10 +43,10 @@ export const NutritionTable: FC<NutritionTableProps> = ({ profile }) => {
         </div>
         <div className="flex flex-col gap-2 text-end">
           <p className="text-sm md:text-base">Totals</p>
-          <p className="text-sm md:text-base">Calories</p>
-          <p className="text-sm md:text-base">Carbs</p>
-          <p className="text-sm md:text-base">Fats</p>
-          <p className="text-sm md:text-base">Protein</p>
+          <p className="text-sm md:text-base">{planner.calories}</p>
+          <p className="text-sm md:text-base">{planner.carbs}g</p>
+          <p className="text-sm md:text-base">{planner.fats}g</p>
+          <p className="text-sm md:text-base">{planner.protein}g</p>
         </div>
         <div className="flex flex-col gap-2 text-end">
           <p className="text-sm md:text-base">Target</p>

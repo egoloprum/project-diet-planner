@@ -1,5 +1,52 @@
-import { Planner } from '../../model'
+import { Planner, Recipe } from '../../model'
 import { createClient } from '../supabase'
+
+// must edit recipe type, as nutritions json continues to fail
+export const getRecipesForPlanner = async (
+  keyword: string,
+  minCalories: number,
+  maxCalories: number,
+  minCarbs: number,
+  maxCarbs: number,
+  minFats: number,
+  maxFats: number,
+  minProtein: number,
+  maxProtein: number
+): Promise<Recipe | null> => {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.rpc('get_recipes', {
+    keyword: keyword,
+    min_calories: minCalories,
+    max_calories: maxCalories,
+    min_carbs: minCarbs,
+    max_carbs: maxCarbs,
+    min_fats: minFats,
+    max_fats: maxFats,
+    min_protein: minProtein,
+    max_protein: maxProtein
+  })
+
+  if (error) {
+    console.log('error', error)
+    return null
+  }
+
+  if (data && data.length > 0) {
+    const randomIndex = Math.floor(Math.random() * data.length)
+
+    console.log({
+      calories: data[randomIndex].nutritions.calories,
+      carbs: data[randomIndex].nutritions.carbs,
+      fats: data[randomIndex].nutritions.fats,
+      protein: data[randomIndex].nutritions.protein
+    })
+
+    return data[randomIndex]
+  }
+
+  return null
+}
 
 export const getPlannerByDate = async (
   userId: string,
@@ -24,11 +71,15 @@ export const getPlannerByDate = async (
 export const createPlanner = async (
   userId: string,
   date: string,
-  breakfast: number[],
-  lunch: number[],
-  dinner: number[],
-  snack: number[],
-  dessert: number[]
+  breakfast: Recipe | null,
+  lunch: Recipe | null,
+  dinner: Recipe | null,
+  snack: Recipe | null,
+  dessert: Recipe | null,
+  calories: number,
+  carbs: number,
+  fats: number,
+  protein: number
 ): Promise<Planner | null> => {
   const supabase = await createClient()
 
@@ -41,7 +92,11 @@ export const createPlanner = async (
       lunch: lunch,
       dinner: dinner,
       snack: snack,
-      dessert: dessert
+      dessert: dessert,
+      calories: calories,
+      carbs: carbs,
+      fats: fats,
+      protein: protein
     })
     .select()
     .single()

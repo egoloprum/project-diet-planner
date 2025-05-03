@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
 
 import { useToast } from '@/src/shared/hooks'
-import { Menu, Profile } from '@/src/shared/model'
+import { Profile } from '@/src/shared/model'
 import { Button } from '@/src/shared/ui'
 
 interface GeneratePlanBtnProps {
@@ -15,14 +15,12 @@ interface GeneratePlanBtnProps {
     name: string
     percentage: number
   }[]
-  menu: Menu
   currentDate: string
 }
 
 export const GeneratePlanBtn: FC<GeneratePlanBtnProps> = ({
   profile,
   caloriesPercentages,
-  menu,
   currentDate
 }) => {
   const { toast } = useToast()
@@ -35,7 +33,12 @@ export const GeneratePlanBtn: FC<GeneratePlanBtnProps> = ({
       setIsloading(true)
       await axios.post('/api/planner/create', {
         date: currentDate,
-        userId: profile.user_id
+        userId: profile.user_id,
+        caloriesPercentages: caloriesPercentages,
+        profileCalories: profile.calories,
+        profileCarbs: profile.carbs,
+        profileFats: profile.fats,
+        profileProtein: profile.protein
       })
 
       toast({

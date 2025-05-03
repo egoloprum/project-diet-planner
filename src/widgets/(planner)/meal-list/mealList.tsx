@@ -2,17 +2,21 @@ import { FC } from 'react'
 
 import { DeletePlanBtn } from '@/src/features/(planner)/delete-plan-btn'
 import { RefreshPlanBtn } from '@/src/features/(planner)/refresh-plan-btn'
-import { Profile } from '@/src/shared/model'
+import { Planner, Profile } from '@/src/shared/model'
 
 import { MealItem } from '../meal-item'
 
 interface MealListProps {
-  // planner: Planner
+  planner: Planner
   profile: Profile
   currentDate: string
 }
 
-export const MealList: FC<MealListProps> = ({ profile, currentDate }) => {
+export const MealList: FC<MealListProps> = ({
+  planner,
+  profile,
+  currentDate
+}) => {
   return (
     <div className="flex flex-col gap-4">
       <section className="flex gap-4 justify-between">
@@ -25,11 +29,17 @@ export const MealList: FC<MealListProps> = ({ profile, currentDate }) => {
         </div>
       </section>
 
-      <MealItem type="breakfast" />
-      <MealItem type="lunch" />
-      <MealItem type="dinner" />
-      <MealItem type="snack" />
-      <MealItem type="dessert" />
+      {planner.breakfast ? (
+        <MealItem type="breakfast" recipe={planner.breakfast} />
+      ) : null}
+      {planner.lunch ? <MealItem type="lunch" recipe={planner.lunch} /> : null}
+      {planner.dinner ? (
+        <MealItem type="dinner" recipe={planner.dinner} />
+      ) : null}
+      {planner.snack ? <MealItem type="snack" recipe={planner.snack} /> : null}
+      {planner.dessert ? (
+        <MealItem type="dessert" recipe={planner.dessert} />
+      ) : null}
     </div>
   )
 }

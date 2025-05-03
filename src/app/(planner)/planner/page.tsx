@@ -69,9 +69,9 @@ const page = async ({
               alt="planner"
             />
           </div>
-          <NutritionTable profile={profile} />
+          <NutritionTable profile={profile} planner={planner} />
         </div>
-        <MealList profile={profile} currentDate={date} />
+        <MealList planner={planner} profile={profile} currentDate={date} />
       </div>
     )
   }
@@ -117,7 +117,6 @@ const page = async ({
         <GeneratePlanBtn
           profile={profile}
           caloriesPercentages={caloriesPercentages}
-          menu={menu}
           currentDate={date}
         />
         <SetupMealsForm userId={user_id} menu={menu} />
