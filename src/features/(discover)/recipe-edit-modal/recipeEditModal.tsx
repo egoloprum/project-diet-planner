@@ -19,7 +19,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-  Checkbox,
   Input,
   Label,
   Separator,
@@ -74,12 +73,6 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      isMainDish: recipe.is_main_dish,
-      isBreakfast: recipe.is_breakfast,
-      isLunch: recipe.is_lunch,
-      isDinner: recipe.is_dinner,
-      isDessert: recipe.is_dessert,
-      isSnack: recipe.is_snack,
       tagCloud: recipe.tag_cloud.split(' '),
       direction: recipe.directions.join(' ')
     }
@@ -92,7 +85,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
     try {
       await axios.patch('/api/custom-recipe/update', {
         ...data,
-        recipe_id: recipe.recipe_id,
+        id: recipe.id,
         userId: userId,
         collections: recipe.collections
       })
@@ -196,128 +189,6 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
             <Separator />
 
             <fieldset>
-              <Label>Type of Dish</Label>
-              <Separator className="my-2" />
-              <div className="flex flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isMainDish"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="main-dish"
-                        defaultChecked={recipe.is_main_dish}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="main-dish">Main Dish</Label>
-                  {errors.isMainDish && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isMainDish.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isBreakfast"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="breakfast"
-                        defaultChecked={recipe.is_breakfast}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="breakfast">Breakfast</Label>
-                  {errors.isBreakfast && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isBreakfast.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isLunch"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="lunch"
-                        defaultChecked={recipe.is_lunch}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="lunch">Lunch</Label>
-                  {errors.isLunch && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isLunch.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isDinner"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="dinner"
-                        defaultChecked={recipe.is_dinner}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="dinner">Dinner</Label>
-                  {errors.isDinner && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isDinner.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isDessert"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="dessert"
-                        defaultChecked={recipe.is_dessert}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="dessert">Dessert</Label>
-                  {errors.isDessert && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isDessert.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isSnack"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="snack"
-                        defaultChecked={recipe.is_snack}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="snack">Snack</Label>
-                  {errors.isSnack && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isSnack.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </fieldset>
-            <Separator />
-
-            <fieldset>
               <Label className={`${errors.tagCloud && 'text-red-500'}`}>
                 Tags
               </Label>
@@ -369,7 +240,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                     id="fats"
                     type="text"
                     className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.fats}`}
+                    defaultValue={`${recipe.fats}`}
                     max={100}
                     {...register('fats')}
                   />
@@ -389,53 +260,13 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                     id="carbs"
                     type="text"
                     className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.carbs}`}
+                    defaultValue={`${recipe.carbs}`}
                     max={200}
                     {...register('carbs')}
                   />
                   {errors.carbs && (
                     <span className="text-red-500 text-sm">
                       {errors.carbs.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
-                    htmlFor="fiber"
-                    className={`${errors.fiber && 'text-red-500'}`}>
-                    Fiber
-                  </Label>
-                  <Input
-                    id="fiber"
-                    type="text"
-                    className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.fiber}`}
-                    max={100}
-                    {...register('fiber')}
-                  />
-                  {errors.fiber && (
-                    <span className="text-red-500 text-sm">
-                      {errors.fiber.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
-                    htmlFor="sugar"
-                    className={`${errors.sugar && 'text-red-500'}`}>
-                    Sugar
-                  </Label>
-                  <Input
-                    id="sugar"
-                    type="text"
-                    className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.sugar}`}
-                    max={100}
-                    {...register('sugar')}
-                  />
-                  {errors.sugar && (
-                    <span className="text-red-500 text-sm">
-                      {errors.sugar.message}
                     </span>
                   )}
                 </div>
@@ -449,7 +280,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                     id="protein"
                     type="text"
                     className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.protein}`}
+                    defaultValue={`${recipe.protein}`}
                     max={100}
                     {...register('protein')}
                   />
@@ -469,33 +300,13 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                     id="calories"
                     type="text"
                     className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.calories}`}
+                    defaultValue={`${recipe.calories}`}
                     max={1000}
                     {...register('calories')}
                   />
                   {errors.calories && (
                     <span className="text-red-500 text-sm">
                       {errors.calories.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
-                    htmlFor="cholesterol"
-                    className={`${errors.cholesterol && 'text-red-500'}`}>
-                    Cholesterol
-                  </Label>
-                  <Input
-                    id="cholesterol"
-                    type="text"
-                    className="max-w-[4rem]"
-                    defaultValue={`${recipe.nutritions.cholesterol}`}
-                    max={300}
-                    {...register('cholesterol')}
-                  />
-                  {errors.cholesterol && (
-                    <span className="text-red-500 text-sm">
-                      {errors.cholesterol.message}
                     </span>
                   )}
                 </div>

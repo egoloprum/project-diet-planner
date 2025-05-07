@@ -1,7 +1,7 @@
 interface BlogList {
   header: string
   text: string
-  recipe_id: number
+  id: number
 }
 
 export interface Blog {

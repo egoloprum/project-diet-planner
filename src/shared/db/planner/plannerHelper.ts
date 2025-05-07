@@ -1,31 +1,33 @@
 import { Planner, Recipe } from '../../model'
 import { createClient } from '../supabase'
 
-// must edit recipe type, as nutritions json continues to fail
 export const getRecipesForPlanner = async (
   keyword: string,
   minCalories: number,
-  maxCalories: number,
-  minCarbs: number,
-  maxCarbs: number,
-  minFats: number,
-  maxFats: number,
-  minProtein: number,
-  maxProtein: number
+  maxCalories: number
+  // minCarbs: number,
+  // maxCarbs: number,
+  // minFats: number,
+  // maxFats: number,
+  // minProtein: number,
+  // maxProtein: number
 ): Promise<Recipe | null> => {
   const supabase = await createClient()
 
-  const { data, error } = await supabase.rpc('get_recipes', {
-    keyword: keyword,
-    min_calories: minCalories,
-    max_calories: maxCalories,
-    min_carbs: minCarbs,
-    max_carbs: maxCarbs,
-    min_fats: minFats,
-    max_fats: maxFats,
-    min_protein: minProtein,
-    max_protein: maxProtein
-  })
+  const { data, error } = await supabase
+    .from('recipe')
+    .select('*')
+    .ilike('tag_cloud', `%${keyword}%`)
+    .gt('calories', minCalories)
+    .lt('calories', maxCalories)
+  // .gt('carbs', minCarbs)
+  // .lt('carbs', maxCarbs)
+  // .gt('fats', minFats)
+  // .lt('fats', maxFats)
+  // .gt('protein', minProtein)
+  // .lt('protein', maxProtein)
+
+  console.log('recipes found: ', data?.length)
 
   if (error) {
     console.log('error', error)
@@ -34,14 +36,6 @@ export const getRecipesForPlanner = async (
 
   if (data && data.length > 0) {
     const randomIndex = Math.floor(Math.random() * data.length)
-
-    console.log({
-      calories: data[randomIndex].nutritions.calories,
-      carbs: data[randomIndex].nutritions.carbs,
-      fats: data[randomIndex].nutritions.fats,
-      protein: data[randomIndex].nutritions.protein
-    })
-
     return data[randomIndex]
   }
 

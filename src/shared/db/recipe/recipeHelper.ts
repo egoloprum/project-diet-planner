@@ -40,12 +40,12 @@ export const recipeSearch = async (
   }
 }
 
-export const recipeGetById = async (recipe_id: string) => {
+export const recipeGetById = async (id: string) => {
   const supabase = await createClient()
   const { data, error } = (await supabase
     .from('recipe')
     .select('*')
-    .eq('recipe_id', recipe_id)
+    .eq('id', id)
     .single()) as QueryData<{ data: Recipe }>
 
   if (error) {
@@ -81,14 +81,14 @@ export const recipeGetByCollection = async (collection_id: number) => {
 }
 
 export const recipeAddToCollection = async (
-  recipe_id: string,
+  id: string,
   collections: number[]
 ) => {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('recipe')
     .update({ collections: collections })
-    .eq('recipe_id', recipe_id)
+    .eq('id', id)
     .select()
     .single()
 
@@ -99,7 +99,7 @@ export const recipeAddToCollection = async (
   return data
 }
 
-export const recipeCreate = async (recipe: Omit<Recipe, 'recipe_id'>) => {
+export const recipeCreate = async (recipe: Omit<Recipe, 'id'>) => {
   const supabase = await createClient()
   const { data, error } = await supabase.from('recipe').insert(recipe).select()
 
@@ -115,7 +115,7 @@ export const recipeUpdate = async (recipe: Recipe) => {
   const { data, error } = await supabase
     .from('recipe')
     .update(recipe)
-    .eq('recipe_id', recipe.recipe_id)
+    .eq('id', recipe.id)
     .select()
     .single()
 
@@ -126,14 +126,14 @@ export const recipeUpdate = async (recipe: Recipe) => {
   return data
 }
 
-export const recipeDelete = async (recipe_id: number) => {
+export const recipeDelete = async (id: number) => {
   const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('recipe')
     .delete()
-    .eq('recipe_id', recipe_id)
-    .select('recipe_id')
+    .eq('id', id)
+    .select('id')
     .single()
 
   if (error) {

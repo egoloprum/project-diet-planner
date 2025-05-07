@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
 import { RecipeCollectionModal } from '@/src/features/(discover)/recipe-collection-modal'
@@ -48,7 +49,7 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
         {collections && (
           <RecipeCollectionModal
             recipeCollections={recipe.collections}
-            recipeId={recipe.recipe_id}
+            recipeId={recipe.id}
             collections={collections}
           />
         )}
@@ -56,15 +57,24 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
         {user.id === recipe.user_id && (
           <div className="flex gap-4">
             <RecipeEditModal userId={user.id} recipe={recipe} />
-            <RecipeDeleteModal recipeId={recipe.recipe_id} />
+            <RecipeDeleteModal recipeId={recipe.id} />
           </div>
         )}
       </section>
       <section className=" flex flex-col gap-4 md:col-start-2 md:col-end-3">
         <FoodNutrition recipe={recipe} />
-        <FoodIngredient recipe={recipe} />
+        {recipe.ingredients.length ? <FoodIngredient recipe={recipe} /> : null}
       </section>
-      <FoodDirection recipe={recipe} />
+      {recipe.directions.length ? (
+        <FoodDirection recipe={recipe} />
+      ) : (
+        <Image
+          src="/image_null_directions.png"
+          height={200}
+          width={200}
+          alt="null directions"
+        />
+      )}
     </article>
   )
 }

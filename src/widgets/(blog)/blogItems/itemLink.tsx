@@ -9,7 +9,7 @@ import { Recipe } from '@/src/shared/model'
 
 const recipeCache = new Map<number, Recipe>()
 
-export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
+export const RecipeLink: FC<{ id: number }> = ({ id }) => {
   const [recipe, setRecipe] = useState<Recipe | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -18,9 +18,9 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
     let isMounted = true
 
     const fetchRecipe = async () => {
-      if (recipeCache.has(recipe_id)) {
+      if (recipeCache.has(id)) {
         if (isMounted) {
-          setRecipe(recipeCache.get(recipe_id)!)
+          setRecipe(recipeCache.get(id)!)
           setLoading(false)
         }
         return
@@ -29,12 +29,12 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
       try {
         setLoading(true)
         const response = await axios.get<Recipe>('/api/recipe/get', {
-          params: { id: recipe_id }
+          params: { id: id }
         })
         if (isMounted) {
           const data = response.data
 
-          recipeCache.set(recipe_id, data)
+          recipeCache.set(id, data)
           setRecipe(data)
           setError(null)
         }
@@ -54,7 +54,7 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
     return () => {
       isMounted = false
     }
-  }, [recipe_id])
+  }, [id])
 
   if (loading) {
     return (
@@ -76,7 +76,7 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
 
   return (
     <Link
-      href={`/discover/${recipe_id}`}
+      href={`/discover/${id}`}
       className="py-4 flex gap-2 hover:bg-gray-50 active:bg-gray-100 cursor-pointer">
       <Image
         src={recipe.images?.thumbnail || '/default_thumbnail_recipe.jpg'}
@@ -89,10 +89,10 @@ export const RecipeLink: FC<{ recipe_id: number }> = ({ recipe_id }) => {
       <div className="flex flex-col gap-2">
         <p className="font-medium">{recipe.food_name}</p>
         <p className="flex flex-row flex-wrap gap-1 md:gap-4 text-gray-500 text-sm">
-          <span>cal: {recipe.nutritions.calories}</span>
-          <span>carbs: {recipe.nutritions.carbs}g</span>
-          <span>fats: {recipe.nutritions.fats}g</span>
-          <span>protein: {recipe.nutritions.protein}g</span>
+          <span>cal: {recipe.calories}</span>
+          <span>carbs: {recipe.carbs}g</span>
+          <span>fats: {recipe.fats}g</span>
+          <span>protein: {recipe.protein}g</span>
         </p>
       </div>
     </Link>

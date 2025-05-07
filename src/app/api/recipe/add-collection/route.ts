@@ -10,12 +10,9 @@ export async function PATCH(req: Request) {
       return NextResponse.json({ error: 'Missing data' }, { status: 400 })
     }
 
-    const { recipe_id, collections } = body
+    const { id, collections } = body
 
-    await recipeAddToCollection(
-      recipe_id as string,
-      (collections as number[]) || []
-    )
+    await recipeAddToCollection(id as string, (collections as number[]) || [])
 
     return NextResponse.json(
       { message: 'Collection is added to recipe!' },

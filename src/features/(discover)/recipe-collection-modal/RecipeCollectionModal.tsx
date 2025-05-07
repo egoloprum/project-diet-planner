@@ -48,7 +48,7 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
   const onSubmit: SubmitHandler<RecipeCollectionData> = async data => {
     try {
       axios.patch('/api/recipe/add-collection', {
-        recipe_id: recipeId,
+        id: recipeId,
         collections: data.collections
       })
 
@@ -129,7 +129,8 @@ export const RecipeCollectionModal: FC<RecipeCollectionModalProps> = ({
                         value={`${collection.id}`}
                         variant="outline"
                         aria-label="Toggle collection"
-                        type="submit">
+                        type="submit"
+                        className="rounded-xl">
                         Add to
                       </ToggleGroupItem>
                       <p>{collection.name}</p>

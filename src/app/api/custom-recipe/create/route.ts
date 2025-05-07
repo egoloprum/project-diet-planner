@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       )
     }
 
-    const newRecipe: Omit<Recipe, 'recipe_id'> = {
+    const newRecipe: Omit<Recipe, 'id'> = {
       food_name: body.foodName,
       prep_time: body.prepTime,
       cook_time: body.cookTime,
@@ -23,29 +23,16 @@ export async function POST(req: Request) {
         thumbnail: ''
       },
 
-      is_main_dish: body.isMainDish,
-      is_breakfast: body.isBreakfast,
-      is_lunch: body.isLunch,
-      is_dinner: body.isDinner,
-      is_dessert: body.isDessert,
-      is_snack: body.isSnack,
-
       tag_cloud: body.tagCloud.join(' '),
 
-      nutritions: {
-        fats: body.fats,
-        carbs: body.carbs,
-        fiber: body.fiber,
-        sugar: body.sugar,
-        protein: body.protein,
-        calories: body.calories,
-        cholesterol: body.cholesterol
-      },
+      calories: body.calories,
+      carbs: body.carbs,
+      fats: body.fats,
+      protein: body.protein,
 
       directions: [body.direction],
       ingredients: [],
 
-      is_custom: true,
       user_id: body.userId,
       collections: []
     }

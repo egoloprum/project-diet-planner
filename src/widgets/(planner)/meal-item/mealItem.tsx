@@ -20,7 +20,7 @@ export const MealItem: FC<MealItemProps> = ({ type, recipe }) => {
           {type}
         </span>
         <span className="text-gray-500 text-xs sm:text-sm lg:text-base">
-          {recipe.nutritions.calories}
+          {recipe.calories}
         </span>
       </p>
 
@@ -36,7 +36,7 @@ export const MealItem: FC<MealItemProps> = ({ type, recipe }) => {
           />
           <p className="flex flex-col">
             <Link
-              href={`/discover/${recipe.recipe_id}`}
+              href={`/discover/${recipe.id}`}
               className="text-sm md:text-base underline underline-offset-2 decoration-green-300">
               {recipe.food_name}
             </Link>

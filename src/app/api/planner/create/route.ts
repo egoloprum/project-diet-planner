@@ -13,9 +13,9 @@ export async function POST(req: Request) {
 
     const { caloriesPercentages } = body
     const { profileCalories } = body
-    const { profileCarbs } = body
-    const { profileFats } = body
-    const { profileProtein } = body
+    // const { profileCarbs } = body
+    // const { profileFats } = body
+    // const { profileProtein } = body
 
     let breakfastStore: Recipe | null = null
     let lunchStore: Recipe | null = null
@@ -34,43 +34,32 @@ export async function POST(req: Request) {
       const minCalories = Math.floor(defaultCalories * 0.95)
       const maxCalories = Math.floor(defaultCalories * 1.05)
 
-      const minCarbs = Math.floor(profileCarbs * 0.95)
-      const maxCarbs = Math.floor(profileCarbs * 1.05)
+      // const minCarbs = Math.floor(profileCarbs * 0.95)
+      // const maxCarbs = Math.floor(profileCarbs * 1.05)
 
-      const minFats = Math.floor(profileFats * 0.95)
-      const maxFats = Math.floor(profileFats * 1.05)
+      // const minFats = Math.floor(profileFats * 0.95)
+      // const maxFats = Math.floor(profileFats * 1.05)
 
-      const minProtein = Math.floor(profileProtein * 0.95)
-      const maxProtein = Math.floor(profileProtein * 1.05)
-
-      // console.log({
-      //   minCalories: minCalories,
-      //   maxCalories: maxCalories,
-      //   minCarbs: minCarbs,
-      //   maxCarbs: maxCarbs,
-      //   minFats: minFats,
-      //   maxFats: maxFats,
-      //   minProtein: minProtein,
-      //   maxProtein: maxProtein
-      // })
+      // const minProtein = Math.floor(profileProtein * 0.95)
+      // const maxProtein = Math.floor(profileProtein * 1.05)
 
       const recipe = await getRecipesForPlanner(
         name,
         minCalories,
-        maxCalories,
-        minCarbs,
-        maxCarbs,
-        minFats,
-        maxFats,
-        minProtein,
-        maxProtein
+        maxCalories
+        // minCarbs,
+        // maxCarbs,
+        // minFats,
+        // maxFats,
+        // minProtein,
+        // maxProtein
       )
 
       if (recipe) {
-        calories += recipe.nutritions.calories
-        carbs += recipe.nutritions.carbs
-        fats += recipe.nutritions.fats
-        protein += recipe.nutritions.protein
+        calories += recipe.calories
+        carbs += recipe.carbs
+        fats += recipe.fats
+        protein += recipe.protein
       }
 
       switch (name) {

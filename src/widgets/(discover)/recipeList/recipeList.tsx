@@ -11,9 +11,7 @@ export const RecipeList: FC<RecipeListProps> = ({ recipeData }) => {
   return (
     <div className={`py-4 gap-4 recipeList`}>
       {recipeData?.map((recipe: Recipe) => (
-        <div
-          key={recipe.recipe_id}
-          className="break-inside-avoid mb-4 min-w-[300px]">
+        <div key={recipe.id} className="break-inside-avoid mb-4 min-w-[300px]">
           <RecipeCard recipe={recipe} />
         </div>
       ))}

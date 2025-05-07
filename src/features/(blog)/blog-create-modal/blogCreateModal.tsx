@@ -33,7 +33,7 @@ type BlogCreateData = {
   list?: {
     header: string
     text: string
-    recipe_id: number
+    id: number
   }[]
 }
 
@@ -54,7 +54,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
         {
           header: '',
           text: '',
-          recipe_id: undefined as unknown as number
+          id: undefined as unknown as number
         }
       ]
     }
@@ -85,7 +85,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
     }
 
     const recipeChecks = await Promise.all(
-      data.list.map(item => checkRecipeExists(item.recipe_id))
+      data.list.map(item => checkRecipeExists(item.id))
     )
 
     const invalidRecipes = recipeChecks
@@ -94,7 +94,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
 
     if (invalidRecipes.length > 0) {
       invalidRecipes.forEach(index => {
-        setError(`list.${index}.recipe_id`, {
+        setError(`list.${index}.id`, {
           type: 'manual',
           message: 'Recipe not found'
         })
@@ -133,7 +133,7 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
   const recipesRef = useRef<HTMLDivElement>(null)
 
   const addItem = () => {
-    append({ header: '', text: '', recipe_id: undefined as unknown as number })
+    append({ header: '', text: '', id: undefined as unknown as number })
   }
 
   const deleteItem = (index: number) => {
@@ -255,22 +255,20 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
                         )}
                       </div>
                       <div>
-                        <Label htmlFor={`list-${index}-recipe_id`}>
-                          Recipe ID
-                        </Label>
+                        <Label htmlFor={`list-${index}-id`}>Recipe ID</Label>
                         <Input
                           type="number"
-                          id={`list-${index}-recipe_id`}
+                          id={`list-${index}-id`}
                           className="rounded-xl"
-                          {...register(`list.${index}.recipe_id`, {
+                          {...register(`list.${index}.id`, {
                             valueAsNumber: true,
                             validate: value =>
                               value > 0 || 'Must be positive number'
                           })}
                         />
-                        {errors.list?.[index]?.recipe_id && (
+                        {errors.list?.[index]?.id && (
                           <span className="text-red-500 text-sm">
-                            {errors.list?.[index]?.recipe_id?.message}
+                            {errors.list?.[index]?.id?.message}
                           </span>
                         )}
                       </div>

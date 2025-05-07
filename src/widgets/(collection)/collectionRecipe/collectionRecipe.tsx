@@ -19,9 +19,9 @@ export const CollectionRecipe: FC<CollectionRecipeProps> = ({ recipes }) => {
       </h2>
       <div className="w-full flex flex-col">
         {recipes?.map((recipe: Recipe) => (
-          <div key={recipe.recipe_id}>
+          <div key={recipe.id}>
             <Link
-              href={`/discover/${recipe.recipe_id}`}
+              href={`/discover/${recipe.id}`}
               className="py-4 flex gap-2 hover:bg-gray-50 active:bg-gray-100 cursor-pointer">
               <Image
                 src={
@@ -36,10 +36,10 @@ export const CollectionRecipe: FC<CollectionRecipeProps> = ({ recipes }) => {
               <div className="flex flex-col gap-2">
                 <p>{recipe.food_name}</p>
                 <p className="flex flex-row flex-wrap gap-1 md:gap-4 text-gray-500 text-sm">
-                  <span>cal: {recipe.nutritions.calories}</span>
-                  <span>carbs: {recipe.nutritions.carbs}</span>
-                  <span>fats: {recipe.nutritions.fats}</span>
-                  <span>protein: {recipe.nutritions.protein}</span>
+                  <span>cal: {recipe.calories}</span>
+                  <span>carbs: {recipe.carbs}</span>
+                  <span>fats: {recipe.fats}</span>
+                  <span>protein: {recipe.protein}</span>
                 </p>
               </div>
             </Link>

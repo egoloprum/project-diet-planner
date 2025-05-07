@@ -93,7 +93,7 @@ export const CollectionEditModal: FC<CollectionEditModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full rounded-xl">
           Edit Collection
         </Button>
       </AlertDialogTrigger>
@@ -112,7 +112,12 @@ export const CollectionEditModal: FC<CollectionEditModalProps> = ({
                 className={`${errors.name && 'text-red-500'}`}>
                 Collection name
               </Label>
-              <Input type="text" id="name" {...register('name')} />
+              <Input
+                type="text"
+                id="name"
+                {...register('name')}
+                className="rounded-xl"
+              />
               {errors.name && (
                 <span className="text-red-500 text-sm">
                   {errors.name.message}
@@ -125,7 +130,11 @@ export const CollectionEditModal: FC<CollectionEditModalProps> = ({
                 className={`${errors.description && 'text-red-500'}`}>
                 Collection description
               </Label>
-              <Textarea id="description" {...register('description')} />
+              <Textarea
+                id="description"
+                {...register('description')}
+                className="rounded-xl"
+              />
               {errors.description && (
                 <span className="text-red-500 text-sm">
                   {errors.description.message}
@@ -135,12 +144,13 @@ export const CollectionEditModal: FC<CollectionEditModalProps> = ({
             <Separator />
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
-              disabled={Object.keys(errors).length > 0}>
+              disabled={Object.keys(errors).length > 0}
+              className="rounded-xl">
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -23,7 +23,7 @@ export const BlogItems: FC<BlogItemsProps> = ({ blog }) => {
             item: {
               header: string
               text: string
-              recipe_id: number
+              id: number
             },
             index
           ) => (
@@ -42,7 +42,7 @@ export const BlogItems: FC<BlogItemsProps> = ({ blog }) => {
                     </div>
                   </div>
                 }>
-                <RecipeLink recipe_id={item.recipe_id} />
+                <RecipeLink id={item.id} />
               </Suspense>
               <Separator />
             </div>

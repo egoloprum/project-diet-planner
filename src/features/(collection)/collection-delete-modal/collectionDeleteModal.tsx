@@ -60,7 +60,7 @@ export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full rounded-xl">
           Delete Collection
         </Button>
       </AlertDialogTrigger>
@@ -73,8 +73,10 @@ export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={OnClick}>Continue</AlertDialogAction>
+            <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={OnClick} className="rounded-xl">
+              Continue
+            </AlertDialogAction>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>
