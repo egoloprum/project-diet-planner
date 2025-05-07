@@ -16,31 +16,23 @@ export const AuthNavbar = () => {
     {
       title: 'Planner',
       href: '/planner',
-      description:
-        'A modal dialog that interrupts the user with important content and expects a response.'
+      description: 'Plan and organize your meals and recipes for the week.'
     },
     {
       title: 'Discover',
       href: '/discover',
-      description:
-        'For sighted users to preview content available behind a link.'
+      description: 'Explore new recipes, ingredients, and cooking inspiration.'
     },
     {
       title: 'Primary Diet',
       href: '/primary-diet',
-      description:
-        'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.'
+      description: 'Set and manage your dietary preferences and restrictions.'
     },
     {
       title: 'Food Exclusions',
       href: '/food-exclusions',
-      description: 'Visually or semantically separates content.'
-    },
-    {
-      title: 'Planner Settings',
-      href: '/planner-settings',
       description:
-        'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.'
+        'Specify ingredients and foods you want to avoid in your meal planning.'
     }
   ]
 
@@ -48,14 +40,13 @@ export const AuthNavbar = () => {
     {
       title: 'Profile',
       href: '/profile',
-      description:
-        'A modal dialog that interrupts the user with important content and expects a response.'
+      description: 'View nutritional values and selected menu of meals.'
     },
     {
       title: 'User Settings',
       href: '/profile-settings',
       description:
-        'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.'
+        'Edit personal data such as height and weight which will affect your nutritional values.'
     }
   ]
 
@@ -64,42 +55,40 @@ export const AuthNavbar = () => {
       title: 'Blog',
       href: '/blog',
       description:
-        'A modal dialog that interrupts the user with important content and expects a response.'
+        'Read articles about cooking, nutrition, and meal planning tips.'
     },
     {
       title: 'Custom Recipe',
       href: '/custom-recipe',
-      description:
-        'For sighted users to preview content available behind a link.'
+      description: 'Create and save your own custom recipes.'
     },
     {
       title: 'Collections',
       href: '/collections',
-      description:
-        'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.'
-    },
-    {
-      title: 'Saved Plans',
-      href: '/saved-plans',
-      description: 'Visually or semantically separates content.'
-    },
-    {
-      title: 'Blog Settings',
-      href: '/blog-settings',
-      description:
-        'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.'
+      description: 'Organize and manage your favorite recipes and meal plans.'
     }
+    // {
+    //   title: 'Saved Plans',
+    //   href: '/saved-plans',
+    //   description: 'Visually or semantically separates content.'
+    // }
   ]
 
   return (
     <NavigationMenu className="min-h-[60px] h-full">
       <NavigationMenuList className="flex flex-wrap">
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Planner</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="rounded-xl">
+            Planner
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {plannerLinks.map(link => (
-                <ListItem key={link.title} title={link.title} href={link.href}>
+                <ListItem
+                  key={link.title}
+                  title={link.title}
+                  href={link.href}
+                  className="rounded-xl">
                   {link.description}
                 </ListItem>
               ))}
@@ -108,11 +97,17 @@ export const AuthNavbar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Account</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="rounded-xl">
+            Account
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+            <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {accountLinks.map(link => (
-                <ListItem key={link.title} title={link.title} href={link.href}>
+                <ListItem
+                  key={link.title}
+                  title={link.title}
+                  href={link.href}
+                  className="rounded-xl">
                   {link.description}
                 </ListItem>
               ))}
@@ -121,11 +116,17 @@ export const AuthNavbar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="rounded-xl">
+            Blog
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+            <ul className="grid max-w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {blogLinks.map(link => (
-                <ListItem key={link.title} title={link.title} href={link.href}>
+                <ListItem
+                  key={link.title}
+                  title={link.title}
+                  href={link.href}
+                  className="rounded-xl">
                   {link.description}
                 </ListItem>
               ))}

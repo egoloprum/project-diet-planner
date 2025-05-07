@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       fats: body.fats,
       protein: body.protein,
 
-      directions: [body.direction],
+      directions: body.direction.length ? [body.direction] : [],
       ingredients: [],
 
       user_id: body.userId,
@@ -41,18 +41,18 @@ export async function POST(req: Request) {
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to create recipe' },
+        { error: 'Failed to create recipe!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Recipe created successfully', data: result },
+      { message: 'Recipe created successfully!', data: result },
       { status: 201 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }

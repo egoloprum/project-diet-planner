@@ -11,21 +11,23 @@ export const Navbar = () => {
     <NavigationMenu className="max-h-[60px] h-full">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+          <NavigationMenuLink
+            href="/"
+            className={`${navigationMenuTriggerStyle()} rounded-xl`}>
             Home
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink
             href="/docs"
-            className={navigationMenuTriggerStyle()}>
+            className={`${navigationMenuTriggerStyle()} rounded-xl`}>
             Documentation
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink
             href="/login"
-            className={navigationMenuTriggerStyle()}>
+            className={`${navigationMenuTriggerStyle()} rounded-xl`}>
             Log in
           </NavigationMenuLink>
         </NavigationMenuItem>

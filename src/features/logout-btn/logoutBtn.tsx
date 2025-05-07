@@ -19,7 +19,7 @@ export const LogoutBtn = ({}) => {
   }
 
   return (
-    <Button variant="ghost" onClick={SignoutHandler}>
+    <Button variant="ghost" onClick={SignoutHandler} className="rounded-xl">
       Sign out
     </Button>
   )

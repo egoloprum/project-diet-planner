@@ -38,22 +38,12 @@ type RecipeEditModalData = {
   prepTime: number
   cookTime: number
 
-  isMainDish: boolean
-  isBreakfast: boolean
-  isLunch: boolean
-  isDinner: boolean
-  isDessert: boolean
-  isSnack: boolean
-
   tagCloud: string[]
 
-  fats: number
-  carbs: number
-  fiber: number
-  sugar: number
-  protein: number
   calories: number
-  cholesterol: number
+  carbs: number
+  fats: number
+  protein: number
 
   direction: string
 }
@@ -115,7 +105,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full rounded-xl">
           Edit Recipe
         </Button>
       </AlertDialogTrigger>
@@ -139,6 +129,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                 id="food-name"
                 defaultValue={recipe.food_name}
                 {...register('foodName')}
+                className="rounded-xl"
               />
               {errors.foodName && (
                 <span className="text-red-500 text-sm">
@@ -160,6 +151,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   id="prep-time"
                   defaultValue={`${recipe.prep_time}`}
                   {...register('prepTime')}
+                  className="rounded-xl"
                 />
                 {errors.prepTime && (
                   <span className="text-red-500 text-sm">
@@ -178,6 +170,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   id="cook-time"
                   defaultValue={`${recipe.cook_time}`}
                   {...register('cookTime')}
+                  className="rounded-xl"
                 />
                 {errors.cookTime && (
                   <span className="text-red-500 text-sm">
@@ -207,17 +200,31 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                     className="flex-wrap"
                     value={field.value}
                     onValueChange={field.onChange}>
-                    <ToggleGroupItem value="Healthy">Healthy</ToggleGroupItem>
-                    <ToggleGroupItem value="Romantic">Romantic</ToggleGroupItem>
-                    <ToggleGroupItem value="Mexican">Mexican</ToggleGroupItem>
-                    <ToggleGroupItem value="American">American</ToggleGroupItem>
-                    <ToggleGroupItem value="Dinner">Dinner</ToggleGroupItem>
-                    <ToggleGroupItem value="Lunch">Lunch</ToggleGroupItem>
-                    <ToggleGroupItem value="Breakfast">
+                    <ToggleGroupItem value="Healthy" className="rounded-xl">
+                      Healthy
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Snack" className="rounded-xl">
+                      Snack
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Mexican" className="rounded-xl">
+                      Mexican
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="American" className="rounded-xl">
+                      American
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Dinner" className="rounded-xl">
+                      Dinner
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Lunch" className="rounded-xl">
+                      Lunch
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Breakfast" className="rounded-xl">
                       Breakfast
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="Low Carb">Low Carb</ToggleGroupItem>
-                    <ToggleGroupItem value="Vegetarian">
+                    <ToggleGroupItem value="Dessert" className="rounded-xl">
+                      Dessert
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="Vegetarian" className="rounded-xl">
                       Vegetarian
                     </ToggleGroupItem>
                   </ToggleGroup>
@@ -239,7 +246,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   <Input
                     id="fats"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue={`${recipe.fats}`}
                     max={100}
                     {...register('fats')}
@@ -259,7 +266,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   <Input
                     id="carbs"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue={`${recipe.carbs}`}
                     max={200}
                     {...register('carbs')}
@@ -279,7 +286,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   <Input
                     id="protein"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue={`${recipe.protein}`}
                     max={100}
                     {...register('protein')}
@@ -299,7 +306,7 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                   <Input
                     id="calories"
                     type="text"
-                    className="max-w-[4rem]"
+                    className="max-w-[4rem] rounded-xl"
                     defaultValue={`${recipe.calories}`}
                     max={1000}
                     {...register('calories')}
@@ -320,7 +327,11 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
                 className={`${errors.direction && 'text-red-500'}`}>
                 Direction
               </Label>
-              <Textarea id="direction" {...register('direction')} />
+              <Textarea
+                id="direction"
+                {...register('direction')}
+                className="rounded-xl"
+              />
               {errors.direction && (
                 <span className="text-red-500 text-sm">
                   {errors.direction.message}
@@ -329,12 +340,13 @@ export const RecipeEditModal: FC<RecipeEditModalProps> = ({
             </fieldset>
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>
+            <AlertDialogCancel onClick={() => reset()} className="rounded-xl">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               type="submit"
-              disabled={Object.keys(errors).length > 0}>
+              disabled={Object.keys(errors).length > 0}
+              className="rounded-xl">
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

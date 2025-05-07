@@ -20,7 +20,6 @@ import {
 } from '@/src/shared/ui'
 import {
   Button,
-  Checkbox,
   Input,
   Label,
   Separator,
@@ -39,22 +38,12 @@ type CreateCustomRecipeData = {
   prepTime: number
   cookTime: number
 
-  isMainDish: boolean
-  isBreakfast: boolean
-  isLunch: boolean
-  isDinner: boolean
-  isDessert: boolean
-  isSnack: boolean
-
   tagCloud: string[]
 
-  fats: number
-  carbs: number
-  fiber: number
-  sugar: number
-  protein: number
   calories: number
-  cholesterol: number
+  carbs: number
+  fats: number
+  protein: number
 
   direction: string
 }
@@ -73,13 +62,7 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
-      tagCloud: [],
-      isMainDish: false,
-      isBreakfast: false,
-      isLunch: false,
-      isDinner: false,
-      isDessert: false,
-      isSnack: false
+      tagCloud: []
     }
   })
 
@@ -195,128 +178,6 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
             <Separator />
 
             <fieldset>
-              <Label>Type of Dish</Label>
-              <Separator className="my-2" />
-              <div className="flex flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isMainDish"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="main-dish"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="main-dish">Main Dish</Label>
-                  {errors.isMainDish && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isMainDish.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isBreakfast"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="breakfast"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="breakfast">Breakfast</Label>
-                  {errors.isBreakfast && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isBreakfast.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isLunch"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="lunch"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="lunch">Lunch</Label>
-                  {errors.isLunch && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isLunch.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isDinner"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="dinner"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="dinner">Dinner</Label>
-                  {errors.isDinner && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isDinner.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isDessert"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="dessert"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="dessert">Dessert</Label>
-                  {errors.isDessert && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isDessert.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Controller
-                    control={control}
-                    name="isSnack"
-                    render={({ field }) => (
-                      <Checkbox
-                        id="snack"
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="snack">Snack</Label>
-                  {errors.isSnack && (
-                    <span className="text-red-500 text-sm">
-                      {errors.isSnack.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </fieldset>
-            <Separator />
-
-            <fieldset>
               <Label className={`${errors.tagCloud && 'text-red-500'}`}>
                 Tags
               </Label>
@@ -338,8 +199,8 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                     <ToggleGroupItem value="Healthy" className="rounded-xl">
                       Healthy
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="Romantic" className="rounded-xl">
-                      Romantic
+                    <ToggleGroupItem value="Snack" className="rounded-xl">
+                      Snack
                     </ToggleGroupItem>
                     <ToggleGroupItem value="Mexican" className="rounded-xl">
                       Mexican
@@ -356,8 +217,8 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                     <ToggleGroupItem value="Breakfast" className="rounded-xl">
                       Breakfast
                     </ToggleGroupItem>
-                    <ToggleGroupItem value="Low Carb" className="rounded-xl">
-                      Low Carb
+                    <ToggleGroupItem value="Dessert" className="rounded-xl">
+                      Dessert
                     </ToggleGroupItem>
                     <ToggleGroupItem value="Vegetarian" className="rounded-xl">
                       Vegetarian
@@ -414,46 +275,6 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                 </div>
                 <div className="flex items-center gap-2">
                   <Label
-                    htmlFor="fiber"
-                    className={`${errors.fiber && 'text-red-500'}`}>
-                    Fiber
-                  </Label>
-                  <Input
-                    id="fiber"
-                    type="text"
-                    className="max-w-[4rem] rounded-xl"
-                    defaultValue="0"
-                    max={100}
-                    {...register('fiber')}
-                  />
-                  {errors.fiber && (
-                    <span className="text-red-500 text-sm">
-                      {errors.fiber.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
-                    htmlFor="sugar"
-                    className={`${errors.sugar && 'text-red-500'}`}>
-                    Sugar
-                  </Label>
-                  <Input
-                    id="sugar"
-                    type="text"
-                    className="max-w-[4rem] rounded-xl"
-                    defaultValue="0"
-                    max={100}
-                    {...register('sugar')}
-                  />
-                  {errors.sugar && (
-                    <span className="text-red-500 text-sm">
-                      {errors.sugar.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
                     htmlFor="protein"
                     className={`${errors.protein && 'text-red-500'}`}>
                     Protein
@@ -489,26 +310,6 @@ export const CreateCustomRecipeForm: FC<CreateCustomRecipeFormProps> = ({
                   {errors.calories && (
                     <span className="text-red-500 text-sm">
                       {errors.calories.message}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Label
-                    htmlFor="cholesterol"
-                    className={`${errors.cholesterol && 'text-red-500'}`}>
-                    Cholesterol
-                  </Label>
-                  <Input
-                    id="cholesterol"
-                    type="text"
-                    className="max-w-[4rem] rounded-xl"
-                    defaultValue="0"
-                    max={300}
-                    {...register('cholesterol')}
-                  />
-                  {errors.cholesterol && (
-                    <span className="text-red-500 text-sm">
-                      {errors.cholesterol.message}
                     </span>
                   )}
                 </div>
