@@ -1,3 +1,5 @@
+import { User } from '@supabase/supabase-js'
+
 import { Profile } from '@/src/shared/model'
 
 import { createClient } from '../supabase'
@@ -245,4 +247,38 @@ export const setNutritions = async (
   }
 
   return data
+}
+
+export const setUsername = async (
+  username: string,
+  userId: string
+): Promise<Profile | null> => {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('profile')
+    .update({
+      user_name: username
+    })
+    .eq('user_id', userId)
+    .select()
+    .single()
+
+  if (error) {
+    return null
+  }
+
+  return data
+}
+
+export const setEmail = async (email: string): Promise<User | null> => {
+  const supabase = await createClient()
+  const { data, error } = await supabase.auth.updateUser({
+    email: email
+  })
+
+  if (error) {
+    return null
+  }
+
+  return data.user
 }
