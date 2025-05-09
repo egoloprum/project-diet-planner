@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { blogUpdate } from '@/src/shared/db'
-import { Blog } from '@/src/shared/model'
+import { Blog, blogUpdate } from '@/src/entities/blog'
 
 export async function PATCH(req: Request) {
   try {

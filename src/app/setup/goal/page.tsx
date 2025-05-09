@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { SetupGoalForm } from '@/src/features/setup-goal-form'
-import { getProfile, getWeightByDate } from '@/src/shared/db'
+import { getProfile } from '@/src/entities/profile'
+import { getWeightByDate } from '@/src/entities/weightTracker'
+import { SetupGoalForm } from '@/src/features/setup'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 

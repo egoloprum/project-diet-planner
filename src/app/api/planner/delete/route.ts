@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { deletePlannerByDate } from '@/src/shared/db'
+import { deletePlannerByDate } from '@/src/entities/planner'
 
 export async function DELETE(req: Request) {
   try {

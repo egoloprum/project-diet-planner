@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { collectionDelete } from '@/src/shared/db'
+import { collectionDelete } from '@/src/entities/collection'
 
 export async function DELETE(req: Request) {
   try {

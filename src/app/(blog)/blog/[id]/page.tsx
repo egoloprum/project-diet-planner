@@ -1,12 +1,11 @@
 import { redirect } from 'next/navigation'
 
-import { BlogDeleteModal } from '@/src/features/(blog)/blog-delete-modal'
-import { BlogEditModal } from '@/src/features/(blog)/blog-edit-modal'
+import { blogGetById } from '@/src/entities/blog'
+import { getProfile } from '@/src/entities/profile'
+import { BlogDeleteModal, BlogEditModal } from '@/src/features/blog'
 import { NotFound } from '@/src/shared/components/notFound'
-import { blogGetById, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
-import { BlogDetail } from '@/src/widgets/(blog)/blogDetail'
-import { BlogItems } from '@/src/widgets/(blog)/blogItems'
+import { BlogDetail, BlogItems } from '@/src/widgets/blog'
 
 interface pageProps {
   params: {

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { blogCreate } from '@/src/shared/db'
-import { Blog } from '@/src/shared/model'
+import { Blog, blogCreate } from '@/src/entities/blog'
 
 export async function POST(req: Request) {
   try {

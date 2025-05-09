@@ -1,1 +1,0 @@
-export { DiscoverSearchBar } from './searchBar'

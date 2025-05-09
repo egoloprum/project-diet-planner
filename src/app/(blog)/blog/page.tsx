@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation'
 
-import { BlogCreateModal } from '@/src/features/(blog)/blog-create-modal'
-import { blogGetByOthers, blogGetByUser, getProfile } from '@/src/shared/db'
+import { blogGetByOthers, blogGetByUser } from '@/src/entities/blog'
+import { getProfile } from '@/src/entities/profile'
+import { BlogCreateModal } from '@/src/features/blog'
 import { createClient } from '@/src/shared/db/supabase'
-import { BlogByOthers } from '@/src/widgets/(blog)/blogByOthers'
-import { BlogList } from '@/src/widgets/(blog)/blogList'
+import { BlogByOthers, BlogList } from '@/src/widgets/blog'
 
 const page = async ({}) => {
   const supabase = await createClient()

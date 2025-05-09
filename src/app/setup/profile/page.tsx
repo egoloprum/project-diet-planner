@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { ActivityLevelForm } from '@/src/features/(setup-profile)/activity-level-form'
-import { AgeForm } from '@/src/features/(setup-profile)/age-form'
-import { GenderForm } from '@/src/features/(setup-profile)/gender-form'
-import { HeightForm } from '@/src/features/(setup-profile)/height-form'
-import { WeightForm } from '@/src/features/(setup-profile)/weight-form'
-import { getProfile, getWeightByDate } from '@/src/shared/db'
+import { getProfile } from '@/src/entities/profile'
+import { getWeightByDate } from '@/src/entities/weightTracker'
+import {
+  ActivityLevelForm,
+  AgeForm,
+  GenderForm,
+  HeightForm,
+  WeightForm
+} from '@/src/features/setup'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 

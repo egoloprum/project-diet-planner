@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { collectionCreate } from '@/src/shared/db'
-import { Collection } from '@/src/shared/model'
+import { Collection, collectionCreate } from '@/src/entities/collection'
 
 export async function POST(req: Request) {
   try {

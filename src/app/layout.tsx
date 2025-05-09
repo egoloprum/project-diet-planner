@@ -5,8 +5,8 @@ import './globals.css'
 import { createClient } from '@/src/shared/db/supabase'
 import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
 
-import { SetupProgress } from '../features/setup-progress'
-import { getProfile } from '../shared/db'
+import { getProfile } from '../entities/profile'
+import { SetupProgress } from '../features/setup'
 import { Toaster } from '../shared/ui'
 
 const montserrat = Montserrat({

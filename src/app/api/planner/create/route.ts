@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
-import { createPlanner, getRecipesForPlanner } from '@/src/shared/db'
-import { Recipe } from '@/src/shared/model'
+import { createPlanner, getRecipesForPlanner } from '@/src/entities/planner'
+import { Recipe } from '@/src/entities/recipe'
 
 export async function POST(req: Request) {
   try {

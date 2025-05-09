@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { NutritionCard } from '@/src/shared/components/nutritionCard'
-import { getProfile } from '@/src/shared/db'
+import { getProfile } from '@/src/entities/profile'
 import { createClient } from '@/src/shared/db/supabase'
+import { NutritionCard } from '@/src/widgets/nutrition'
 
 const page = async ({}) => {
   const supabase = await createClient()

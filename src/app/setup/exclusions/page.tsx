@@ -1,9 +1,10 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getExclusion, getProfile } from '@/src/shared/db'
+import { getExclusion } from '@/src/entities/exclusion'
+import { getProfile } from '@/src/entities/profile'
 import { createClient } from '@/src/shared/db/supabase'
-import { SetupExclusionList } from '@/src/widgets/(exclusion)/setupList'
+import { SetupExclusionList } from '@/src/widgets/exclusion'
 
 const page = async ({}) => {
   const supabase = await createClient()

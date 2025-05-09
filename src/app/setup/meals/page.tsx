@@ -1,8 +1,9 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { SetupMealsForm } from '@/src/features/setup-meals-form'
-import { getMenu, getProfile } from '@/src/shared/db'
+import { getMenu } from '@/src/entities/menu'
+import { getProfile } from '@/src/entities/profile'
+import { SetupMealsForm } from '@/src/features/setup'
 import { createClient } from '@/src/shared/db/supabase'
 
 const page = async ({}) => {

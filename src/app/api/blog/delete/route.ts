@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { blogDelete } from '@/src/shared/db'
+import { blogDelete } from '@/src/entities/blog'
 
 export async function DELETE(req: Request) {
   try {

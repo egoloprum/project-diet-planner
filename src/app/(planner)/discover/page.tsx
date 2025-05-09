@@ -1,10 +1,13 @@
 import { redirect } from 'next/navigation'
 
-import { getProfile, recipeSearch } from '@/src/shared/db'
+import { getProfile } from '@/src/entities/profile'
+import { recipeSearch } from '@/src/entities/recipe'
 import { createClient } from '@/src/shared/db/supabase'
-import { DiscoverPagination } from '@/src/widgets/(discover)/discoverPagination'
-import { DiscoverSearchBar } from '@/src/widgets/(discover)/discoverSearchBar'
-import { RecipeList } from '@/src/widgets/(discover)/recipeList'
+import {
+  DiscoverPagination,
+  DiscoverSearchBar,
+  RecipeList
+} from '@/src/widgets/recipe'
 
 interface SearchParams {
   query: string

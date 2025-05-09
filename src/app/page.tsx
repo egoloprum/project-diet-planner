@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/src/shared/db/supabase'
 
-import { getProfile } from '../shared/db'
+import { getProfile } from '../entities/profile'
 
 export default async function Home() {
   const supabase = await createClient()

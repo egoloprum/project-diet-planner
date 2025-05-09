@@ -1,16 +1,22 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { RecipeCollectionModal } from '@/src/features/(discover)/recipe-collection-modal'
-import { RecipeDeleteModal } from '@/src/features/(discover)/recipe-delete-modal'
-import { RecipeEditModal } from '@/src/features/(discover)/recipe-edit-modal'
+import { collectionGetByUser } from '@/src/entities/collection'
+import { getProfile } from '@/src/entities/profile'
+import { recipeGetById } from '@/src/entities/recipe'
+import {
+  RecipeCollectionModal,
+  RecipeDeleteModal,
+  RecipeEditModal
+} from '@/src/features/recipe'
 import { NotFound } from '@/src/shared/components/notFound'
-import { collectionGetByUser, getProfile, recipeGetById } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
-import { FoodDetail } from '@/src/widgets/(food)/foodDetail'
-import { FoodDirection } from '@/src/widgets/(food)/foodDirection'
-import { FoodIngredient } from '@/src/widgets/(food)/foodIngredient'
-import { FoodNutrition } from '@/src/widgets/(food)/foodNutrition'
+import {
+  FoodDetail,
+  FoodDirection,
+  FoodIngredient,
+  FoodNutrition
+} from '@/src/widgets/recipe'
 
 interface pageProps {
   params: {

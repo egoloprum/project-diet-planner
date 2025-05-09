@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { collectionUpdate } from '@/src/shared/db'
+import { collectionUpdate } from '@/src/entities/collection'
 
 export async function PATCH(req: Request) {
   try {
@@ -8,7 +8,7 @@ export async function PATCH(req: Request) {
 
     if (!body || Object.keys(body).length === 0) {
       return NextResponse.json(
-        { error: 'Missing recipe data' },
+        { error: 'Missing recipe data!' },
         { status: 400 }
       )
     }

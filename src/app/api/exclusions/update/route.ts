@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { updateExclusion } from '@/src/shared/db'
+import { updateExclusion } from '@/src/entities/exclusion'
 
 export async function POST(req: Request) {
   try {

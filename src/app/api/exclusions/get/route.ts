@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { getExclusion } from '@/src/shared/db'
+import { getExclusion } from '@/src/entities/exclusion'
 
 export async function GET(req: Request) {
   try {

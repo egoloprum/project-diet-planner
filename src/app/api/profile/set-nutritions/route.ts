@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setNutritions } from '@/src/shared/db'
+import { setNutritions } from '@/src/entities/profile'
 import { calculator } from '@/src/shared/lib'
 
 export async function PATCH(req: Request) {

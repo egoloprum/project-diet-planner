@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { DateSelector } from '@/src/features/(planner)/date-selector'
-import { GeneratePlanBtn } from '@/src/features/(planner)/generate-plan-btn'
-import { SetupMealsForm } from '@/src/features/setup-meals-form'
+import { getMenu } from '@/src/entities/menu'
+import { getPlannerByDate } from '@/src/entities/planner'
+import { getProfile } from '@/src/entities/profile'
+import { GeneratePlanBtn } from '@/src/features/planner'
+import { SetupMealsForm } from '@/src/features/setup'
 import { NotFound } from '@/src/shared/components/notFound'
-import { getMenu, getPlannerByDate, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import {
   calculateMealCaloriesPercentages,
@@ -13,8 +14,7 @@ import {
   getTodayDate,
   isValidDate
 } from '@/src/shared/lib'
-import { MealList } from '@/src/widgets/(planner)/meal-list'
-import { NutritionTable } from '@/src/widgets/(planner)/nutrition-table'
+import { DateSelector, MealList, NutritionTable } from '@/src/widgets/planner'
 
 interface SearchParams {
   date: string

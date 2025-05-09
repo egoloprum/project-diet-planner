@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setUsername } from '@/src/shared/db'
+import { setUsername } from '@/src/entities/profile'
 
 export async function PATCH(req: Request) {
   try {

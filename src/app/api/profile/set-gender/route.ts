@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setGender } from '@/src/shared/db'
+import { setGender } from '@/src/entities/profile'
 
 export async function PATCH(req: Request) {
   try {

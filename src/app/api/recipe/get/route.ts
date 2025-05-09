@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { recipeGetById } from '@/src/shared/db'
+import { recipeGetById } from '@/src/entities/recipe'
 
 export async function GET(req: Request) {
   try {

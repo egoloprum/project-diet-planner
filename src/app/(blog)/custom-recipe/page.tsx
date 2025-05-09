@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation'
 
-import { CreateCustomRecipeForm } from '@/src/features/(collection)/create-custom-recipe-form'
-import { getProfile, recipeGetByUser } from '@/src/shared/db'
+import { getProfile } from '@/src/entities/profile'
+import { recipeGetByUser } from '@/src/entities/recipe'
+import { CreateCustomRecipeForm } from '@/src/features/collection'
 import { createClient } from '@/src/shared/db/supabase'
-import { RecipeList } from '@/src/widgets/(discover)/recipeList'
+import { RecipeList } from '@/src/widgets/recipe'
 
 const page = async ({}) => {
   const supabase = await createClient()

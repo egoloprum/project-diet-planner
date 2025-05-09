@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setActivityLevel } from '@/src/shared/db'
+import { setActivityLevel } from '@/src/entities/profile'
 
 export async function PATCH(req: Request) {
   try {

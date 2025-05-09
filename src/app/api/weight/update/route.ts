@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setWeightByDate } from '@/src/shared/db'
+import { setWeightByDate } from '@/src/entities/weightTracker'
 
 export async function PATCH(req: Request) {
   try {

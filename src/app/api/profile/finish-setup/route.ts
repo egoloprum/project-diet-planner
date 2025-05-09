@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { finishSetup } from '@/src/shared/db'
+import { finishSetup } from '@/src/entities/profile'
 
 export async function PATCH(req: Request) {
   try {

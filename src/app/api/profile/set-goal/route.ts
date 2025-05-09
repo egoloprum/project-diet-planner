@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { setGoal } from '@/src/shared/db'
+import { setGoal } from '@/src/entities/profile'
 
 export async function PATCH(req: Request) {
   try {

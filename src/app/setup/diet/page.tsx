@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getPrimaryDiet, getProfile } from '@/src/shared/db'
+import { Diet, getDiet } from '@/src/entities/diet'
+import { getProfile } from '@/src/entities/profile'
 import { createClient } from '@/src/shared/db/supabase'
-import { PrimaryDiet } from '@/src/shared/model'
-import { DietList } from '@/src/widgets/(diet)'
+import { DietList } from '@/src/widgets/diet'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -20,7 +20,7 @@ const page = async ({}) => {
   if (profile && profile.is_setup) {
     redirect('/planner')
   }
-  const selectedDiet = (await getPrimaryDiet(user_id)) as PrimaryDiet
+  const selectedDiet = (await getDiet(user_id)) as Diet
 
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">

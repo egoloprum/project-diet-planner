@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
 
-import {
-  createMenu,
-  createProfile,
-  createWeightTracker,
-  getProfile
-} from '@/src/shared/db'
+import { createMenu } from '@/src/entities/menu'
+import { createProfile, getProfile } from '@/src/entities/profile'
+import { createWeightTracker } from '@/src/entities/weightTracker'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 

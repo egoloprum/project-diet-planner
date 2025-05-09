@@ -1,16 +1,15 @@
 import { redirect } from 'next/navigation'
 
-import { CollectionDeleteModal } from '@/src/features/(collection)/collection-delete-modal'
-import { CollectionEditModal } from '@/src/features/(collection)/collection-edit-modal'
-import { NotFound } from '@/src/shared/components/notFound'
+import { collectionGetById } from '@/src/entities/collection'
+import { getProfile } from '@/src/entities/profile'
+import { recipeGetByCollection } from '@/src/entities/recipe'
 import {
-  collectionGetById,
-  getProfile,
-  recipeGetByCollection
-} from '@/src/shared/db'
+  CollectionDeleteModal,
+  CollectionEditModal
+} from '@/src/features/collection'
+import { NotFound } from '@/src/shared/components/notFound'
 import { createClient } from '@/src/shared/db/supabase'
-import { CollectionDetail } from '@/src/widgets/(collection)/collectionDetail'
-import { CollectionRecipe } from '@/src/widgets/(collection)/collectionRecipe'
+import { CollectionDetail, CollectionRecipe } from '@/src/widgets/collection'
 
 interface pageProps {
   params: {

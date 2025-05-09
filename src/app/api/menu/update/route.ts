@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { updateMenu } from '@/src/shared/db'
+import { updateMenu } from '@/src/entities/menu'
 
 export async function PATCH(req: Request) {
   try {

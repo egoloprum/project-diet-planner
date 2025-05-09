@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { recipeDelete } from '@/src/shared/db'
+import { recipeDelete } from '@/src/entities/recipe'
 
 export async function DELETE(req: Request) {
   try {

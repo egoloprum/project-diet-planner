@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 
-import { updateExclusion, updatePrimaryDiet } from '@/src/shared/db'
+import { updateDiet } from '@/src/entities/diet'
+import { updateExclusion } from '@/src/entities/exclusion'
 
 export async function POST(req: Request) {
   try {
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
     }
 
     await Promise.all([
-      updatePrimaryDiet(user_id, name),
+      updateDiet(user_id, name),
       updateExclusion(user_id, list)
     ])
 

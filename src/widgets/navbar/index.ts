@@ -1,2 +1,2 @@
-export { Navbar } from './navbar'
-export { AuthNavbar } from './authNavbar'
+export { Navbar } from './ui/navbar'
+export { AuthNavbar } from './ui/authNavbar'

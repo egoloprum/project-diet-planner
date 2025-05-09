@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { collectionAddRecipe } from '@/src/shared/db'
+import { collectionAddRecipe } from '@/src/entities/collection'
 
 export async function PATCH(req: Request) {
   try {

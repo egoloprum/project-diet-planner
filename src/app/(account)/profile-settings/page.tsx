@@ -1,16 +1,19 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { ActivityLevelForm } from '@/src/features/(setup-profile)/activity-level-form'
-import { AgeForm } from '@/src/features/(setup-profile)/age-form'
-import { EmailForm } from '@/src/features/(setup-profile)/email-form'
-import { GenderForm } from '@/src/features/(setup-profile)/gender-form'
-import { HeightForm } from '@/src/features/(setup-profile)/height-form'
-import { UsernameForm } from '@/src/features/(setup-profile)/username-form'
-import { WeightForm } from '@/src/features/(setup-profile)/weight-form'
-import { SetupGoalForm } from '@/src/features/setup-goal-form'
+import { getProfile } from '@/src/entities/profile'
+import { getWeightByDate } from '@/src/entities/weightTracker'
+import {
+  ActivityLevelForm,
+  AgeForm,
+  EmailForm,
+  GenderForm,
+  HeightForm,
+  SetupGoalForm,
+  UsernameForm,
+  WeightForm
+} from '@/src/features/setup'
 import { NotFound } from '@/src/shared/components/notFound'
-import { getProfile, getWeightByDate } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'
 
