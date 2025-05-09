@@ -17,7 +17,7 @@ export const AuthNavbar = () => {
     <NavigationMenu className="min-h-[60px] h-full">
       <NavigationMenuList className="flex flex-wrap">
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="rounded-xl">
+          <NavigationMenuTrigger className="rounded-xl text-base sm:text-lg md:text-xl">
             Planner
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -36,7 +36,7 @@ export const AuthNavbar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="rounded-xl">
+          <NavigationMenuTrigger className="rounded-xl text-base sm:text-lg md:text-xl">
             Account
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -55,7 +55,7 @@ export const AuthNavbar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="rounded-xl">
+          <NavigationMenuTrigger className="rounded-xl text-base sm:text-lg md:text-xl">
             Blog
           </NavigationMenuTrigger>
           <NavigationMenuContent>
