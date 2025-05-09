@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     if (!user_id || !name || !list) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields!' },
         { status: 400 }
       )
     }
@@ -20,12 +20,12 @@ export async function POST(req: Request) {
     ])
 
     return NextResponse.json(
-      { message: 'Primary diet updated' },
+      { message: 'Primary diet updated!' },
       { status: 200 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error!' },
       { status: 500 }
     )
   }

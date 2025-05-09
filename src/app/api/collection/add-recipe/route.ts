@@ -20,7 +20,7 @@ export async function PATCH(req: Request) {
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }

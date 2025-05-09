@@ -41,18 +41,18 @@ export async function PATCH(req: Request) {
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to update recipe' },
+        { error: 'Failed to update recipe!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Recipe updated successfully', data: result },
+      { message: 'Recipe updated successfully!', data: result },
       { status: 200 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }

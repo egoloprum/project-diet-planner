@@ -8,7 +8,7 @@ export async function GET(req: Request) {
     const idParam = searchParams.get('id')
 
     if (!idParam) {
-      return NextResponse.json({ error: 'Missing recipe id' }, { status: 400 })
+      return NextResponse.json({ error: 'Missing recipe id!' }, { status: 400 })
     }
 
     const id = parseInt(idParam, 10)

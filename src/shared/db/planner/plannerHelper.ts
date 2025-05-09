@@ -27,14 +27,15 @@ export const getRecipesForPlanner = async (
   // .gt('protein', minProtein)
   // .lt('protein', maxProtein)
 
-  console.log('recipes found: ', data?.length)
-
   if (error) {
-    console.log('error', error)
-    return null
+    throw new Error(`Failed to fetch recipes: ${error.message}`)
   }
 
-  if (data && data.length > 0) {
+  if (data.length === 0) {
+    throw new Error(`Failed to find correct recipes!`)
+  }
+
+  if (data) {
     const randomIndex = Math.floor(Math.random() * data.length)
     return data[randomIndex]
   }

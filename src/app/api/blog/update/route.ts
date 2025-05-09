@@ -23,18 +23,18 @@ export async function PATCH(req: Request) {
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to update blog' },
+        { error: 'Failed to update blog!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Blog updated successfully', data: result },
+      { message: 'Blog updated successfully!', data: result },
       { status: 200 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }

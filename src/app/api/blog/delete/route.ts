@@ -15,13 +15,13 @@ export async function DELETE(req: Request) {
     const result = await blogDelete(blogId)
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to delete blog' },
+        { error: 'Failed to delete blog!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Blog is deleted successfully' },
+      { message: 'Blog is deleted successfully!' },
       {
         status: 200,
         headers: {
@@ -32,7 +32,7 @@ export async function DELETE(req: Request) {
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error!' },
       { status: 500 }
     )
   }

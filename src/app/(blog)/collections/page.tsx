@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { CollectionCreateModal } from '@/src/features/(collection)/collection-create-modal'
 import { collectionGetByUser, getProfile } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
-import { CollectionList } from '@/src/widgets/(collection)/collectionList/'
+import { CollectionList } from '@/src/widgets/(collection)/collectionList'
 
 const page = async ({}) => {
   const supabase = await createClient()

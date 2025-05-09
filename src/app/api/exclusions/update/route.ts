@@ -9,16 +9,19 @@ export async function POST(req: Request) {
 
     if (!user_id || !exclusions) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields!' },
         { status: 400 }
       )
     }
 
     await updateExclusion(user_id, exclusions)
-    return NextResponse.json({ message: 'Exclusions updated' }, { status: 200 })
+    return NextResponse.json(
+      { message: 'Exclusions updated!' },
+      { status: 200 }
+    )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error!' },
       { status: 500 }
     )
   }

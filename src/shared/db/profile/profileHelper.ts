@@ -67,44 +67,6 @@ export const createProfile = async (
   return data
 }
 
-export const updateProfile = async (
-  userId: string,
-  profile: Omit<
-    Profile,
-    | 'avatar_url'
-    | 'id'
-    | 'user_id'
-    | 'is_setup'
-    | 'gender'
-    | 'age'
-    | 'height'
-    | 'activity_level'
-    | 'goal'
-    | 'calories'
-    | 'fats'
-    | 'carbs'
-    | 'protein'
-  >
-): Promise<Profile | null> => {
-  if (!userId) {
-    return null
-  }
-
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('profile')
-    .update(profile)
-    .eq('user_id', userId)
-    .select()
-    .single()
-
-  if (error) {
-    return null
-  }
-
-  return data
-}
-
 export const setGender = async (
   userId: string,
   gender: string

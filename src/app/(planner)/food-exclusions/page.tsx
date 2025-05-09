@@ -28,10 +28,10 @@ const page = async ({}) => {
       <div className="flex flex-wrap justify-center gap-4">
         <Image
           className="select-none"
-          src="/setup/setup-diet.webp"
-          height={250}
-          width={250}
-          alt="setup-diet"
+          src="/setup/setup-exclusions.webp"
+          height={150}
+          width={200}
+          alt="setup-exclusions"
         />
         <div className="max-w-[600px] flex flex-col gap-4">
           <div>

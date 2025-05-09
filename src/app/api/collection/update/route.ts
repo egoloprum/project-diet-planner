@@ -25,18 +25,18 @@ export async function PATCH(req: Request) {
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to update collection' },
+        { error: 'Failed to update collection!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Collection is updated successfully', data: result },
+      { message: 'Collection is updated successfully!', data: result },
       { status: 200 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }

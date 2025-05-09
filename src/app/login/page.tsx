@@ -12,7 +12,7 @@ const page = async ({}) => {
   }
 
   return (
-    <div className="h-[calc(100vh-84px)] flex justify-center items-center">
+    <div className="h-[calc(100vh-112px)] flex justify-center items-center">
       <LoginForm />
     </div>
   )

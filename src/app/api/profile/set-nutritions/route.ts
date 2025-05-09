@@ -8,7 +8,7 @@ export async function PATCH(req: Request) {
     const body = await req.json()
 
     if (!body || Object.keys(body).length === 0) {
-      return NextResponse.json({ error: 'Missing data' }, { status: 400 })
+      return NextResponse.json({ error: 'Missing data!' }, { status: 400 })
     }
 
     const { calories, nutritions } = calculator(

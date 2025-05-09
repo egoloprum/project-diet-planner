@@ -5,7 +5,7 @@ import { ActivityLevelForm } from '@/src/features/(setup-profile)/activity-level
 import { AgeForm } from '@/src/features/(setup-profile)/age-form'
 import { GenderForm } from '@/src/features/(setup-profile)/gender-form'
 import { HeightForm } from '@/src/features/(setup-profile)/height-form'
-import { WeightForm } from '@/src/features/(setup-profile)/weight-form/weightForm'
+import { WeightForm } from '@/src/features/(setup-profile)/weight-form'
 import { getProfile, getWeightByDate } from '@/src/shared/db'
 import { createClient } from '@/src/shared/db/supabase'
 import { getTodayDate } from '@/src/shared/lib'

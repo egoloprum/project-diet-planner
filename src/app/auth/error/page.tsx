@@ -1,5 +1,7 @@
+import { NotFound } from '@/src/shared/components/notFound'
+
 const page = ({}) => {
-  return <div>page</div>
+  return <NotFound href="/login" />
 }
 
 export default page

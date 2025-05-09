@@ -9,7 +9,7 @@ export async function GET(req: Request) {
 
     if (!user_id) {
       return NextResponse.json(
-        { error: 'Missing user_id parameter' },
+        { error: 'Missing user_id parameter!' },
         { status: 400 }
       )
     }
@@ -21,7 +21,7 @@ export async function GET(req: Request) {
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error!' },
       { status: 500 }
     )
   }

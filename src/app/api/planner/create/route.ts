@@ -106,8 +106,7 @@ export async function POST(req: Request) {
       { message: 'Planner created successfully!', data: result },
       { status: 201 }
     )
-  } catch (error) {
-    console.log('error', error)
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error - please try again later!' },
       { status: 500 }

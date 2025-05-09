@@ -62,7 +62,9 @@ export const DiscoverPagination: FC<DiscoverPaginationProps> = ({
             aria-disabled={currentPage <= 1}
             tabIndex={currentPage <= 1 ? -1 : undefined}
             className={
-              currentPage <= 1 ? 'pointer-events-none opacity-50' : undefined
+              currentPage <= 1
+                ? 'pointer-events-none opacity-50 rounded-xl'
+                : undefined
             }
           />
         </PaginationItem>

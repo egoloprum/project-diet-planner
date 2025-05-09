@@ -43,7 +43,7 @@ export const EmailForm: FC<EmailFormProps> = ({ email }) => {
     }
   })
 
-  const [currentUsername, setCurrentUsername] = useState<string>(email)
+  const [currentEmail, setCurrentEmail] = useState<string>(email)
 
   const router = useRouter()
   const { toast } = useToast()
@@ -80,7 +80,7 @@ export const EmailForm: FC<EmailFormProps> = ({ email }) => {
   }
 
   const handleBlur = () => {
-    if (currentUsername !== email) {
+    if (currentEmail !== email) {
       handleSubmit(onSubmit)()
     }
   }
@@ -97,7 +97,10 @@ export const EmailForm: FC<EmailFormProps> = ({ email }) => {
           id="email"
           type="email"
           className="w-50 rounded-xl"
-          {...register('email')}
+          {...(register('email'),
+          {
+            onChange: e => setCurrentEmail(e.target.value)
+          })}
           onBlur={handleBlur}
         />
       </div>

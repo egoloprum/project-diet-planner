@@ -22,18 +22,18 @@ export async function POST(req: Request) {
 
     if (!result) {
       return NextResponse.json(
-        { error: 'Failed to create blog' },
+        { error: 'Failed to create blog!' },
         { status: 500 }
       )
     }
 
     return NextResponse.json(
-      { message: 'Blog created successfully', data: result },
+      { message: 'Blog created successfully!', data: result },
       { status: 201 }
     )
   } catch {
     return NextResponse.json(
-      { error: 'Internal server error - please try again later' },
+      { error: 'Internal server error - please try again later!' },
       { status: 500 }
     )
   }
