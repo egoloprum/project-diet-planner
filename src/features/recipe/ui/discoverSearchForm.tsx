@@ -43,7 +43,7 @@ export const DiscoverSearchForm = ({}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-72 w-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
       <Input
         placeholder="Search..."
         {...register('searchValue')}

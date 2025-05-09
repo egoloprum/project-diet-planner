@@ -5,7 +5,9 @@ import { createClient } from '@/src/shared/db/supabase'
 import { Recipe } from '../model/types'
 
 export const recipeSearch = async (
-  keyword: string,
+  query: string,
+  filter: string,
+  sorting: string,
   page: number,
   pageSize: number
 ) => {
@@ -17,8 +19,11 @@ export const recipeSearch = async (
     const { data, error, count } = await supabase
       .from('recipe')
       .select('*', { count: 'exact' })
-      .or(`food_name.ilike.%${keyword}%,tag_cloud.ilike.%${keyword}%`)
-      .order('created_at', { ascending: false })
+      .or(`food_name.ilike.%${query}%,tag_cloud.ilike.%${query}%`)
+      .or(`food_name.ilike.%${filter}%,tag_cloud.ilike.%${filter}%`)
+      .order(`${sorting.length ? sorting : 'calories'}`, {
+        ascending: sorting.length ? false : true
+      })
       .range(start, end)
 
     if (error) throw error

@@ -11,6 +11,8 @@ import {
 
 interface SearchParams {
   query: string
+  filter: string
+  sorting: string
   page: string
 }
 
@@ -35,6 +37,9 @@ const page = async ({
 
   const resolvedSearchParams = await searchParams
   const query = resolvedSearchParams?.query || ''
+  const filter = resolvedSearchParams?.filter || ''
+
+  const sorting = resolvedSearchParams?.sorting || ''
 
   const pageSize = 10
   const currentPage = parseInt(resolvedSearchParams?.page || '1', 10)
@@ -43,7 +48,13 @@ const page = async ({
   let totalPages = 0
 
   if (query.length) {
-    recipeData = await recipeSearch(query, currentPage, pageSize)
+    recipeData = await recipeSearch(
+      query,
+      filter,
+      sorting,
+      currentPage,
+      pageSize
+    )
     totalPages = Math.ceil(recipeData.total / pageSize)
   }
 
