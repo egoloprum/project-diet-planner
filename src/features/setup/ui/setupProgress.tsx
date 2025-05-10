@@ -71,8 +71,8 @@ export const SetupProgress: FC<SetupProgressProps> = ({ userId }) => {
         title: 'Setup is successfully done!'
       })
 
-      router.refresh()
-      // router.push('/planner')
+      // router.refresh()
+      router.push('/planner')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast({

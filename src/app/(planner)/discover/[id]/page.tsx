@@ -36,7 +36,7 @@ const page = async ({ params }: { params: Promise<pageProps['params']> }) => {
   const user = data.user
 
   if (!recipe || !user) {
-    return <NotFound href="/custom-recipe" />
+    return <NotFound href="/" />
   }
 
   const profile = await getProfile(user.id)

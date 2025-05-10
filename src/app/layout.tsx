@@ -6,7 +6,6 @@ import { createClient } from '@/src/shared/db/supabase'
 import { AuthNavbar, Navbar } from '@/src/widgets/navbar'
 
 import { getProfile } from '../entities/profile'
-import { SetupProgress } from '../features/setup'
 import { Toaster } from '../shared/ui'
 
 const montserrat = Montserrat({
@@ -35,13 +34,11 @@ export default async function RootLayout({
         <div className="border-b flex justify-center ">
           {data.user ? <AuthNavbar /> : <Navbar />}
         </div>
-        <main className="min-h-[calc(100vh-120x)] my-6 px-4 sm:px-8">
+        <main
+          className={`min-h-[calc(100vh-120x)] px-4 sm:px-8 mt-6 ${profile?.is_setup && 'mb-6'}`}>
           {children}
         </main>
         <Toaster />
-        {profile
-          ? !profile.is_setup && <SetupProgress userId={profile.user_id} />
-          : null}
       </body>
     </html>
   )
