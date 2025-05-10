@@ -35,7 +35,7 @@ export default async function RootLayout({
           {data.user ? <AuthNavbar /> : <Navbar />}
         </div>
         <main
-          className={`min-h-[calc(100vh-120x)] px-4 sm:px-8 mt-6 ${profile?.is_setup && 'mb-6'}`}>
+          className={`min-h-[calc(100vh-120x)] px-4 sm:px-8 mt-6 ${profile?.is_setup && 'mb-12'}`}>
           {children}
         </main>
         <Toaster />

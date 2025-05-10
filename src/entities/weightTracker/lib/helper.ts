@@ -50,6 +50,8 @@ export const getWeightByUser = async (
     .from('weightTracker')
     .select('*')
     .eq('user_id', userId)
+    .order('date', { ascending: false })
+    .limit(7)
 
   if (error) {
     throw new Error(`Failed to fetch weight: ${error.message}`)
@@ -65,17 +67,41 @@ export const setWeightByDate = async (
 ): Promise<WeightTracker | null> => {
   const supabase = await createClient()
 
-  const { data, error } = await supabase
+  const { data: existingData, error: lookupError } = await supabase
     .from('weightTracker')
-    .update({ weight: weight })
+    .select()
     .eq('user_id', userId)
     .eq('date', date)
-    .select()
     .single()
 
-  if (error) {
-    throw new Error(`Failed to update weight: ${error.message}`)
+  if (lookupError) {
+    throw new Error(`Failed to check existing weight: ${lookupError.message}`)
   }
 
-  return data
+  if (existingData) {
+    const { data, error } = await supabase
+      .from('weightTracker')
+      .update({ weight: weight })
+      .eq('user_id', userId)
+      .eq('date', date)
+      .select()
+      .single()
+
+    if (error) {
+      throw new Error(`Failed to update weight: ${error.message}`)
+    }
+
+    return data
+  } else {
+    const { data, error } = await supabase
+      .from('weightTracker')
+      .insert([{ user_id: userId, date: date, weight: weight }])
+      .select()
+      .single()
+
+    if (error) {
+      throw new Error(`Failed to create weight entry: ${error.message}`)
+    }
+    return data
+  }
 }

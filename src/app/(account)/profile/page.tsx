@@ -3,9 +3,11 @@ import { redirect } from 'next/navigation'
 
 import { getMenu } from '@/src/entities/menu'
 import { getProfile } from '@/src/entities/profile'
+import { getWeightByUser } from '@/src/entities/weightTracker'
 import { SetupMealsForm } from '@/src/features/setup'
 import { createClient } from '@/src/shared/db/supabase'
 import { NutritionCard } from '@/src/widgets/nutrition'
+import { WeightChart } from '@/src/widgets/profile'
 
 const page = async ({}) => {
   const supabase = await createClient()
@@ -28,15 +30,24 @@ const page = async ({}) => {
     redirect('/login')
   }
 
+  const weights = await getWeightByUser(user_id)
+
+  if (!weights?.length) {
+    redirect('/login')
+  }
+
   return (
     <div className="min-h-[calc(100vh-185.5px)] flex flex-col md:flex-row gap-4 md:gap-8 justify-center items-center overflow-auto">
-      <Image
-        src="/image_profile.png"
-        height={250}
-        width={250}
-        alt="profile"
-        className="select-none"
-      />
+      <div className="flex flex-col sm:flex-row md:flex-col gap-4">
+        <Image
+          src="/image_profile.png"
+          height={250}
+          width={250}
+          alt="profile"
+          className="select-none"
+        />
+        <WeightChart weights={weights} />
+      </div>
       <div className="max-w-[600px] flex flex-col gap-4">
         <div>
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold capitalize">
