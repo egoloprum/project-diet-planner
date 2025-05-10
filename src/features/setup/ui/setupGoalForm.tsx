@@ -92,7 +92,7 @@ export const SetupGoalForm: FC<SetupGoalFormProps> = ({ profile, weight }) => {
           Set a goal
         </Label>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             variant={profile.goal === 'Lose fat' ? 'secondary' : 'outline'}
             className="rounded-s-xl"

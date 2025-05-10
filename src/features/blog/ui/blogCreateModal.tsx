@@ -99,6 +99,12 @@ export const BlogCreateModal: FC<BlogCreateModalProps> = ({ userId }) => {
           message: 'Recipe not found'
         })
       })
+
+      toast({
+        variant: 'destructive',
+        title: 'Recipe is not found, Try again!'
+      })
+
       return
     }
 
